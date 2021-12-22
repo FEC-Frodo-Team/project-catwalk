@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/FEC-Frodo-Team/project-catwalk/issues"
   },
-  "homepage": "https://github.com/FEC-Frodo-Team/project-catwalk#readme"
+  "homepage": "https://github.com/FEC-Frodo-Team/project-catwalk#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.1"
+  }
 }
