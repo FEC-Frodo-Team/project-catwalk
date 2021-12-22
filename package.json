@@ -1,0 +1,19 @@
+{
+  "name": "project-catwalk",
+  "version": "1.0.0",
+  "description": "FEC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FEC-Frodo-Team/project-catwalk.git"
+  },
+  "author": "FRODO team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FEC-Frodo-Team/project-catwalk/issues"
+  },
+  "homepage": "https://github.com/FEC-Frodo-Team/project-catwalk#readme"
+}
