@@ -1,9 +1,20 @@
-const path = require('client/src');
+// const path = require('client/src');
 
 module.exports = {
-  entry: __dirname + "/client/index.js"
+  entry: __dirname + "/client/index.js",
   output: {
-    path: __dirname + "/dist",
+    filename: 'bundle.js',
+    path: __dirname + "/client/dist"
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)?/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      }
+    ]
   }
-}
 }
