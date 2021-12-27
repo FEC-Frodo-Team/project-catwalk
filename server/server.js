@@ -1,31 +1,30 @@
-const path = require("path")
-const axios = require("axios");
-const express = require("express"); // npm installed
-const {API_URL, API_KEY} = require("./config")
+const path = require('path');
+const axios = require('axios');
+const express = require('express'); // npm installed
+const {API_URL, API_KEY} = require('./config');
 
 const app = express();
 
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname,'..','..','dist')))
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 app.use('/api/*', async (req, res) => {
+  console.log(API_URL + req.originalUrl.slice(5));
   const payload = await axios({
-    method:req.method.toLowerCase(),
-    url: API_URL + req.originalURL.slice(4),
+    method: req.method.toLowerCase(),
+    url: API_URL + req.originalUrl.slice(5),
     headers: {Authorization: API_KEY},
-    data: req.body
+    data: req.body,
   });
   res.send(payload.data);
 });
 
-app.get('*', function (req, res) {
+app.get('*', function(req, res) {
   res.sendFile('index.html', {
-    root: path.join(__dirname, '../../dist')
+    root: path.join(__dirname, '../../client/dist'),
   });
 });
-
-
 
 // const myPath = path.join(__dirname, "/client/dist");
 // app.use(express.static(myPath));
@@ -36,8 +35,8 @@ app.listen(PORT, (error) => {
   if (error) {
     console.log(error);
   } else {
-    console.log(`listening on port: ${PORT}`)
-  }
+    console.log(`listening on port: ${PORT}`);
+  };
 });
 
 
