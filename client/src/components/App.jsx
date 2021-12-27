@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { AppContext } from './AppContext.jsx';
-import { RatingsAndReviews } from './R&R/RatingsAndReviews.jsx';
+import { ProductDetails } from './Overview/ProductDetails.jsx';
 import { QuestionsAndAnswers } from './Q&As/QuestionsAndAnswers.jsx';
+import { RatingsAndReviews } from './R&R/RatingsAndReviews.jsx';
 import axios from 'axios';
 
 
@@ -66,6 +67,7 @@ export const App = () => {
   // and methods passed in below.
   return (
     !reviews.data || !reviewMetaData.data ? <div>loading...</div> :
+<<<<<<< HEAD
       <AppContext.Provider value={{
         reviews, setReviews,
         reviewMetaData, setReviewsMetaData,
@@ -80,5 +82,19 @@ export const App = () => {
         <QuestionsAndAnswers />
         <RatingsAndReviews />
       </AppContext.Provider>
+=======
+    <AppContext.Provider value={{reviews, setReviews,
+      reviewMetaData, setReviewsMetaData,
+      products, setProducts,
+      selectedProductID, setSelectedProductID,
+      questions, setQuestions,
+      cart, setCart}}>
+      {// ezra's component
+      // sixto's component
+      }
+      <ProductDetails />
+      <RatingsAndReviews />
+    </AppContext.Provider>
+>>>>>>> main
   );
 };
