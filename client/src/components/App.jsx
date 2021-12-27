@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AppContext} from './AppContext.jsx';
+import {ProductDetails} from './Overview/ProductDetails.jsx';
 import {RatingsAndReviews} from './R&R/RatingsAndReviews.jsx';
 import axios from 'axios';
 
@@ -74,6 +75,7 @@ export const App = () => {
       {// ezra's component
       // sixto's component
       }
+      <ProductDetails />
       <RatingsAndReviews />
     </AppContext.Provider>
   );
