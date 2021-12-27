@@ -67,7 +67,6 @@ export const App = () => {
   // and methods passed in below.
   return (
     !reviews.data || !reviewMetaData.data ? <div>loading...</div> :
-<<<<<<< HEAD
       <AppContext.Provider value={{
         reviews, setReviews,
         reviewMetaData, setReviewsMetaData,
@@ -79,22 +78,9 @@ export const App = () => {
         {// ezra's component
           // sixto's component
         }
+        <ProductDetails />
         <QuestionsAndAnswers />
         <RatingsAndReviews />
       </AppContext.Provider>
-=======
-    <AppContext.Provider value={{reviews, setReviews,
-      reviewMetaData, setReviewsMetaData,
-      products, setProducts,
-      selectedProductID, setSelectedProductID,
-      questions, setQuestions,
-      cart, setCart}}>
-      {// ezra's component
-      // sixto's component
-      }
-      <ProductDetails />
-      <RatingsAndReviews />
-    </AppContext.Provider>
->>>>>>> main
   );
 };
