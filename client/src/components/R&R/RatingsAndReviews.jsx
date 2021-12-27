@@ -1,47 +1,38 @@
 import React, {useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
 import axios from 'axios';
-
+import {Breakdown} from './Breakdown.jsx';
+import {Characteristics} from './Characteristics.jsx';
+import {ReviewTile} from './ReviewTile.jsx';
 
 export const RatingsAndReviews = () => {
   const {reviews} = useContext(AppContext);
   const {reviewMetaData} = useContext(AppContext);
   // console.log('ratings and stuff:', reviews);
 
+  console.log('inside rr:', reviews, reviewMetaData);
+  const totalNumberReviews = (Number(reviewMetaData.data.recommended.true)+Number(reviewMetaData.data.recommended.false))
 
-  const ratingObj = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
   const percentageRecommend = reviews.data.results.length ?
-    reviewMetaData.data.recommended[1]/reviews.data.results.length : 0;
-
+    100*Number(reviewMetaData.data.recommended.true)/totalNumberReviews : 0;
 
   return (
     <span>
       <h2>RatingsAndReviews</h2>
-      <div style={{width: '35%', float: 'left'}}>
+      <div style={{width: '30%', float: 'left'}}>
         <h2>4.5  star component</h2>
-        <p>{percentageRecommend}% of reviews recommend this product</p>
-        <span>
-          {Object.keys(ratingObj).map((key) => {
-            return <p>{key} stars {ratingObj[key]/reviews.data.results.length || 0} %</p>;
-          })}
-        </span>
-        {!reviewMetaData.data ? <p>no character</p> :
-        Object.keys(reviewMetaData.data.characteristics).map((key) => {
-          return <div><p>{key}</p><p>{reviewMetaData.data.characteristics[key].value}</p></div>;
-        })}
+        <p>{percentageRecommend.toFixed()}% of reviews recommend this product</p>
+        <Breakdown totalNumberReviews ={totalNumberReviews}/>
+        <Characteristics />
       </div>
-      <div style={{width: '65%', float: 'left'}}>
+      <div style={{width: '70%', float: 'left'}}>
         <span>{reviews.data.results.length} reviews, sorted by <select>
           <option>Relevant</option>
           <option>Most Helpful</option>
           <option>Newest</option>
         </select>
         </span>
-        <p>map reviews</p>
-        <p>map reviews</p>
-        <p>map reviews</p>
-        <p>map reviews</p>
-        <p>map reviews</p>
+        <ReviewTile />
         <span><button>MORE REVIEWS</button><button>ADD A REVIEW+</button></span>
       </div>
     </span>
