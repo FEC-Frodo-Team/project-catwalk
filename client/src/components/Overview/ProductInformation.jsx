@@ -13,8 +13,8 @@ export const ProductInformation = (props) => {
     'width': '300px',
     'flex-direction':
     'column', 'gap': '10px',
-    'padding':
-    '5px'};
+    'padding': '5px',
+    'color': 'rgb(88,88,88)'};
 
   return (
     <div style={style}>
