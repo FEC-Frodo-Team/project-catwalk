@@ -1,26 +1,21 @@
 import React, {useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
-// import axios from 'axios';
+import {styles} from './styles.js';
 
 
 export const SearchQuestions = () => {
-  const {questions} = useContext(AppContext);
+  // const {questions, setQuestions} = useContext(AppContext);
 
   return (
-    <div>
+    <form style={styles.searchContainer} >
       <input
+        type="text"
+        style={styles.searchBar}
         id="QA_SearchBar"
-        style={
-          {
-            width: '20rem',
-            background: '#F2F1F9',
-            border: '1px solid black',
-            padding: '0.5rem',
-          }}
-
         value={null}
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
       />
-    </div>
+      <button style={styles.searchBtn}>search</button>
+    </form>
   );
 };
