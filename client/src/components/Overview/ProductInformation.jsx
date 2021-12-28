@@ -8,7 +8,13 @@ export const ProductInformation = (props) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const item = products.data.filter((item) => item.id === selectedProductID);
-  const style = {'display': 'flex', 'width': '300px', 'flex-direction': 'column', 'gap': '10px', 'padding': '5px'};
+  const style = {
+    'display': 'flex',
+    'width': '300px',
+    'flex-direction':
+    'column', 'gap': '10px',
+    'padding':
+    '5px'};
 
   return (
     <div style={style}>

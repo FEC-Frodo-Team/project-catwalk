@@ -13,6 +13,7 @@ export const ImageGallery = (props) => {
     'width': '450px',
     'background-color': 'WhiteSmoke',
     'display': 'flex',
+    'gap': '10px',
     'justify-content': 'center'};
 
   const styleImage = {
@@ -22,8 +23,10 @@ export const ImageGallery = (props) => {
   return (
     !productStyle.data ? <div>Loading Image..</div>:
     <div style={styleContainer}>
+      <button style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
       <img src={productStyle.data.results[0].photos[0].url} style={styleImage}/>
-      {console.log(productStyle.data.results[0].photos[0].url)}
+      <button style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
+      {console.log('Photo urls: ', productStyle.data.results[0].photos[0])}
     </div>
   );
 };

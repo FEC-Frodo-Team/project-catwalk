@@ -9,6 +9,7 @@ export const ProductDetails = (props) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const [productStyle, setProductStyle] = useState('Default');
+  const [selectedStyle, setSelectedStyle] = useState('');
   const style = {
     'display': 'flex',
     'padding': '5px',
@@ -25,7 +26,7 @@ export const ProductDetails = (props) => {
   }, [selectedProductID]);
 
   return (
-    <ProductContext.Provider value={{productStyle, setProductStyle}}>
+    <ProductContext.Provider value={{productStyle, setProductStyle, selectedStyle, setSelectedStyle}}>
       <div className='wrapper' style={style}>
         <ImageGallery />
         <ProductInformation />
