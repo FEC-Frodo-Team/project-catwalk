@@ -20,7 +20,7 @@ export const StyleSelector = (props) => {
     'font-size': '0.5em'};
 
   const styleSelectBtn = (event) => {
-    console.log(event.target.textContent);
+    // console.log(event.target.textContent);
     setSelectedStyle(event.target.textContent);
   };
 
