@@ -1,15 +1,20 @@
 import React, {useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
+import {ReviewContext} from './ReviewContext.jsx';
 import axios from 'axios';
 
 
-export const ReviewTile = (props) => {
+export const ReviewTile = () => {
   const {reviews} = useContext(AppContext);
   const {reviewMetaData} = useContext(AppContext);
+  const {showMore} = useContext(ReviewContext);
+  const {setShowMore} = useContext(ReviewContext);
+
+  const reviewTilesToDisplay = showMore ? reviews.data.results : reviews.data.results.slice(0,2);
 
   return (
     <div>
-    {reviews.data.results.map((oneResult) => {
+    {reviewTilesToDisplay.map((oneResult) => {
       return (
         <div style = {{borderBottom: "3px solid grey", paddingTop: "20px"}}>
           <div style = {{display: "flex", justifyContent: "space-between"}}>
