@@ -1,13 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../AppContext.jsx';
+import {StyleSelector} from './StyleSelector.jsx';
+import {AddToCart} from './AddToCart.jsx';
 import axios from 'axios';
 
 export const ProductInformation = (props) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
-  console.log(selectedProductID);
   const item = products.data.filter((item) => item.id === selectedProductID);
-  const style = {'width': '300px'};
+  const style = {'display': 'flex', 'width': '300px', 'flex-direction': 'column', 'gap': '10px'};
+
   return (
     <div style={style}>
       <h2>Product Details</h2>
@@ -15,6 +17,8 @@ export const ProductInformation = (props) => {
       <div>{'Price: $' + item[0].default_price}</div>
       <h4>{item[0].slogan}</h4>
       <div>{'Description: ' + item[0].description}</div>
+      <StyleSelector />
+      <AddToCart />
     </div>
   );
 };
