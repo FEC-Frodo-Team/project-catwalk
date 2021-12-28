@@ -1,14 +1,16 @@
 import React, {useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
+import {ReviewContext} from './ReviewContext.jsx';
 import axios from 'axios';
 
 
 export const Breakdown = (props) => {
   const {reviews} = useContext(AppContext);
   const {reviewMetaData} = useContext(AppContext);
+  const {totalNumberReviews} = useContext(ReviewContext);
+
   const ratingObj = reviewMetaData.data.ratings ?
     reviewMetaData.data.ratings : {1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
-  const totalNumberReviews = props.totalNumberReviews;
   return (
     <span>
       {Object.keys(ratingObj).slice(0).reverse().map((key) => {
@@ -21,4 +23,4 @@ export const Breakdown = (props) => {
               })}
     </span>
   );
-}
+};
