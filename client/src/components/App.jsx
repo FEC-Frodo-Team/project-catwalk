@@ -8,7 +8,7 @@ import axios from 'axios';
 
 export const App = () => {
   // Currently product selection is the only thing that rerenders everything
-  const defaultProductID = 44388;
+  const defaultProductID = 44392;
   const [selectedProductID, setSelectedProductID] = useState(defaultProductID);
 
   // Making all of the calls global to start then we can bring down into our
@@ -66,7 +66,7 @@ export const App = () => {
   // importing AppContext will give that component access to all pieces of state
   // and methods passed in below.
   return (
-    !reviews.data || !reviewMetaData.data ? <div>loading...</div> :
+    !reviews.data || !reviewMetaData.data || !products.data ? <div>loading...</div> :
       <AppContext.Provider value={{
         reviews, setReviews,
         reviewMetaData, setReviewsMetaData,
