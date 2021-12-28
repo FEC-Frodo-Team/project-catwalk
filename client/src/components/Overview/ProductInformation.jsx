@@ -7,8 +7,10 @@ export const ProductInformation = (props) => {
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   console.log(selectedProductID);
   const item = products.data.filter((item) => item.id === selectedProductID);
+  const style = {'width': '300px'};
   return (
-    <div>
+    <div style={style}>
+      <h2>Product Details</h2>
       <div>{item[0].category + ': ' + item[0].name}</div>
       <div>{'Price: $' + item[0].default_price}</div>
       <h4>{item[0].slogan}</h4>

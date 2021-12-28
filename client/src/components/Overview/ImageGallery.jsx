@@ -10,17 +10,21 @@ export const ImageGallery = (props) => {
 
   useEffect(() => {
     axios
-        .get(`api/products/44388/styles`)
+        .get(`api/products/${selectedProductID}/styles`)
         .then((element) => {
           console.log('got Styles: ', element);
           setImage(element);
         });
   }, [selectedProductID]);
+
+  const style = {
+    width: '300px',
+    margin: '5px'};
+
   return (
     !image.data ? <div>Loading Image..</div>:
     <div>
-      Image Gallery
-      <img src={image.data.results[0].photos[0].url}/>
+      <img src={image.data.results[0].photos[0].url} style={style}/>
       {console.log(image.data.results[0].photos[0].url)}
     </div>
   );

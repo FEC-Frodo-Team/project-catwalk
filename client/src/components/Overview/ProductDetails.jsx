@@ -7,11 +7,15 @@ import axios from 'axios';
 export const ProductDetails = (props) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
+  const style = {
+    'display': 'flex',
+    'padding': '5px',
+    'justify-content': 'center'};
+
   return (
-    <div>
-      <h2>Product Details</h2>
-      <ProductInformation />
+    <div className='wrapper' style={style}>
       <ImageGallery />
+      <ProductInformation />
     </div>
   );
 };
