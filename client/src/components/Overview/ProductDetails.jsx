@@ -8,7 +8,7 @@ import axios from 'axios';
 export const ProductDetails = (props) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
-  const [image, setImage] = useState('Default');
+  const [productStyle, setProductStyle] = useState('Default');
   const style = {
     'display': 'flex',
     'padding': '5px',
@@ -20,12 +20,12 @@ export const ProductDetails = (props) => {
         .get(`api/products/${selectedProductID}/styles`)
         .then((element) => {
           console.log('got Styles: ', element);
-          setImage(element);
+          setProductStyle(element);
         });
   }, [selectedProductID]);
 
   return (
-    <ProductContext.Provider value={{image, setImage}}>
+    <ProductContext.Provider value={{productStyle, setProductStyle}}>
       <div className='wrapper' style={style}>
         <ImageGallery />
         <ProductInformation />
