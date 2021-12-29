@@ -55,7 +55,6 @@ export const ImageGallery = (props) => {
       <button style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
       <img src={mainPic.url || productStyle.data.results[0].photos[0].url} style={styleImage}/>
       <button style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
-      {console.log('Photo urls: ', productStyle.data.results[0].photos[0])}
       <div style={styleThumbNails}>
         <button style={{'height': '25px'}}>{'<'}</button>
         {mapThumbNails()}

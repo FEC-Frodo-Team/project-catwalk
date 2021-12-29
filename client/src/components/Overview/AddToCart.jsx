@@ -8,7 +8,6 @@ export const AddToCart = (props) => {
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   // const item = products.data.filter((item) => item.id === selectedProductID);
   const style = {'display': 'flex', 'gap': '40px', 'flex-wrap': 'wrap', 'justify-content': 'center'};
-  console.log('Cart object: ', cart);
 
   return (
     <div style={style}>

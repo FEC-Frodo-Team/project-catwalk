@@ -30,7 +30,7 @@ export const ProductDetails = (props) => {
   return (
     <ProductContext.Provider value={{productStyle, setProductStyle, selectedStyle, setSelectedStyle, mainPic, setMainPic}}>
       <div className='wrapper' style={style}>
-        <ImageGallery />
+        <ImageGallery key={2121}/>
         <ProductInformation />
       </div>
     </ProductContext.Provider>
