@@ -21,11 +21,13 @@ export const StyleSelector = (props) => {
     'font-size': '0.5em'};
 
   const styleSelectBtn = (event) => {
-    console.log(productStyle.data.results);
+    // console.log(productStyle.data.results);
     setSelectedStyle(event.target.textContent);
-    const itemStyle = productStyle.data.results.filter((item) => JSON.stringify(item.style_id) === event.target.getAttribute('value'));
-    console.log('itemstyle:', itemStyle[0].photos[0].url);
-    setMainPic(itemStyle[0].photos[0].url);
+    const itemStyle = productStyle.data.results.filter((item) => {
+      return JSON.stringify(item.style_id) === event.target.getAttribute('value');
+    });
+    console.log('itemstyle:', itemStyle);
+    setMainPic(itemStyle[0].photos[0]);
   };
 
   return (

@@ -23,7 +23,7 @@ export const ProductDetails = (props) => {
         .then((element) => {
           console.log('got Styles: ', element);
           setProductStyle(element);
-          setMainPic(productStyle.data.results[0].photos[0].url);
+          setSelectedStyle(element.data.results[0].name);
         });
   }, [selectedProductID]);
 
