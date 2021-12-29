@@ -10,6 +10,7 @@ export const ProductDetails = (props) => {
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const [productStyle, setProductStyle] = useState('Default');
   const [selectedStyle, setSelectedStyle] = useState('');
+  const [mainPic, setMainPic] = useState('');
   const style = {
     'display': 'flex',
     'padding': '5px',
@@ -22,11 +23,12 @@ export const ProductDetails = (props) => {
         .then((element) => {
           console.log('got Styles: ', element);
           setProductStyle(element);
+          setMainPic(productStyle.data.results[0].photos[0].url);
         });
   }, [selectedProductID]);
 
   return (
-    <ProductContext.Provider value={{productStyle, setProductStyle, selectedStyle, setSelectedStyle}}>
+    <ProductContext.Provider value={{productStyle, setProductStyle, selectedStyle, setSelectedStyle, mainPic, setMainPic}}>
       <div className='wrapper' style={style}>
         <ImageGallery />
         <ProductInformation />

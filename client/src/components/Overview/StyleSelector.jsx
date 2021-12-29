@@ -8,7 +8,8 @@ export const StyleSelector = (props) => {
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const {productStyle, setProductStyle} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
-  const item = products.data.filter((item) => item.id === selectedProductID);
+  const {mainPic, setMainPic} = useContext(ProductContext);
+  // const item = productStyle.data.results.filter((item) => item.style_id === setSelectedStyle);
   const style = {
     'display': 'flex',
     'gap': '5px',
@@ -20,8 +21,11 @@ export const StyleSelector = (props) => {
     'font-size': '0.5em'};
 
   const styleSelectBtn = (event) => {
-    // console.log(event.target.textContent);
+    console.log(productStyle.data.results);
     setSelectedStyle(event.target.textContent);
+    const itemStyle = productStyle.data.results.filter((item) => JSON.stringify(item.style_id) === event.target.getAttribute('value'));
+    console.log('itemstyle:', itemStyle[0].photos[0].url);
+    setMainPic(itemStyle[0].photos[0].url);
   };
 
   return (
@@ -32,7 +36,7 @@ export const StyleSelector = (props) => {
       <div style={style}>
         {productStyle.data.results.map((item) => {
           return (
-            <button style={styleBtn} onClick={styleSelectBtn}>{item.name}</button>
+            <button value={item.style_id} style={styleBtn} onClick={styleSelectBtn}>{item.name}</button>
           );
         },
         )}

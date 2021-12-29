@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { AppContext } from './AppContext.jsx';
-import { ProductDetails } from './Overview/ProductDetails.jsx';
-import { QuestionsAndAnswers } from './Q&As/QuestionsAndAnswers.jsx';
-import { RatingsAndReviews } from './R&R/RatingsAndReviews.jsx';
+import React, {useEffect, useState} from 'react';
+import {AppContext} from './AppContext.jsx';
+import {ProductDetails} from './Overview/ProductDetails.jsx';
+import {QuestionsAndAnswers} from './Q&As/QuestionsAndAnswers.jsx';
+import {RatingsAndReviews} from './R&R/RatingsAndReviews.jsx';
 import axios from 'axios';
 
 
@@ -24,42 +24,42 @@ export const App = () => {
   useEffect(() => {
     // List of products Ezra's main info. Defaults to 1 page with 5 results.
     axios
-      .get(`api/products`)
-      .then((results) => {
-        console.log('got Products: ', results);
-        setProducts(results);
-      });
+        .get(`api/products`)
+        .then((results) => {
+          console.log('got Products: ', results);
+          setProducts(results);
+        });
     // List of items in cart Ezra's info.
     axios
-      .get(`api/cart`)
-      .then((results) => {
-        console.log('got Cart items: ', results);
-        setCart(results);
-      });
+        .get(`api/cart`)
+        .then((results) => {
+          console.log('got Cart items: ', results);
+          setCart(results);
+        });
 
     // List of questions Sixto's main info. Defaults to 1 page with 5 results.
     // This only provides the list of questions the answers must be queried
     // individually with /qa/questions/:question_id/answers.
     axios
-      .get(`api/qa/questions?product_id=${defaultProductID}`)
-      .then((results) => {
-        console.log('got Questions: ', results);
-        setQuestions(results);
-      });
+        .get(`api/qa/questions?product_id=${defaultProductID}`)
+        .then((results) => {
+          console.log('got Questions: ', results);
+          setQuestions(results);
+        });
 
     // Ratings and reviews Matt's main info.
     axios
-      .get(`api/reviews?product_id=${defaultProductID}`)
-      .then((results) => {
-        console.log('got reviews: ', results);
-        setReviews(results);
-      });
+        .get(`api/reviews?product_id=${defaultProductID}`)
+        .then((results) => {
+          console.log('got reviews: ', results);
+          setReviews(results);
+        });
     axios
-      .get(`api/reviews/meta?product_id=${defaultProductID}`)
-      .then((results) => {
-        console.log('got reviews Meta: ', results);
-        setReviewsMetaData(results);
-      });
+        .get(`api/reviews/meta?product_id=${defaultProductID}`)
+        .then((results) => {
+          console.log('got reviews Meta: ', results);
+          setReviewsMetaData(results);
+        });
     // curently renders everything when page loads or when Ezra updates ProductID.
   }, [selectedProductID]);
 
@@ -73,7 +73,7 @@ export const App = () => {
         products, setProducts,
         selectedProductID, setSelectedProductID,
         questions, setQuestions,
-        cart, setCart
+        cart, setCart,
       }}>
         {// ezra's component
           // sixto's component
