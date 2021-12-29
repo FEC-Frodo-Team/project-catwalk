@@ -8,20 +8,30 @@ export const StyleSelector = (props) => {
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const {productStyle, setProductStyle} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
-  const item = products.data.filter((item) => item.id === selectedProductID);
+  const {mainPic, setMainPic} = useContext(ProductContext);
+  // const item = productStyle.data.results.filter((item) => item.style_id === setSelectedStyle);
+
   const style = {
     'display': 'flex',
-    'gap': '5px',
+    'gap': '25px',
     'flex-wrap': 'wrap',
     'justify-content': 'center',
     'padding': '10px'};
   const styleBtn = {
-    'height': '15px',
-    'font-size': '0.5em'};
+    'height': '35px',
+    'width': '35px',
+    'font-size': '0.5em',
+    'border-radius': '50%',
+    'object-fit': 'cover'};
 
   const styleSelectBtn = (event) => {
-    console.log(event.target.textContent);
-    setSelectedStyle(event.target.textContent);
+    // console.log(productStyle.data.results);
+    setSelectedStyle(event.target.getAttribute('value'));
+    const itemStyle = productStyle.data.results.filter((item) => {
+      return item.name === event.target.getAttribute('value');
+    });
+    // console.log('Style Click event:', event.target.id);
+    setMainPic(itemStyle[0].photos[0]);
   };
 
   return (
@@ -32,11 +42,10 @@ export const StyleSelector = (props) => {
       <div style={style}>
         {productStyle.data.results.map((item) => {
           return (
-            <button style={styleBtn} onClick={styleSelectBtn}>{item.name}</button>
+            <img value={item.name} id={item.style_id} style={styleBtn} onClick={styleSelectBtn} src={item.photos[0].thumbnail_url}/>
           );
         },
         )}
-        {console.log('product thumbnail url: ', productStyle.data.results)}
       </div>
     </div>
   );
