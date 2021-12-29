@@ -36,12 +36,16 @@ export const ImageGallery = (props) => {
 
   const mapThumbNails = () => {
     const item = productStyle.data.results.filter((item) => item.name === selectedStyle);
-    const photoArray = productStyle.data.results[0].photos;
+    let photoArray = productStyle.data.results[0].photos;
     const sevenPics = [];
+
+    !(item.length === 0)? photoArray = item[0].photos: null;
+
     for (let i = 0; i < 7; i++) {
       sevenPics.push(photoArray[i].thumbnail_url);
     }
-    !item[0]? console.log('LOADING'): console.log('ItemSSSSSS: ', item[0]);
+
+    // console.log('ItemSSSSSS: ', item, 'style:', selectedStyle);
     return sevenPics.map((thumbPic) => <img style={{'height': '25px', 'width': '30px', 'object-fit': 'cover'}} src={thumbPic}/>);
   };
 
