@@ -1,10 +1,8 @@
 import React, {useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
-import axios from 'axios';
 
 
 export const Characteristics = (props) => {
-  const {reviews} = useContext(AppContext);
   const {reviewMetaData} = useContext(AppContext);
 
   return (

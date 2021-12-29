@@ -10,10 +10,9 @@ export const ReviewTile = () => {
   const {showMore} = useContext(ReviewContext);
   const {setShowMore} = useContext(ReviewContext);
 
-  const reviewTilesToDisplay = showMore ? reviews.data.results : reviews.data.results.slice(0,2);
-
+  const reviewTilesToDisplay = showMore*2<=reviews.data.results.length  ? reviews.data.results.slice(0,showMore*2) : reviews.data.results;
   return (
-    <div>
+    <div style = {{overflow: 'auto'}}>
     {reviewTilesToDisplay.map((oneResult) => {
       return (
         <div style = {{borderBottom: "3px solid grey", paddingTop: "20px"}}>

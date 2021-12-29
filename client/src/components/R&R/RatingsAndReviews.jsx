@@ -9,7 +9,7 @@ import {ReviewContext} from './ReviewContext.jsx';
 
 export const RatingsAndReviews = () => {
   const {reviews, reviewMetaData, products, selectedProductID} = useContext(AppContext);
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(1);
   const [showForm, setShowForm] = useState(false);
   const totalNumberReviews = (Number(reviewMetaData.data.recommended.true)+Number(reviewMetaData.data.recommended.false))
   const percentageRecommend = reviews.data.results.length ?
@@ -17,13 +17,12 @@ export const RatingsAndReviews = () => {
 
 
   return (
-
     <ReviewContext.Provider value = {{
       totalNumberReviews,
       showMore, setShowMore,
       showForm, setShowForm,
     }}>
-      <span>
+      <div style = {{width: '70%', left: '15%', position: 'absolute', paddingBottom: '5%'}}>
         <h2>RatingsAndReviews</h2>
         <div style={{width: '30%', float: 'left'}}>
           <h2>4.5  star component</h2>
@@ -40,12 +39,12 @@ export const RatingsAndReviews = () => {
           </span>
           <ReviewTile />
           <span>
-            {showMore ?<button onClick = {() => {setShowMore(!showMore)}}>LESS REVIEWS</button>:
-            <button onClick = {() => {setShowMore(!showMore)}}>MORE REVIEWS</button>}
+            {showMore*2<=reviews.data.results.length ?<button onClick = {() => {setShowMore(showMore+1)}}>MORE REVIEWS</button>:null
+            }
             <ReviewForm />
           </span>
         </div>
-      </span>
+      </div>
     </ReviewContext.Provider>
   );
 };
