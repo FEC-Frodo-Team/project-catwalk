@@ -4,8 +4,7 @@ import {ReviewContext} from './ReviewContext.jsx';
 import axios from 'axios';
 
 
-export const Breakdown = (props) => {
-  const {reviews} = useContext(AppContext);
+export const Breakdown = () => {
   const {reviewMetaData} = useContext(AppContext);
   const {totalNumberReviews} = useContext(ReviewContext);
 
