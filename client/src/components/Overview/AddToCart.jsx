@@ -1,19 +1,52 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../AppContext.jsx';
-import {StyleSelector} from './StyleSelector.jsx';
+import {ProductContext} from './ProductContext.jsx';
 import axios from 'axios';
 
 export const AddToCart = (props) => {
+  const {productStyle} = useContext(ProductContext);
+  const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
   const {cart, setCart} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
+  const [availableQuantity, setQuantity] = useState(1);
   // const item = products.data.filter((item) => item.id === selectedProductID);
-  const style = {'display': 'flex', 'gap': '40px', 'flex-wrap': 'wrap', 'justify-content': 'center'};
+
+  const mapSizes = () => {
+    const item = productStyle.data.results.filter((item) => item.name === selectedStyle);
+    let sizeArray = [];
+    !(item.length === 0)? sizeArray = item[0].skus: null;
+    return Object.values(sizeArray).map((sku) => <option>{sku.size}</option>);
+  };
+
+  const selectedSize = (event) => {
+    const item = productStyle.data.results.filter((item) => item.name === selectedStyle);
+    const selectedSku = Object.values(item[0].skus).filter((sku) => sku.size === event.target.value);
+    (event.target.value === 'Select Size')? setQuantity('1'):
+    setQuantity(selectedSku[0].quantity);
+  };
+
+  const mapQuantity = () => {
+    let amount = 0;
+    const amountArray = [];
+    (availableQuantity > 15)? amount = 15: amount = availableQuantity;
+    for (let i = 0; i < amount; i++) {
+      amountArray.push(i+1);
+    }
+
+    return amountArray.map((num) => <option>{num}</option>);
+  };
 
   return (
-    <div style={style}>
-      <button>Select Size</button>
-      <button>Quantity</button>
-      <div><button>Add to cart</button></div>
+    !productStyle.data ? <div>Loading Image..</div>:
+    <div className='cart-container'>
+      <select id='select-size' onClick={selectedSize}>
+        <option>Select Size</option>
+        {mapSizes()}
+      </select>
+      <select id='quantity'>
+        {mapQuantity()}
+      </select>
+      <button id='add-to-cart'>Add To Cart</button>
     </div>
   );
 };

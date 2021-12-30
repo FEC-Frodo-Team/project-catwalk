@@ -12,50 +12,33 @@ export const ImageGallery = (props) => {
   const [thumbNails, setThumbNails] = useState([]);
   // const item = products.data.filter((item) => item.id === selectedProductID);
 
-  const styleContainer = {
-    'width': '450px',
-    'background-color': 'WhiteSmoke',
-    'display': 'flex',
-    'gap': '10px',
-    'justify-content': 'center',
-    'flex-wrap': 'wrap'};
-
-  const styleImage = {
-    'height': '400px',
-    'width': '300px',
-    'margin': '5px',
-    'object-fit': 'cover'};
-
-  const styleThumbNails = {
-    'display': 'flex',
-    'width': '400px',
-    'height': '40px',
-    'justify-content':
-    'center',
-    'gap': '10px'};
-
   const mapThumbNails = () => {
     const item = productStyle.data.results.filter((item) => item.name === selectedStyle);
     let photoArray = productStyle.data.results[0].photos;
     const sevenPics = [];
+    const arrayLength = (photoArray.length > 6)? 7: photoArray.length;
 
     !(item.length === 0)? photoArray = item[0].photos: null;
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < arrayLength; i++) {
       sevenPics.push(photoArray[i].thumbnail_url);
     }
 
     // console.log('ItemSSSSSS: ', item, 'style:', selectedStyle);
-    return sevenPics.map((thumbPic) => <img style={{'height': '25px', 'width': '30px', 'object-fit': 'cover'}} src={thumbPic}/>);
+    return sevenPics.map((thumbPic) => {
+      return (
+        <img className='main-thumbnail' src={thumbPic}/>
+      );
+    });
   };
 
   return (
     !productStyle.data ? <div>Loading Image..</div>:
-    <div style={styleContainer}>
+    <div className='gallery-container'>
       <button style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
-      <img src={mainPic.url || productStyle.data.results[0].photos[0].url} style={styleImage}/>
+      <img src={mainPic.url || productStyle.data.results[0].photos[0].url} className='main-photo'/>
       <button style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
-      <div style={styleThumbNails}>
+      <div className='photo-thumbnails-array'>
         <button style={{'height': '25px'}}>{'<'}</button>
         {mapThumbNails()}
         <button style={{'height': '25px'}}>{'>'}</button>
