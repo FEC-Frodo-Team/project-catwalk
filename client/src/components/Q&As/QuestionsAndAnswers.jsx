@@ -6,15 +6,16 @@ import {AppContext} from '../AppContext.jsx';
 import {styles} from './styles.js';
 import {SearchQuestions} from './SearchQuestions.jsx';
 import {Question} from './Question.jsx';
+import {AddQuestion} from './AddQuestion.jsx';
 
 
 export const QuestionsAndAnswers = () => {
   const {questions} = useContext(AppContext);
-  const [numQToDisplay, setNumQToDisplay] = useState(1);
+  const [numQToDisplay, setNumQToDisplay] = useState(4);
   // const {selectedProductID} = useContext(AppContext);
 
   const showMoreQuestions = () => {
-    setNumQToDisplay(numQToDisplay + 1);
+    setNumQToDisplay(numQToDisplay + 2);
   };
 
   return (
@@ -42,11 +43,8 @@ export const QuestionsAndAnswers = () => {
         More Answered Questions
         </button> :null
         }
+        <AddQuestion />
 
-        <button
-          style={styles.buttons}>
-          Add a Question +
-        </button>
       </div>
     </div>
   );

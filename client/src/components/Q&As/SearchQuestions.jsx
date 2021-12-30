@@ -12,7 +12,7 @@ export const SearchQuestions = () => {
         type="text"
         style={styles.searchBar}
         id="QA_SearchBar"
-        value={null}
+        defaultValue=''
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
       />
       <button style={styles.searchBtn}>search</button>

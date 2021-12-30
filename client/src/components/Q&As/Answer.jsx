@@ -18,7 +18,7 @@ export const Answer = (props) => {
         <div >
           <img
             src={event.target.src}
-            style={styles.forms}
+            style={styles.enlargePic}
             onClick={() => setEnlargePic(!enlargePic)}
           />
         </div> :

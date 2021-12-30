@@ -86,7 +86,7 @@ export const styles = {
     marginRight: '.5rem',
   },
 
-  forms: {
+  enlargePic: {
     overflow: 'auto',
     border: '2px solid blue',
     position: 'absolute',
@@ -95,11 +95,63 @@ export const styles = {
     top: '60%',
   },
 
-  closeImg: {
-    position: 'relative',
-    right: '0',
+  forms: {
+    overflowY: 'scroll',
+    border: '2px solid blue',
+    position: 'absolute',
+    backgroundColor: 'white',
+    width: '700px',
+    height: '550px',
+    top: '50%'},
+
+  popupBox: {
+    position: 'fixed',
+    background: '#00000050',
+    width: '100%',
+    height: '100vh',
     top: '0',
-    height: '21px',
-    width: '21px',
+    left: '0',
+  },
+
+  box: {
+    position: 'relative',
+    width: '70%',
+    margin: '0 auto',
+    height: 'auto',
+    maxHeight: '70vh',
+    marginTop: 'calc(100vh - 85vh - 20px)',
+    background: '#fff',
+    borderRadius: '4px',
+    padding: '20px',
+    border: '1px solid #999',
+    overflow: 'auto',
+  },
+
+  closeIcon: {
+    content: '\'x\'',
+    cursor: 'pointer',
+    position: 'fixed',
+    right: 'calc(15% - 30px)',
+    top: 'calc(100vh - 85vh - 33px)',
+    background: '#ededed',
+    width: '25px',
+    height: '25px',
+    borderRadius: '50%',
+    lineHeight: '20px',
+    textAlign: 'center',
+    border: '1px solid #999',
+    fontSize: '20px',
+  },
+
+  formInputs: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '75%',
+  },
+
+  formBody: {
+    height: '5rem',
+    width: 'auto',
   },
 };

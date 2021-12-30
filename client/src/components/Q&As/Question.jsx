@@ -23,8 +23,6 @@ export const Question = (props) => {
   };
 
   return (
-    console.log(styles),
-
     !Array.isArray(answers) ? <div>loading question...</div> :
     <div>
       <hr />
@@ -50,33 +48,6 @@ export const Question = (props) => {
       {answers.slice(0, numAToDisplay).map((answer) => {
         return (
           <Answer answer={answer} key={answer.id}/>
-          // <div id="answerBox"
-          //   key={answer.id}
-          //   style={styles.answerBox}>
-          //   <p style={styles.answerBoxP}> A: {answer.body}</p>
-
-        //   <div style={styles.helpfulAndReport}>
-        //     <p>by {answer.answerer_name}, {answer.date.slice(0, 10)} </p>
-        //     <p>Helpful? Yes({answer.helpfulness})</p>
-        //     <p>report</p>
-
-        //   </div>
-        //   <div style={styles.answerPhotos}>
-        //     {answer.photos.length ?
-        //     answer.photos.map((pic, index) => {
-        //       return (
-        //         <a
-        //           target="_parent"
-        //           href={pic}
-        //           key={index}>
-
-        //           <img
-        //             style={styles.pic}
-        //             src={pic}/>
-        //         </a>);
-        //     }) : null}
-        //   </div>
-        // </div>
         );
       })}
 
