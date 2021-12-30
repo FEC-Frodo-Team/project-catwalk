@@ -266,7 +266,11 @@ input:invalid:focus {
 }
 .cart-container {
   display: flex;
-  gap: 40px;
+  position: relative;
+  padding: 20px;
+  height: 100%;
+  column-gap: 33%;
+  row-gap: 50%;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
 }
