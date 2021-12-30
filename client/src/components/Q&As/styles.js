@@ -1,9 +1,10 @@
 export const styles = {
   qAContainer: {
     margin: 'auto',
-    width: '800px',
+    width: '75%',
     padding: '10px',
-    border: '2px solid blue',
+    borderTop: '2px solid black',
+    borderBottom: '2px solid black',
   },
 
   searchContainer: {

@@ -13,13 +13,6 @@ export const Answer = (props) => {
       style={styles.answerBox}>
       <p style={styles.answerBoxP}> A: {answer.body}</p>
 
-      <div style={styles.helpfulAndReport}>
-        <p>by {answer.answerer_name}, {answer.date.slice(0, 10)} </p>
-        <p>Helpful? Yes({answer.helpfulness})</p>
-        <p>report</p>
-
-      </div>
-
       <div style={styles.answerPhotos}>
         {enlargePic ?
         <div >
@@ -48,6 +41,15 @@ export const Answer = (props) => {
             }) :
              null}
       </div>
+
+      <div style={styles.helpfulAndReport}>
+        <p>by {answer.answerer_name}, {answer.date.slice(0, 10)} </p>
+        <p>Helpful? Yes({answer.helpfulness})</p>
+        <p>report</p>
+
+      </div>
+
+
     </div>
   );
 };
