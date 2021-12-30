@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles.js';
 
-// import Answer from './Answer.jsx';
+import {Answer} from './Answer.jsx';
 
 export const Question = (props) => {
   // const [allAnswers, setAllAnswers] = useState(question.answers);
@@ -19,7 +19,7 @@ export const Question = (props) => {
 
   // increase numAToDisplay by 2 to show more answers
   const showMoreAnswers = () => {
-    setNumAToDisplay(numAToDisplay + 2);
+    setNumAToDisplay(answers.length);
   };
 
   return (
@@ -27,7 +27,7 @@ export const Question = (props) => {
 
     !Array.isArray(answers) ? <div>loading question...</div> :
     <div>
-
+      <hr />
       <div style={styles.questionBox}>
         <p>Q: {question.question_body} </p>
 
@@ -45,34 +45,50 @@ export const Question = (props) => {
         </div>
 
       </div>
+      <hr/>
 
-      {console.log('ANSWERS****', answers)}
       {answers.slice(0, numAToDisplay).map((answer) => {
         return (
-          <div id="answerBox"
-            key={answer.id}
-            style={styles.answerBox}>
-            <p style={styles.answerBoxP}> A: {answer.body}</p>
+          <Answer answer={answer} key={answer.id}/>
+          // <div id="answerBox"
+          //   key={answer.id}
+          //   style={styles.answerBox}>
+          //   <p style={styles.answerBoxP}> A: {answer.body}</p>
 
-            <div style={styles.helpfulAndReport}>
-              <p>by {answer.answerer_name}, {answer.date.slice(0, 10)} </p>
-              <p>Helpful? Yes({answer.helpfulness})</p>
-              <p>report</p>
+        //   <div style={styles.helpfulAndReport}>
+        //     <p>by {answer.answerer_name}, {answer.date.slice(0, 10)} </p>
+        //     <p>Helpful? Yes({answer.helpfulness})</p>
+        //     <p>report</p>
 
-            </div>
+        //   </div>
+        //   <div style={styles.answerPhotos}>
+        //     {answer.photos.length ?
+        //     answer.photos.map((pic, index) => {
+        //       return (
+        //         <a
+        //           target="_parent"
+        //           href={pic}
+        //           key={index}>
 
-          </div>
+        //           <img
+        //             style={styles.pic}
+        //             src={pic}/>
+        //         </a>);
+        //     }) : null}
+        //   </div>
+        // </div>
         );
       })}
+
       <div style={styles.moreLessAnswers}>
         {numAToDisplay < answers.length ?
          <div onClick={() => showMoreAnswers()}>
          LOAD MORE ANSWERS
-         </div> :
-         null
+         </div> : answers.length <= 2 ? null :
+         <div onClick={() => setNumAToDisplay(2)}>COLLAPSE ANSWERS</div>
         }
 
-        <div onClick={() => setNumAToDisplay(2)}>show less answers</div>
+
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-
-
 export const styles = {
   qAContainer: {
     margin: 'auto',
@@ -59,6 +57,20 @@ export const styles = {
     fontSize: '0.8rem',
   },
 
+  answerPhotos: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
+  pic: {
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    padding: '5px',
+    width: '5rem',
+    height: '5rem',
+    margin: '5px',
+  },
+
   helpfulAndReport: {
     display: 'flex',
     flexDirection: 'row',
@@ -71,5 +83,22 @@ export const styles = {
     height: '3rem',
     background: 'transparent',
     marginRight: '.5rem',
+  },
+
+  forms: {
+    overflow: 'auto',
+    border: '2px solid blue',
+    position: 'absolute',
+    width: 'auto',
+    height: '400px',
+    top: '60%',
+  },
+
+  closeImg: {
+    position: 'relative',
+    right: '0',
+    top: '0',
+    height: '21px',
+    width: '21px',
   },
 };
