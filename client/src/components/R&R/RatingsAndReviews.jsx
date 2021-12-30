@@ -6,11 +6,13 @@ import {Characteristics} from './Characteristics.jsx';
 import {ReviewTile} from './ReviewTile.jsx';
 import {ReviewForm} from './ReviewForm.jsx';
 import {ReviewContext} from './ReviewContext.jsx';
+import Rating from 'react-rating';
 
 export const RatingsAndReviews = () => {
   const {reviews, reviewMetaData, products, selectedProductID} = useContext(AppContext);
   const [showMore, setShowMore] = useState(1);
   const [showForm, setShowForm] = useState(false);
+  const [formObj, setFormObj] = useState({'characteristics': {}});
   const totalNumberReviews = (Number(reviewMetaData.data.recommended.true)+Number(reviewMetaData.data.recommended.false))
   const percentageRecommend = reviews.data.results.length ?
     100*Number(reviewMetaData.data.recommended.true)/totalNumberReviews : 0;
@@ -21,11 +23,14 @@ export const RatingsAndReviews = () => {
       totalNumberReviews,
       showMore, setShowMore,
       showForm, setShowForm,
+      formObj, setFormObj,
     }}>
       <div style = {{width: '70%', left: '15%', position: 'absolute', paddingBottom: '5%'}}>
         <h2>RatingsAndReviews</h2>
         <div style={{width: '30%', float: 'left'}}>
-          <h2>4.5  star component</h2>
+          <h2>4.5
+             <Rating fractions = {4}/>
+          </h2>
           <p>{percentageRecommend.toFixed()}% of reviews recommend this product</p>
           <Breakdown />
           <Characteristics />
