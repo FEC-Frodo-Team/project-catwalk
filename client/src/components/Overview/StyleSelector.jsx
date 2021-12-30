@@ -39,10 +39,10 @@ export const StyleSelector = (props) => {
     <div>
       <div style={{'background-color': 'Gainsboro', 'height': '2px'}}></div>
       <div>Selected Style: {'>'} {!selectedStyle? productStyle.data.results[0].name: selectedStyle}</div>
-      <div style={style}>
+      <div className='thumbnail-container'>
         {productStyle.data.results.map((item) => {
           return (
-            <img value={item.name} id={item.style_id} style={styleBtn} onClick={styleSelectBtn} src={item.photos[0].thumbnail_url}/>
+            <img value={item.name} id={item.style_id} className='style-btn' onClick={styleSelectBtn} src={item.photos[0].thumbnail_url}/>
           );
         },
         )}
