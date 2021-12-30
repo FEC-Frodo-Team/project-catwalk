@@ -16,10 +16,11 @@ export const ImageGallery = (props) => {
     const item = productStyle.data.results.filter((item) => item.name === selectedStyle);
     let photoArray = productStyle.data.results[0].photos;
     const sevenPics = [];
+    const arrayLength = (photoArray.length > 6)? 7: photoArray.length;
 
     !(item.length === 0)? photoArray = item[0].photos: null;
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < arrayLength; i++) {
       sevenPics.push(photoArray[i].thumbnail_url);
     }
 
