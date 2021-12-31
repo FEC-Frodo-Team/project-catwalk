@@ -14,7 +14,6 @@ export const App = () => {
   // Making all of the calls global to start then we can bring down into our
   // components if no one else needs it to be in global context.
   const [products, setProducts] = useState({});
-  const [questions, setQuestions] = useState({});
   const [reviews, setReviews] = useState({});
   const [reviewMetaData, setReviewsMetaData] = useState({});
   const [cart, setCart] = useState({});
@@ -35,16 +34,6 @@ export const App = () => {
         .then((results) => {
           console.log('got Cart items: ', results);
           setCart(results);
-        });
-
-    // List of questions Sixto's main info. Defaults to 1 page with 5 results.
-    // This only provides the list of questions the answers must be queried
-    // individually with /qa/questions/:question_id/answers.
-    axios
-        .get(`api/qa/questions?product_id=${defaultProductID}`)
-        .then((results) => {
-          console.log('got Questions: ', results);
-          setQuestions(results);
         });
 
     // Ratings and reviews Matt's main info.
@@ -72,7 +61,6 @@ export const App = () => {
         reviewMetaData, setReviewsMetaData,
         products, setProducts,
         selectedProductID, setSelectedProductID,
-        questions, setQuestions,
         cart, setCart,
       }}>
         {// ezra's component
