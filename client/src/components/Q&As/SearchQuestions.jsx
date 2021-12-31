@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
-import {AppContext} from '../AppContext.jsx';
+import {QuestionsContext} from './QuestionsContext.jsx';
 import {styles} from './styles.js';
 
 
 export const SearchQuestions = () => {
-  // const {questions, setQuestions} = useContext(AppContext);
+  const {questions, setQuestions} = useContext(QuestionsContext);
 
   return (
     <form style={styles.searchContainer} >
@@ -12,7 +12,7 @@ export const SearchQuestions = () => {
         type="text"
         style={styles.searchBar}
         id="QA_SearchBar"
-        value={null}
+        defaultValue=''
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
       />
       <button style={styles.searchBtn}>search</button>

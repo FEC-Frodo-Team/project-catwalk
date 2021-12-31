@@ -1,11 +1,10 @@
-
-
 export const styles = {
   qAContainer: {
     margin: 'auto',
-    width: '800px',
+    width: '75%',
     padding: '10px',
-    border: '2px solid blue',
+    borderTop: '2px solid black',
+    borderBottom: '2px solid black',
   },
 
   searchContainer: {
@@ -59,6 +58,20 @@ export const styles = {
     fontSize: '0.8rem',
   },
 
+  answerPhotos: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
+  pic: {
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    padding: '5px',
+    width: '5rem',
+    height: '5rem',
+    margin: '5px',
+  },
+
   helpfulAndReport: {
     display: 'flex',
     flexDirection: 'row',
@@ -71,5 +84,74 @@ export const styles = {
     height: '3rem',
     background: 'transparent',
     marginRight: '.5rem',
+  },
+
+  enlargePic: {
+    overflow: 'auto',
+    border: '2px solid blue',
+    position: 'absolute',
+    width: 'auto',
+    height: '400px',
+    top: '60%',
+  },
+
+  forms: {
+    overflowY: 'scroll',
+    border: '2px solid blue',
+    position: 'absolute',
+    backgroundColor: 'white',
+    width: '700px',
+    height: '550px',
+    top: '50%'},
+
+  popupBox: {
+    position: 'fixed',
+    background: '#00000050',
+    width: '100%',
+    height: '100vh',
+    top: '0',
+    left: '0',
+  },
+
+  box: {
+    position: 'relative',
+    width: '70%',
+    margin: '0 auto',
+    height: 'auto',
+    maxHeight: '70vh',
+    marginTop: 'calc(100vh - 85vh - 20px)',
+    background: '#fff',
+    borderRadius: '4px',
+    padding: '20px',
+    border: '1px solid #999',
+    overflow: 'auto',
+  },
+
+  closeIcon: {
+    content: '\'x\'',
+    cursor: 'pointer',
+    position: 'fixed',
+    right: 'calc(15% - 30px)',
+    top: 'calc(100vh - 85vh - 33px)',
+    background: '#ededed',
+    width: '25px',
+    height: '25px',
+    borderRadius: '50%',
+    lineHeight: '20px',
+    textAlign: 'center',
+    border: '1px solid #999',
+    fontSize: '20px',
+  },
+
+  formInputs: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '75%',
+  },
+
+  formBody: {
+    height: '5rem',
+    width: 'auto',
   },
 };
