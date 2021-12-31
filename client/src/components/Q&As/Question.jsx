@@ -1,15 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, {useState, useEffect} from 'react';
-// import {QuestionsContext} from './QuestionsContext.jsx';
+import React, {useState, useEffect, useContext} from 'react';
+import {AppContext} from '../AppContext.jsx';
 import {styles} from './styles.js';
+import axios from 'axios';
 
+import {AddAnswer} from './AddAnswer.jsx';
 import {Answer} from './Answer.jsx';
 
 export const Question = (props) => {
-  // const [allAnswers, setAllAnswers] = useState(question.answers);
+  const {selectedProductID} = useContext(AppContext);
   const [question] = useState(props.question);
   const [answers, setAnswers] = useState(question.answers);
-  // const [moreAnswers, setMoreAnswers] = useState(false);
   const [numAToDisplay, setNumAToDisplay] = useState(2);
 
   // change the answers object into an array
@@ -23,6 +24,11 @@ export const Question = (props) => {
     setNumAToDisplay(answers.length);
   };
 
+  const fetchQuestions = () => {
+    axios.get(`api/qa/questions?product_id=${selectedProductID}&count=100`)
+        .then(console.log);
+  };
+
   return (
     !Array.isArray(answers) ? <div>loading question...</div> :
     <div>
@@ -34,9 +40,7 @@ export const Question = (props) => {
           <p style={{marginRight: '10px'}}>
             Helpful? Yes({question.question_helpfulness})
           </p>
-          <p style={{marginRight: '10px'}}>
-          Add Answer
-          </p>
+          <AddAnswer questionId={question.question_id} fetchQuestions={fetchQuestions}/>
           <p>
             report
           </p>
@@ -44,7 +48,7 @@ export const Question = (props) => {
         </div>
 
       </div>
-      <hr/>
+
 
       {answers.slice(0, numAToDisplay).map((answer) => {
         return (
