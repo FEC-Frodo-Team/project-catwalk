@@ -8,7 +8,7 @@ export const StyleSelector = (props) => {
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const {productStyle, setProductStyle} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
-  const {mainPic, setMainPic} = useContext(ProductContext);
+  const {thumbNails, setThumbNails} = useContext(ProductContext);
   // const item = productStyle.data.results.filter((item) => item.style_id === setSelectedStyle);
 
   const styleSelectBtn = (event) => {
@@ -17,8 +17,8 @@ export const StyleSelector = (props) => {
     const itemStyle = productStyle.data.results.filter((item) => {
       return JSON.stringify(item.style_id) === event.target.getAttribute('id');
     });
-    console.log('Style Click event:', itemStyle[0].photos);
-    setMainPic(itemStyle[0].photos);
+    // console.log('Style Click event:', itemStyle[0].photos);
+    setThumbNails(itemStyle[0].photos);
   };
 
   const thumbNailHover = (event) => {
@@ -28,7 +28,7 @@ export const StyleSelector = (props) => {
   return (
     !productStyle.data ? <div>Loading Image..</div>:
     <div>
-      <div style={{'background-color': 'Gainsboro', 'height': '2px'}}></div>
+      <hr></hr>
       <div>Select Style: {'>'} {!selectedStyle? productStyle.data.results[0].name: selectedStyle}</div>
       <div className='thumbnail-container'>
         {productStyle.data.results.map((item) => {

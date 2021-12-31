@@ -253,6 +253,18 @@ input:invalid:focus {
   padding: 5px;
   color: rgb(88,88,88);
 }
+#product-info-header {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+hr {
+  border: none;
+  border-top: 3px double rgb(88,88,88);
+  color: #333;
+  overflow: visible;
+  text-align: center;
+  height: 5px;
+}
 .thumbnail-container {
   display: flex;
   gap: 25px;

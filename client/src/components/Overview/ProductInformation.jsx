@@ -11,7 +11,7 @@ export const ProductInformation = (props) => {
 
   return (
     <div className='product-info-container'>
-      <h2>Product Details</h2>
+      <h2 id='product-info-header'>Product Details</h2>
       <div>{item[0].category + ': ' + item[0].name}</div>
       <div>{'Price: $' + item[0].default_price}</div>
       <i><h4>{item[0].slogan}</h4></i>

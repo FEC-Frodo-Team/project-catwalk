@@ -7,17 +7,17 @@ export const ImageGallery = (props) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const {productStyle, setProductStyle} = useContext(ProductContext);
-  const {mainPic, setMainPic} = useContext(ProductContext);
+  const {thumbNails, setThumbNails} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
-  const [thumbNails, setThumbNails] = useState([]);
+  const [mainPic, setMainPic] = useState([]);
   // const item = products.data.filter((item) => item.id === selectedProductID);
 
   const mapThumbNails = () => {
-    // const item = productStyle.data.results[0].photos.filter((item) => item.url === mainPic.url);
+    // const item = productStyle.data.results[0].photos.filter((item) => item.url === thumbNails.url);
     let photoArray = productStyle.data.results[0].photos;
     const loadedPics = [];
 
-    !(mainPic.length === 0)? photoArray = mainPic: null;
+    !(thumbNails.length === 0)? photoArray = thumbNails: null;
 
     for (let i = 0; i < photoArray.length; i++) {
       loadedPics.push(photoArray[i].thumbnail_url);
@@ -45,7 +45,7 @@ export const ImageGallery = (props) => {
     !productStyle.data ? <div>Loading Image..</div>:
     <div className='gallery-container'>
       <button style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
-      <img src={!mainPic[0]? productStyle.data.results[0].photos[0].url: mainPic[0].url} className='main-photo'/>
+      <img src={!thumbNails[0]? productStyle.data.results[0].photos[0].url: thumbNails[0].url} className='main-photo'/>
       <button style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
       <div className='photo-thumbnails-array'>
         <button style={{'height': '25px'}} onClick={thumbLeft}>{'<'}</button>
