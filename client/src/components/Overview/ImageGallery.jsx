@@ -20,16 +20,27 @@ export const ImageGallery = (props) => {
 
     !(item.length === 0)? photoArray = item[0].photos: null;
 
-    for (let i = 0; i < arrayLength; i++) {
+    for (let i = 0; i < photoArray.length; i++) {
       sevenPics.push(photoArray[i].thumbnail_url);
     }
 
     // console.log('ItemSSSSSS: ', item, 'style:', selectedStyle);
     return sevenPics.map((thumbPic) => {
       return (
-        <img className='main-thumbnail' src={thumbPic}/>
+        <label name='thumbs' style={{position: 'relative'}}>
+          <img className='main-thumbnail' name='thumbs' src={thumbPic}/>
+          <input type='radio' name='thumbs' style={{position: 'absolute', left: '60%', top: '-5px'}}/>
+        </label>
       );
     });
+  };
+
+  const thumbRight = (event) => {
+    document.getElementById('thumbnails-container').scrollLeft += 45;
+  };
+
+  const thumbLeft = (event) => {
+    document.getElementById('thumbnails-container').scrollLeft -= 45;
   };
 
   return (
@@ -39,9 +50,9 @@ export const ImageGallery = (props) => {
       <img src={mainPic.url || productStyle.data.results[0].photos[0].url} className='main-photo'/>
       <button style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
       <div className='photo-thumbnails-array'>
-        <button style={{'height': '25px'}}>{'<'}</button>
-        {mapThumbNails()}
-        <button style={{'height': '25px'}}>{'>'}</button>
+        <button style={{'height': '25px'}} onClick={thumbLeft}>{'<'}</button>
+        <div id='thumbnails-container'>{mapThumbNails()}</div>
+        <button className='scroll-right-thumbnails' style={{'height': '25px'}} onClick={thumbRight}>{'>'}</button>
       </div>
     </div>
   );

@@ -228,6 +228,13 @@ input:invalid:focus {
   justify-content: center;
   gap: 10px;
 }
+#thumbnails-container {
+  display: flex;
+  width: 300px;
+  height: 40px;
+  gap: 15px;
+  overflow-x: hidden;
+}
 .main-thumbnail {
   height: 25px;
   width: 30px;
