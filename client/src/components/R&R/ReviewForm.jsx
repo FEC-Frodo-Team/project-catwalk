@@ -6,10 +6,11 @@ import Rating from 'react-rating';
 
 export const ReviewForm = () => {
   const {reviewMetaData, products, selectedProductID} = useContext(AppContext);
-  const {showForm, setShowForm, formObj, setFormObj} = useContext(ReviewContext);
+  const {showForm, setShowForm, formObj, setFormObj,charObj, setCharObj} = useContext(ReviewContext);
 
 
   const formSubmit = () => {
+    setFormObj({...formObj, 'characteristics': charObj});
     console.log('form oject:', formObj);
     axios.post(`api/reviews?product_id=`);
   };
@@ -63,7 +64,7 @@ export const ReviewForm = () => {
         <div style = {{textAlign: 'center'}}>About the {productName}</div>
         <h2> Overall rating (mandatory)</h2>
         <div>Star selector component
-        <Rating />
+        <Rating fractions = {4}/>
         </div>
         <h2>Do you recommend this product? (mandatory)</h2>
         <div>
@@ -78,11 +79,10 @@ export const ReviewForm = () => {
           <h2>{key}</h2>
             <span style = {{display: 'flex', justifyContent: 'space-between'}}>
             {arrOfRatings.map((oneRating) => {
-              let dummyObj = formObj.characteristics;
             return (
               <span>
-                <input required  value = {oneRating} checked = {formObj.characteristics[characteristicsObject[key][0]] == {oneRating}}
-                onClick = {(e) => {setFormObj({...formObj, 'characteristics': {...dummyObj, [characteristicsObject[key][0]]: e.target.value}})}} type="radio" name = {key}/>
+                <input required  value = {oneRating} checked = {charObj[characteristicsObject[key][0]] == {oneRating}}
+                onClick = {(e) => {setCharObj({...charObj, [characteristicsObject[key][0]]: e.target.value})}} type="radio" name = {key}/>
                 <label >{oneRating} {characteristicsObject[key][oneRating]}</label>
               </span>
             );

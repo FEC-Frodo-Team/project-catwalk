@@ -12,7 +12,8 @@ export const RatingsAndReviews = () => {
   const {reviews, reviewMetaData, products, selectedProductID} = useContext(AppContext);
   const [showMore, setShowMore] = useState(1);
   const [showForm, setShowForm] = useState(false);
-  const [formObj, setFormObj] = useState({'characteristics': {}});
+  const [formObj, setFormObj] = useState({});
+  const [charObj, setCharObj] = useState({});
   const totalNumberReviews = (Number(reviewMetaData.data.recommended.true)+Number(reviewMetaData.data.recommended.false))
   const percentageRecommend = reviews.data.results.length ?
     100*Number(reviewMetaData.data.recommended.true)/totalNumberReviews : 0;
@@ -24,6 +25,7 @@ export const RatingsAndReviews = () => {
       showMore, setShowMore,
       showForm, setShowForm,
       formObj, setFormObj,
+      charObj, setCharObj,
     }}>
       <div style = {{width: '70%', left: '15%', position: 'absolute', paddingBottom: '5%'}}>
         <h2>RatingsAndReviews</h2>
