@@ -13,23 +13,21 @@ export const ImageGallery = (props) => {
   // const item = products.data.filter((item) => item.id === selectedProductID);
 
   const mapThumbNails = () => {
-    const item = productStyle.data.results.filter((item) => item.name === selectedStyle);
+    // const item = productStyle.data.results[0].photos.filter((item) => item.url === mainPic.url);
     let photoArray = productStyle.data.results[0].photos;
-    const sevenPics = [];
-    const arrayLength = (photoArray.length > 6)? 7: photoArray.length;
+    const loadedPics = [];
 
-    !(item.length === 0)? photoArray = item[0].photos: null;
+    !(mainPic.length === 0)? photoArray = mainPic: null;
 
     for (let i = 0; i < photoArray.length; i++) {
-      sevenPics.push(photoArray[i].thumbnail_url);
+      loadedPics.push(photoArray[i].thumbnail_url);
     }
 
-    // console.log('ItemSSSSSS: ', item, 'style:', selectedStyle);
-    return sevenPics.map((thumbPic) => {
+    return loadedPics.map((thumbPic) => {
       return (
         <label name='thumbs' style={{position: 'relative'}}>
           <img className='main-thumbnail' name='thumbs' src={thumbPic}/>
-          <input type='radio' name='thumbs' style={{position: 'absolute', left: '60%', top: '-5px'}}/>
+          <input type='radio' name='thumbs' style={{position: 'absolute', left: '30%', top: '-5px'}}/>
         </label>
       );
     });
@@ -47,7 +45,7 @@ export const ImageGallery = (props) => {
     !productStyle.data ? <div>Loading Image..</div>:
     <div className='gallery-container'>
       <button style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
-      <img src={mainPic.url || productStyle.data.results[0].photos[0].url} className='main-photo'/>
+      <img src={!mainPic[0]? productStyle.data.results[0].photos[0].url: mainPic[0].url} className='main-photo'/>
       <button style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
       <div className='photo-thumbnails-array'>
         <button style={{'height': '25px'}} onClick={thumbLeft}>{'<'}</button>

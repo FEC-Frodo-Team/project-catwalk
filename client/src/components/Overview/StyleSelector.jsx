@@ -17,8 +17,8 @@ export const StyleSelector = (props) => {
     const itemStyle = productStyle.data.results.filter((item) => {
       return JSON.stringify(item.style_id) === event.target.getAttribute('id');
     });
-    // console.log('Style Click event:', typeof(item));
-    setMainPic(itemStyle[0].photos[0]);
+    console.log('Style Click event:', itemStyle[0].photos);
+    setMainPic(itemStyle[0].photos);
   };
 
   const thumbNailHover = (event) => {

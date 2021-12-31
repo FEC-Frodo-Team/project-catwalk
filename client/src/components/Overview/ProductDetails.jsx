@@ -11,11 +11,6 @@ export const ProductDetails = (props) => {
   const [productStyle, setProductStyle] = useState('Default');
   const [selectedStyle, setSelectedStyle] = useState('');
   const [mainPic, setMainPic] = useState('');
-  const style = {
-    'display': 'flex',
-    'padding': '5px',
-    'justify-content': 'center',
-    'font-size': '0.75em'};
 
   useEffect(() => {
     axios
