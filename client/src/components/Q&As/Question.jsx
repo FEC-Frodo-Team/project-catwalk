@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, {useState, useEffect} from 'react';
+// import {QuestionsContext} from './QuestionsContext.jsx';
 import {styles} from './styles.js';
 
 import {Answer} from './Answer.jsx';

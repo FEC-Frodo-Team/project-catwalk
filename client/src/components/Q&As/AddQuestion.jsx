@@ -21,17 +21,16 @@ export const AddQuestion = (props) => {
 
   const handleSubmit = () => {
     event.preventDefault();
-    // axios.post('/api/qa/questions', {
-    //   body: '', // something,
-    //   name: '', // nickname,
-    //   email: 'email',
-    //   product_id: selectedProductID,
-    // }).then(console.log).catch(console.log);
+    axios.post('/api/qa/questions', {
+      body: questionBody, // something,
+      name: nickname, // nickname,
+      email: email,
+      product_id: selectedProductID,
+    }).then(console.log).catch(console.log);
   };
 
   const formChange = () => {
-    event.target.name(event.target.value);
-    console.log(questionBody);
+    console.log(event.target.name);
   };
 
   return (

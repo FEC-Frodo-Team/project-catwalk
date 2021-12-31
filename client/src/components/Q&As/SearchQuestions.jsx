@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
-import {AppContext} from '../AppContext.jsx';
+import {QuestionsContext} from './QuestionsContext.jsx';
 import {styles} from './styles.js';
 
 
 export const SearchQuestions = () => {
-  // const {questions, setQuestions} = useContext(AppContext);
+  const {questions, setQuestions} = useContext(QuestionsContext);
 
   return (
     <form style={styles.searchContainer} >
