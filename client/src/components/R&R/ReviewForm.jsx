@@ -10,9 +10,17 @@ export const ReviewForm = () => {
 
 
   const formSubmit = () => {
-    setFormObj({...formObj, 'characteristics': charObj});
-    console.log('form oject:', formObj);
-    axios.post(`api/reviews?product_id=`);
+    const dummyObj = {...formObj, characteristics: charObj, recommend: formObj.recommend === 'Yes'? true:false};
+    setFormObj(dummyObj);
+
+    console.log('form oject:', dummyObj);
+    axios.post(`api/reviews`, dummyObj).then((err, result)=>{
+      if (err) {
+        console.log(err);
+      }
+      console.log('THANKS FOR YOUR SUBMISSION!!');
+    },
+    );
   };
 
   const arrOfRatings = [1,2,3,4,5];
@@ -59,16 +67,16 @@ export const ReviewForm = () => {
   let productName = products.data.filter((item) => item.id === selectedProductID)[0].name;
   return (
     <div>
-      {showForm? <form onSubmit={() => {console.log('gothere');return false}}  style = {{overflow: 'auto', border: '2px solid blue', position: 'absolute', left:'12%', backgroundColor: 'white', width:'76%', height: '100%', top: '-10%'}}>
+      {showForm? <form style = {{overflow: 'auto', border: '2px solid blue', position: 'absolute', left:'12%', backgroundColor: 'white', width:'76%', height: '100%', top: '-10%'}}>
         <h2 style = {{textAlign: 'center'}}>Write Your Review </h2>
         <div style = {{textAlign: 'center'}}>About the {productName}</div>
         <h2> Overall rating (mandatory)</h2>
         <div>Star selector component
-        <Rating fractions = {4}/>
+        <Rating placeholderRating ={formObj.rating || 0} fractions = {4} onClick = {(value) => {setFormObj({...formObj, 'rating': value})}}/>
         </div>
         <h2>Do you recommend this product? (mandatory)</h2>
         <div>
-          <input checked = {formObj.recommend == "Yes"} onClick = {(e) => {setFormObj({...formObj, 'recommend': e.target.value})}} type="radio" id = 'Yes' name='recommended' value="Yes" defaultChecked/>
+          <input  checked = {!formObj.recommend  || formObj.recommend == "Yes"} onClick = {(e) => {setFormObj({...formObj, 'recommend': e.target.value})}} type="radio" id = 'Yes' name='recommended' value="Yes" />
           <label>Yes</label>
           <input type="radio" id="No" name='recommended' value = 'No' checked = {formObj.recommend == "No"} onClick = {(e) => {setFormObj({...formObj, 'recommend': e.target.value})}}/>
           <label>No</label>
@@ -78,7 +86,7 @@ export const ReviewForm = () => {
         return (<div>
           <h2>{key}</h2>
             <span style = {{display: 'flex', justifyContent: 'space-between'}}>
-            {arrOfRatings.map((oneRating) => {
+            {/* {arrOfRatings.map((oneRating) => {
             return (
               <span>
                 <input required  value = {oneRating} checked = {charObj[characteristicsObject[key][0]] == {oneRating}}
@@ -86,7 +94,22 @@ export const ReviewForm = () => {
                 <label >{oneRating} {characteristicsObject[key][oneRating]}</label>
               </span>
             );
-          })}
+          })} */}
+            <input required  value = {1} checked = {charObj[characteristicsObject[key][0]] == '1'}
+                onClick = {(e) => {setCharObj({...charObj, [characteristicsObject[key][0]]: Number(e.target.value)})}} type="radio" name = {key}/>
+                <label >{1} {characteristicsObject[key][1]}</label>
+                <input required  value = {2} checked = {charObj[characteristicsObject[key][0]] == '2'}
+                onClick = {(e) => {setCharObj({...charObj, [characteristicsObject[key][0]]: Number(e.target.value)})}} type="radio" name = {key}/>
+                <label >{2} {characteristicsObject[key][2]}</label>
+                <input required  value = {3} checked = {charObj[characteristicsObject[key][0]] == '3'}
+                onClick = {(e) => {setCharObj({...charObj, [characteristicsObject[key][0]]: Number(e.target.value)})}} type="radio" name = {key}/>
+                <label >{3} {characteristicsObject[key][3]}</label>
+                <input required  value = {4} checked = {charObj[characteristicsObject[key][0]] == '4'}
+                onClick = {(e) => {setCharObj({...charObj, [characteristicsObject[key][0]]: Number(e.target.value)})}} type="radio" name = {key}/>
+                <label >{4} {characteristicsObject[key][4]}</label>
+                <input required  value = {5} checked = {charObj[characteristicsObject[key][0]] == '5'}
+                onClick = {(e) => {setCharObj({...charObj, [characteristicsObject[key][0]]: Number(e.target.value)})}} type="radio" name = {key}/>
+                <label >{5} {characteristicsObject[key][5]}</label>
             </span>
           </div>)})}
         <h2>Review summary</h2>
@@ -96,7 +119,7 @@ export const ReviewForm = () => {
         </div>
         <button>Upload your photos</button>
         <h2>What is your nickname (mandatory)</h2>
-        <input required value = {formObj.nickname || null} onChange = {(e) => {setFormObj({...formObj, 'nickname': e.target.value})}} type = 'text' maxLength="50" placeholder ='Example: jackson11!'></input>
+        <input required value = {formObj.nickname || null} onChange = {(e) => {setFormObj({...formObj, 'name': e.target.value})}} type = 'text' maxLength="50" placeholder ='Example: jackson11!'></input>
         <h2>Your email (mandatory)</h2>
         <input required  value = {formObj.email || null} onChange = {(e) => {setFormObj({...formObj, 'email': e.target.value})}}type = 'email' maxLength="60" placeholder ='Example: jackson11@email.com'></input>
         <button onClick = {(e) => { e.preventDefault(); formSubmit();}}>Submit review</button>
