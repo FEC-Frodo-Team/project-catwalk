@@ -24,7 +24,7 @@ export const AddQuestion = (props) => {
     event.preventDefault();
     console.log(formObj);
     axios.post('/api/qa/questions', form)
-        .then(console.log)
+        .then(() => props.fetchQuestions())
         .catch(console.log);
   };
 

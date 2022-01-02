@@ -25,7 +25,7 @@ export const Question = (props) => {
   };
 
   const fetchQuestions = () => {
-    axios.get(`api/qa/questions?product_id=${selectedProductID}&count=100`)
+    axios.get(`api/qa/questions?product_id=${selectedProductID}&count=1000`)
         .then(console.log);
   };
 
@@ -49,7 +49,7 @@ export const Question = (props) => {
 
       </div>
 
-
+      <div>A:</div>
       {answers.slice(0, numAToDisplay).map((answer) => {
         return (
           <Answer answer={answer} key={answer.id}/>
