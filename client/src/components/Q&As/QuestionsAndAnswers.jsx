@@ -13,8 +13,9 @@ import {AddQuestion} from './AddQuestion.jsx';
 export const QuestionsAndAnswers = () => {
   const [questions, setQuestions] = useState({});
   const [numQToDisplay, setNumQToDisplay] = useState(4);
-  const [count, setCount] = useState(50);
+  const [count, setCount] = useState(100);
   const [amount, setAmount] = useState(count);
+  const [newAnswerCount, setNewAnswerCount] = useState(0);
   const {selectedProductID} = useContext(AppContext);
 
 
@@ -43,7 +44,7 @@ export const QuestionsAndAnswers = () => {
 
   useEffect(() => {
     fetchQuestions();
-  }, [selectedProductID, numQToDisplay]);
+  }, [selectedProductID, count, amount, newAnswerCount]);
 
   // function to increase the number of questions to display at a time
   const showMoreQuestions = () => {
@@ -62,6 +63,8 @@ export const QuestionsAndAnswers = () => {
     !questions.results? <div>Loading Questions...</div> :
     <QuestionsContext.Provider value={{
       questions, setQuestions,
+      amount, setAmount,
+      newAnswerCount, setNewAnswerCount,
     }}>
       <div style={styles.qAContainer}>
 
@@ -74,6 +77,7 @@ export const QuestionsAndAnswers = () => {
               <Question
                 question={question}
                 key={question.question_id}
+                fetchQuestions={fetchQuestions}
               />
             );
           })}

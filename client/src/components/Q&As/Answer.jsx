@@ -11,7 +11,7 @@ export const Answer = (props) => {
     <div id="answerBox"
       key={answer.id}
       style={styles.answerBox}>
-      <p style={styles.answerBoxP}>  {answer.body}</p>
+      <p style={styles.answerBoxP}> A: {answer.body}</p>
 
       <div style={styles.answerPhotos}>
         {enlargePic ?
@@ -29,12 +29,10 @@ export const Answer = (props) => {
             answer.photos.map((pic, index) => {
               return (
                 <div
-                  target="_parent"
-                  href={pic}
                   key={index}>
                   <img
                     style={styles.pic}
-                    src={pic}
+                    src={pic.url}
                     onClick={() => setEnlargePic(!enlargePic)}
                   />
                 </div>);

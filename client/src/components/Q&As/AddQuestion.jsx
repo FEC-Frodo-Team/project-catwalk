@@ -1,10 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
+import {QuestionsContext} from './QuestionsContext.jsx';
 import axios from 'axios';
 
 import {styles} from './styles.js';
 
 export const AddQuestion = (props) => {
+  const {amount, setAmount} = useContext(QuestionsContext);
   const [showForm, setShowForm] = useState(false);
   const {selectedProductID} = useContext(AppContext);
   const formObj = {
@@ -24,7 +26,11 @@ export const AddQuestion = (props) => {
     event.preventDefault();
     console.log(formObj);
     axios.post('/api/qa/questions', form)
-        .then(() => props.fetchQuestions())
+        .then(setAmount(amount + 1))
+        .then(() => {
+          setShowForm(false);
+          setForm(formObj);
+        })
         .catch(console.log);
   };
 

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, {useState, useEffect, useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
+import {QuestionsContext} from './QuestionsContext.jsx';
 import axios from 'axios';
 
 import {styles} from './styles.js';
@@ -8,6 +9,8 @@ import {styles} from './styles.js';
 export const AddAnswer = (props) => {
   const [questionId, setQuestionId] = useState(props.questionId);
   const [showForm, setShowForm] = useState(false);
+  // const {amount, setAmount} = useContext(QuestionsContext);
+  const {newAnswerCount, setNewAnswerCount} = useContext(QuestionsContext);
   const formObj = {
     body: '',
     name: '',
@@ -33,22 +36,16 @@ export const AddAnswer = (props) => {
     console.log(event.target.value);
   };
 
-  const fetchAnswers = () => {
-    axios.get(`api/qa/questions/${questionId}/answers`)
-        .then(console.log)
-        .catch(console.log);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post(`api/qa/questions/${questionId}/answers`, form)
         .then(console.log)
-        .then(fetchAnswers)
+        .then(setNewAnswerCount(newAnswerCount + 1))
         .then(() => {
           setShowForm(false);
           setForm(formObj);
         })
-        .then(() => props.fetchQuestions())
         .catch(console.log);
   };
 
