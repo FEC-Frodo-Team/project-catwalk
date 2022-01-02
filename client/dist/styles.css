@@ -234,6 +234,7 @@ input:invalid:focus {
   height: 40px;
   gap: 15px;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 .main-thumbnail {
   height: 25px;

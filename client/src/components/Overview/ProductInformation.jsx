@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../AppContext.jsx';
 import {StyleSelector} from './StyleSelector.jsx';
 import {AddToCart} from './AddToCart.jsx';
-import axios from 'axios';
 
 export const ProductInformation = (props) => {
   const {products, setProducts} = useContext(AppContext);

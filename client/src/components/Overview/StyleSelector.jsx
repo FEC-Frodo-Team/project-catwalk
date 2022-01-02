@@ -34,8 +34,8 @@ export const StyleSelector = (props) => {
         {productStyle.data.results.map((item) => {
           return (
             <label name='styles' style={{position: 'relative'}}>
-              <img value={item.name} id={item.style_id} className='style-btn' onClick={styleSelectBtn} onMouseOver={thumbNailHover} src={item.photos[0].thumbnail_url}/>
-              <input type='radio' name='styles' style={{position: 'absolute', left: '60%', top: '-5px'}}/>
+              <img value={item.name} className='style-btn' onMouseOver={thumbNailHover} src={item.photos[0].thumbnail_url}/>
+              <input type='radio' name='styles' style={{position: 'absolute', left: '60%', top: '-5px'}} onClick={styleSelectBtn} id={item.style_id}/>
             </label>
 
           );
