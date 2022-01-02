@@ -9,7 +9,7 @@ export const StyleSelector = (props) => {
   const {productStyle, setProductStyle} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
   const {thumbNails, setThumbNails} = useContext(ProductContext);
-  // const item = productStyle.data.results.filter((item) => item.style_id === setSelectedStyle);
+  let firstPic = true;
 
   const styleSelectBtn = (event) => {
     // console.log(productStyle.data.results);
@@ -32,13 +32,24 @@ export const StyleSelector = (props) => {
       <div>Select Style: {'>'} {!selectedStyle? productStyle.data.results[0].name: selectedStyle}</div>
       <div className='thumbnail-container'>
         {productStyle.data.results.map((item) => {
-          return (
-            <label name='styles' style={{position: 'relative'}}>
-              <img value={item.name} className='style-btn' onMouseOver={thumbNailHover} src={item.photos[0].thumbnail_url}/>
-              <input type='radio' name='styles' style={{position: 'absolute', left: '60%', top: '-5px'}} onClick={styleSelectBtn} id={item.style_id}/>
-            </label>
-
-          );
+          if (firstPic) {
+            firstPic = false;
+            return (
+              <label name='styles' style={{position: 'relative'}}>
+                <img value={item.name} className='style-btn' onMouseOver={thumbNailHover} src={item.photos[0].thumbnail_url}/>
+                <input defaultChecked className='style-radio' type='radio' name='styles' style={{display: 'none'}} onClick={styleSelectBtn} id={item.style_id}/>
+                <div className='style-highlight'></div>
+              </label>
+            );
+          } else {
+            return (
+              <label name='styles' style={{position: 'relative'}}>
+                <img value={item.name} className='style-btn' onMouseOver={thumbNailHover} src={item.photos[0].thumbnail_url}/>
+                <input className='style-radio' type='radio' name='styles' style={{display: 'none'}} onClick={styleSelectBtn} id={item.style_id}/>
+                <div className='style-highlight'></div>
+              </label>
+            );
+          }
         },
         )}
       </div>

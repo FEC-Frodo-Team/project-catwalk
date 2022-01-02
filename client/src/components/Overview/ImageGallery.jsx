@@ -9,13 +9,29 @@ export const ImageGallery = (props) => {
   const {productStyle, setProductStyle} = useContext(ProductContext);
   const {thumbNails, setThumbNails} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
-  const [mainPic, setMainPic] = useState([]);
-  // const item = products.data.filter((item) => item.id === selectedProductID);
+  const [mainPic, setMainPic] = useState('');
+
+  useEffect(() => {
+    console.log('Use Effect executed');
+    const inputs = Array.from(document.querySelectorAll('.photo-thumbnails-array input'));
+    if (inputs.length !== 0) {
+      const checkedThumb = inputs.filter((item) => item.checked === true);
+      const checkedThumbIndex = inputs.indexOf(checkedThumb[0]);
+
+      checkedThumb[0].nextElementSibling.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
+
+      (checkedThumbIndex === 0)? document.getElementById('main-btn-left').disabled = true: null;
+      (checkedThumbIndex !== 0)? document.getElementById('main-btn-left').disabled = false: null;
+      (checkedThumbIndex === inputs.length - 1)? document.getElementById('main-btn-right').disabled = true: null;
+      (checkedThumbIndex !== inputs.length - 1)? document.getElementById('main-btn-right').disabled = false: null;
+    }
+  });
+
 
   const mapThumbNails = () => {
-    // const item = productStyle.data.results[0].photos.filter((item) => item.url === thumbNails.url);
     let photoArray = productStyle.data.results[0].photos;
     const loadedPics = [];
+    let firstThumb = true;
 
     !(thumbNails.length === 0)? photoArray = thumbNails: null;
 
@@ -24,12 +40,24 @@ export const ImageGallery = (props) => {
     }
 
     return loadedPics.map((thumbPic) => {
-      return (
-        <label name='thumbs' style={{position: 'relative'}}>
-          <img className='main-thumbnail' name='thumbs' src={thumbPic.thumbnail_url}/>
-          <input type='radio' name='thumbs' onClick={thumbClick} value={thumbPic.url} style={{position: 'absolute', left: '30%', top: '-5px'}}/>
-        </label>
-      );
+      if (firstThumb) {
+        firstThumb = false;
+        return (
+          <label name='thumbs' style={{position: 'relative'}}>
+            <img className='main-thumbnail' name='thumbs' src={thumbPic.thumbnail_url}/>
+            <input defaultChecked className='thumbradio' type='radio' name='thumbs' onClick={thumbClick} value={thumbPic.url} style={{display: 'none'}}/>
+            <div className='thumb-highlight'></div>
+          </label>
+        );
+      } else {
+        return (
+          <label name='thumbs' style={{position: 'relative'}}>
+            <img className='main-thumbnail' name='thumbs' src={thumbPic.thumbnail_url}/>
+            <input className='thumbradio' type='radio' name='thumbs' onClick={thumbClick} value={thumbPic.url} style={{display: 'none'}}/>
+            <div className='thumb-highlight'></div>
+          </label>
+        );
+      }
     });
   };
 
@@ -49,8 +77,6 @@ export const ImageGallery = (props) => {
     const inputs = Array.from(document.querySelectorAll('.photo-thumbnails-array input'));
     const checkedThumb = inputs.filter((item) => item.checked === true);
     const checkedThumbIndex = inputs.indexOf(checkedThumb[0]);
-    console.log(inputs.indexOf(checkedThumb[0]));
-    console.log('');
     inputs[checkedThumbIndex + 1].checked = true;
     setMainPic(inputs[checkedThumbIndex + 1].value);
   };
@@ -59,8 +85,6 @@ export const ImageGallery = (props) => {
     const inputs = Array.from(document.querySelectorAll('.photo-thumbnails-array input'));
     const checkedThumb = inputs.filter((item) => item.checked === true);
     const checkedThumbIndex = inputs.indexOf(checkedThumb[0]);
-    console.log(inputs.indexOf(checkedThumb[0]));
-    console.log('');
     inputs[checkedThumbIndex - 1].checked = true;
     setMainPic(inputs[checkedThumbIndex - 1].value);
   };
@@ -68,13 +92,13 @@ export const ImageGallery = (props) => {
   return (
     !productStyle.data ? <div>Loading Image..</div>:
     <div className='gallery-container'>
-      <button style={{'height': '30px', 'align-self': 'center'}} onClick={mainPicLeft}>{'<'}</button>
+      <button id='main-btn-left' style={{'height': '30px', 'align-self': 'center'}} onClick={mainPicLeft}>{'<'}</button>
       <img src={!mainPic? productStyle.data.results[0].photos[0].url: mainPic} className='main-photo'/>
-      <button style={{'height': '30px', 'align-self': 'center'}} onClick={mainPicRight}>{'>'}</button>
+      <button id='main-btn-right' style={{'height': '30px', 'align-self': 'center'}} onClick={mainPicRight}>{'>'}</button>
       <div className='photo-thumbnails-array'>
-        <button style={{'height': '25px'}} onClick={thumbLeft}>{'<'}</button>
+        <button id='scroll-left-thumbnails' style={{'height': '25px'}} onClick={thumbLeft}>{'<'}</button>
         <div id='thumbnails-container'>{mapThumbNails()}</div>
-        <button className='scroll-right-thumbnails' style={{'height': '25px'}} onClick={thumbRight}>{'>'}</button>
+        <button id='scroll-right-thumbnails' style={{'height': '25px'}} onClick={thumbRight}>{'>'}</button>
       </div>
     </div>
   );
