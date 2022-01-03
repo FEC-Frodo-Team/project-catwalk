@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {AppContext} from '../AppContext.jsx';
 import {ProductContext} from './ProductContext.jsx';
+import {ExpandView} from './ExpandView.jsx';
 import axios from 'axios';
 
 export const ImageGallery = (props) => {
@@ -10,6 +11,7 @@ export const ImageGallery = (props) => {
   const {thumbNails, setThumbNails} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
   const [mainPic, setMainPic] = useState('');
+  const [expandEnabled, setExpand] = useState(false);
 
   useEffect(() => {
     console.log('Use Effect executed');
@@ -17,6 +19,8 @@ export const ImageGallery = (props) => {
     if (inputs.length !== 0) {
       const checkedThumb = inputs.filter((item) => item.checked === true);
       const checkedThumbIndex = inputs.indexOf(checkedThumb[0]);
+
+      setMainPic(checkedThumb[0].value);
 
       checkedThumb[0].nextElementSibling.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
 
@@ -89,16 +93,22 @@ export const ImageGallery = (props) => {
     setMainPic(inputs[checkedThumbIndex - 1].value);
   };
 
+  const openExandView = (event) => {
+    console.log('Expand View: ', event.target);
+    setExpand(!expandEnabled);
+  };
+
   return (
     !productStyle.data ? <div>Loading Image..</div>:
     <div className='gallery-container'>
       <button id='main-btn-left' style={{'height': '30px', 'align-self': 'center'}} onClick={mainPicLeft}>{'<'}</button>
-      <img src={!mainPic? productStyle.data.results[0].photos[0].url: mainPic} className='main-photo'/>
+      <img src={!mainPic? productStyle.data.results[0].photos[0].url: mainPic} className='main-photo' onClick={openExandView}/>
       <button id='main-btn-right' style={{'height': '30px', 'align-self': 'center'}} onClick={mainPicRight}>{'>'}</button>
       <div className='photo-thumbnails-array'>
         <button id='scroll-left-thumbnails' style={{'height': '25px'}} onClick={thumbLeft}>{'<'}</button>
         <div id='thumbnails-container'>{mapThumbNails()}</div>
         <button id='scroll-right-thumbnails' style={{'height': '25px'}} onClick={thumbRight}>{'>'}</button>
+        <ExpandView expandEnabled={expandEnabled} openExandView={openExandView} mainPic={mainPic} mapThumbNails={mapThumbNails}/>
       </div>
     </div>
   );
