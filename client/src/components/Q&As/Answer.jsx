@@ -2,6 +2,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles.js';
+import Popup from 'reactjs-popup';
+// import 'reactjs-popup/dist/index.css
 import moment from 'moment';
 
 export const Answer = (props) => {
@@ -25,17 +27,27 @@ export const Answer = (props) => {
         </div> :
         null
         }
-
         {answer.photos.length ?
             answer.photos.map((pic, index) => {
               return (
                 <div
                   key={index}>
-                  <img
+                  <Popup trigger={<img
                     style={styles.pic}
-                    src={pic.url}
-                    onClick={() => setEnlargePic(!enlargePic)}
-                  />
+                    src={pic.url}/>}
+                  modal
+                  nested
+                  >
+                    {(close) => (
+                      <div className="pic-modal">
+                        <span className="close" onClick={close}>&times;</span>
+                        <img className="modal-img"
+                          src={pic.url}
+                          onClick={close} />
+                      </div>
+                    )}
+                  </Popup>
+
                 </div>);
             }) :
              null}

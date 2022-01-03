@@ -51,7 +51,7 @@ export const AddQuestion = (props) => {
             className="close-icon"
             style={styles.closeIcon}
             onClick={toggleForm}>
-            x
+            &times;
           </span>
 
           <div style={styles.formInputs}>
