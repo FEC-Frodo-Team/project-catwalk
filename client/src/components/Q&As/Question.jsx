@@ -15,11 +15,21 @@ export const Question = (props) => {
   const {newAnswerCount, setNewAnswerCount} = useContext(QuestionsContext);
   const [numAToDisplay, setNumAToDisplay] = useState(2);
 
+  const sortAnswers = (response) => {
+    response.sort((a1, a2) =>
+      (a1.answerer_name.toLowerCase() === 'seller' &&
+      a2.answerer_name.toLowerCase() !== 'seller') ? -1 :
+      (a1.answerer_name.toLowerCase() === 'seller' &&
+      a2.answerer_name.toLowerCase() === 'seller') ?
+      ((a1.helpfulness > a2.helpfulness) ? -1 : 1) : 1);
+  };
+
   useEffect(() => {
     axios.get(`api/qa/questions/${question.question_id}/answers?count=100`)
         .then((response) => {
-          console.log(response.data);
+          sortAnswers(response.data.results);
           setAnswers(response.data.results);
+          console.log(answers);
         });
   }, [question, newAnswerCount]);
 

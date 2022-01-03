@@ -41,7 +41,10 @@ export const Answer = (props) => {
       </div>
 
       <div style={styles.helpfulAndReport}>
-        <p>by {answer.answerer_name}, {answer.date.slice(0, 10)} </p>
+        <p>by {answer.answerer_name.toLowerCase() === 'seller' ?
+                <b>{answer.answerer_name.toUpperCase()}</b> :
+                answer.answerer_name},
+        {' ' +answer.date.slice(0, 10)} </p>
         <p>Helpful? Yes({answer.helpfulness})</p>
         <p>report</p>
 
