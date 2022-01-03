@@ -2,6 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, {useState, useEffect} from 'react';
 import {styles} from './styles.js';
+import moment from 'moment';
 
 export const Answer = (props) => {
   const [answer] = useState(props.answer);
@@ -44,7 +45,7 @@ export const Answer = (props) => {
         <p>by {answer.answerer_name.toLowerCase() === 'seller' ?
                 <b>{answer.answerer_name.toUpperCase()}</b> :
                 answer.answerer_name},
-        {' ' +answer.date.slice(0, 10)} </p>
+        {' ' + moment(answer.date.slice(0, 10)).format('MMMM DD, YYYY')} </p>
         <p>Helpful? Yes({answer.helpfulness})</p>
         <p>report</p>
 

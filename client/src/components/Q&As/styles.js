@@ -76,7 +76,7 @@ export const styles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    fontSize: '0.6rem',
+    fontSize: '0.8rem',
   },
 
   buttons: {
