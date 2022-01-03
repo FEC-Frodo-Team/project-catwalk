@@ -29,12 +29,10 @@ export const Answer = (props) => {
             answer.photos.map((pic, index) => {
               return (
                 <div
-                  target="_parent"
-                  href={pic}
                   key={index}>
                   <img
                     style={styles.pic}
-                    src={pic}
+                    src={pic.url}
                     onClick={() => setEnlargePic(!enlargePic)}
                   />
                 </div>);

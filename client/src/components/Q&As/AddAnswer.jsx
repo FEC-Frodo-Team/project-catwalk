@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {useState, useEffect, useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
 import {QuestionsContext} from './QuestionsContext.jsx';
@@ -5,28 +6,42 @@ import axios from 'axios';
 
 import {styles} from './styles.js';
 
-export const AddQuestion = (props) => {
-  const {amount, setAmount} = useContext(QuestionsContext);
+export const AddAnswer = (props) => {
+  const [questionId, setQuestionId] = useState(props.questionId);
   const [showForm, setShowForm] = useState(false);
-  const {selectedProductID} = useContext(AppContext);
+  // const {amount, setAmount} = useContext(QuestionsContext);
+  const {newAnswerCount, setNewAnswerCount} = useContext(QuestionsContext);
   const formObj = {
-    body: null,
-    name: null,
-    email: null,
-    product_id: selectedProductID,
+    body: '',
+    name: '',
+    email: '',
+    photos: [],
   };
   const [form, setForm] = useState(formObj);
-
 
   const toggleForm = () => {
     setShowForm(!showForm);
   };
 
+  const formChange = (event) => {
+    const {name, value} = event.target;
+    form[name] = value;
+  };
+
+  const addPhotos = (event) => {
+    // const file = document.querySelector('input[type=file]').files[0];
+    // form.photos.push(event.target.value);
+    // // or
+    // form.photos.push(file.name);
+    console.log(event.target.value);
+  };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formObj);
-    axios.post('/api/qa/questions', form)
-        .then(setAmount(amount + 1))
+    axios.post(`api/qa/questions/${questionId}/answers`, form)
+        .then(console.log)
+        .then(setNewAnswerCount(newAnswerCount + 1))
         .then(() => {
           setShowForm(false);
           setForm(formObj);
@@ -34,15 +49,9 @@ export const AddQuestion = (props) => {
         .catch(console.log);
   };
 
-  const formChange = (event) => {
-    const {name, value} = event.target;
-    form[name] = value;
-    // console.log(form);
-  };
-
   return (
-    <div>
 
+    <div>
       {showForm &&
       <div className="popup-box" style={styles.popupBox}>
         <div className="box" style={styles.box}>
@@ -56,16 +65,15 @@ export const AddQuestion = (props) => {
 
           <div style={styles.formInputs}>
 
-            <label>Your Question*</label>
+            <label>Your Answer*</label>
             <textarea
               name="body"
               style={styles.formBody}
               rows="1" cols="10"
-              minLength="10"
               maxLength="1000"
-              defaulvalue={formObj.body}
+              defaulvalue={''}
               required="required"
-              onChange={(event) => formChange(event)}
+              onChange={formChange}
             ></textarea>
 
             <br />
@@ -73,13 +81,11 @@ export const AddQuestion = (props) => {
             <label>Nickname*</label>
             <input
               name="name"
-              type="text"
-              minLength='2'
-              maxLength="60"
+              type="text" maxLength="60"
               placeholder="Example: jackson11!"
-              defaulvalue={formObj.name}
+              defaulvalue={''}
               required="required"
-              onChange={(event) => formChange(event)}
+              onChange={formChange}
             />
             <p>
             For privacy reasons, do not use your full name or email address
@@ -91,32 +97,38 @@ export const AddQuestion = (props) => {
             <input
               name="email"
               type='email'
-              minLength="7"
               maxLength="60"
               placeholder ='Example: jackson11@email.com'
-              defaulvalue={formObj.email}
+              defaulvalue={''}
               required="required"
-              onChange={(event) => formChange(event)}
+              onChange={formChange}
             />
             <p>For authentication reasons, you will not be emailed</p>
+
+            <label>Upload Your Photos</label>
+
+            {form.photos.length < 5 ? // doesnt work properly
+             <input
+               type="file"
+               name="photos"
+               // multiple
+               onChange={(event) => addPhotos(event)}
+             /> :
+           <p> you have already submitted the max amount of photos </p>
+            }
 
           </div>
           <br />
           <input
             type='button' value='Submit'
-            onClick={(event) => handleSubmit(event)} />
-
-
+            onClick={handleSubmit}
+          />
         </div>
       </div>}
-      <button
-        style={styles.buttons}
+      <p
+        style={{marginRight: '10px'}}
         onClick={toggleForm}
-      >
-      Add a Question +
-      </button>
-
+      > Add Answer</p>
     </div>
-
   );
 };

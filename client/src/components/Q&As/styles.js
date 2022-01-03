@@ -111,6 +111,7 @@ export const styles = {
     height: '100vh',
     top: '0',
     left: '0',
+    zIndex: '900',
   },
 
   box: {
@@ -125,6 +126,7 @@ export const styles = {
     padding: '20px',
     border: '1px solid #999',
     overflow: 'auto',
+    // zIndex: '1000',
   },
 
   closeIcon: {
