@@ -75,7 +75,6 @@ export const styles = {
   helpfulAndReport: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
     fontSize: '0.8rem',
   },
 

@@ -41,12 +41,14 @@ export const Answer = (props) => {
              null}
       </div>
 
-      <div style={styles.helpfulAndReport}>
+      <div style={styles.helpfulAndReport} className="helpfulAndReport">
         <p>by {answer.answerer_name.toLowerCase() === 'seller' ?
                 <b>{answer.answerer_name.toUpperCase()}</b> :
                 answer.answerer_name},
         {' ' + moment(answer.date.slice(0, 10)).format('MMMM DD, YYYY')} </p>
-        <p>Helpful? Yes({answer.helpfulness})</p>
+        <p className="vertical-line"></p>
+        <p >Helpful? Yes({answer.helpfulness})</p>
+        <p className="vertical-line"></p>
         <p>report</p>
 
       </div>

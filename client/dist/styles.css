@@ -98,21 +98,21 @@ input:invalid:focus {
 
 
 /* MATT IS ABOVE 1-100 */
+.helpfulAndReport > p {
+  padding-right: 0.6rem
+}
 
+.vertical-line {
+  border-left: 2px solid grey;
+  margin-top: 10px;
+  height: 1.3rem;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.qa-buttons {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
 
 
 

@@ -82,7 +82,7 @@ export const QuestionsAndAnswers = () => {
             );
           })}
         </div>
-        <div >
+        <div className="qa-buttons">
           {numQToDisplay < amount ?
           <button
             onClick={()=> showMoreQuestions()}

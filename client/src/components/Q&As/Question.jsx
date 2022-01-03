@@ -45,15 +45,17 @@ export const Question = (props) => {
       <div style={styles.questionBox}>
         <p>Q: {question.question_body} </p>
 
-        <div style={styles.helpfulAndReport}>
-          <p style={{marginRight: '10px'}}>
+        <div style={styles.helpfulAndReport} className="helpfulAndReport">
+          <p>
             Helpful? Yes({question.question_helpfulness})
           </p>
+          <p className="vertical-line"> </p>
           <AddAnswer
             questionId={question.question_id}
             newAnswerCount={newAnswerCount}
             setNewAnswerCount={setNewAnswerCount}
           />
+          <p className="vertical-line"> </p>
           <p>
             report
           </p>
