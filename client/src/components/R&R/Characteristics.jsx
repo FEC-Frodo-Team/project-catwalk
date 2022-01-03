@@ -15,7 +15,7 @@ export const Characteristics = (props) => {
               <span style = {{ color: "lightgray", display: "inline-block", backgroundColor:"LightGray", width: `${31}%`, maxHeight: "10px"}}>.</span>
               <span style = {{ color: "white", display: "inline-block", backgroundColor:"white", width: `${2}%`, maxHeight: "10px"}}>.</span>
               <span style = {{ color: "lightgray", display: "inline-block", backgroundColor:"LightGray", width: `${31}%`, maxHeight: "10px"}}>.</span>
-              <span style = {{ position: "absolute", left:`${reviewMetaData.data.characteristics[key].value*4.8}%` }}>^</span>
+              <span style = {{ position: "absolute", left:`${reviewMetaData.data.characteristics[key].value*4.8}%`}}></span>
         </div>;
       })
   );

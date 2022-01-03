@@ -117,7 +117,8 @@ export const ReviewForm = () => {
         <h2> Review body (mandatory)</h2>
         <input required value = {formObj.body || null} onChange = {(e) => {setFormObj({...formObj, 'body': e.target.value})}} type = 'text' minLength="50" maxLength="1000" placeholder = 'Why did you like the product or not?'></input>
         </div>
-        <button>Upload your photos</button>
+        <h2>Upload your photos</h2>
+        <input ></input>
         <h2>What is your nickname (mandatory)</h2>
         <input required value = {formObj.nickname || null} onChange = {(e) => {setFormObj({...formObj, 'name': e.target.value})}} type = 'text' maxLength="50" placeholder ='Example: jackson11!'></input>
         <h2>Your email (mandatory)</h2>
