@@ -7,9 +7,10 @@ import axios from 'axios';
 import {styles} from './styles.js';
 
 export const AddAnswer = (props) => {
-  const [questionId, setQuestionId] = useState(props.questionId);
+  // const [questionId, setQuestionId] = useState(props.question.questionId);
+  const {question_id: questionId, question_body: questionBody} = props.question;
   const [showForm, setShowForm] = useState(false);
-  // const {amount, setAmount} = useContext(QuestionsContext);
+  const {currentProduct} = useContext(AppContext);
   const {newAnswerCount, setNewAnswerCount} = useContext(QuestionsContext);
   const formObj = {
     body: '',
@@ -64,6 +65,12 @@ export const AddAnswer = (props) => {
           </span>
 
           <div style={styles.formInputs}>
+            <h4>Submit Your Answer
+              <br/>
+              <div style={{fontSize: 'small'}}>
+                {currentProduct.data.name + ': ' + questionBody}
+              </div>
+            </h4>
 
             <label>Your Answer*</label>
             <textarea

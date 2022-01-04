@@ -14,6 +14,8 @@ export const App = () => {
   // Making all of the calls global to start then we can bring down into our
   // components if no one else needs it to be in global context.
   const [products, setProducts] = useState({});
+  const [currentProduct, setCurrentProduct] = useState({});
+
   const [reviews, setReviews] = useState({});
   const [reviewMetaData, setReviewsMetaData] = useState({});
   const [cart, setCart] = useState({});
@@ -28,6 +30,13 @@ export const App = () => {
           console.log('got Products: ', results);
           setProducts(results);
         });
+
+    axios
+        .get(`api/products/${selectedProductID}`)
+        .then((results) => {
+          console.log('selected product data: ', results);
+          setCurrentProduct(results);
+        });
     // List of items in cart Ezra's info.
     axios
         .get(`api/cart`)
@@ -38,7 +47,7 @@ export const App = () => {
 
     // Ratings and reviews Matt's main info.
     axios
-        .get(`api/reviews?product_id=${defaultProductID}`)
+        .get(`api/reviews?product_id=${defaultProductID}&count=100`)
         .then((results) => {
           console.log('got reviews: ', results);
           setReviews(results);
@@ -60,6 +69,7 @@ export const App = () => {
         reviews, setReviews,
         reviewMetaData, setReviewsMetaData,
         products, setProducts,
+        currentProduct, setCurrentProduct,
         selectedProductID, setSelectedProductID,
         cart, setCart,
       }}>
