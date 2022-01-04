@@ -7,6 +7,7 @@ import {ReviewTile} from './ReviewTile.jsx';
 import {ReviewForm} from './ReviewForm.jsx';
 import {ReviewContext} from './ReviewContext.jsx';
 import Rating from 'react-rating';
+import {SearchReviews} from './SearchReviews.jsx';
 
 export const RatingsAndReviews = () => {
   const {reviews, reviewMetaData, products, selectedProductID} = useContext(AppContext);
@@ -14,11 +15,14 @@ export const RatingsAndReviews = () => {
   const [showForm, setShowForm] = useState(false);
   const [formObj, setFormObj] = useState({'product_id': selectedProductID,'photos': []});
   const [charObj, setCharObj] = useState({});
+  const [sortedBy, setSortedBy] = useState('Relevant');
+  const [searchTerm, setSearchTerm] = useState('');
   const totalNumberReviews = (Number(reviewMetaData.data.recommended.true)+Number(reviewMetaData.data.recommended.false))
   const percentageRecommend = reviews.data.results.length ?
     100*Number(reviewMetaData.data.recommended.true)/totalNumberReviews : 0;
   const averageRating = (Object.keys(reviewMetaData.data.ratings).reduce((previous,key)=> {return (previous+Number(reviewMetaData.data.ratings[key])*Number(key)); },0)/totalNumberReviews).toFixed(1);
-  console.log(averageRating);
+
+
   return (
     <ReviewContext.Provider value = {{
       totalNumberReviews,
@@ -26,6 +30,8 @@ export const RatingsAndReviews = () => {
       showForm, setShowForm,
       formObj, setFormObj,
       charObj, setCharObj,
+      searchTerm, setSearchTerm,
+      sortedBy, setSortedBy,
     }}>
       <div style = {{width: '70%', left: '15%', position: 'absolute', paddingBottom: '5%'}}>
         <h2>RatingsAndReviews</h2>
@@ -38,12 +44,7 @@ export const RatingsAndReviews = () => {
           <Characteristics />
         </div>
         <div style={{width: '70%', float: 'left'}}>
-          <span>{reviews.data.results.length} reviews, sorted by <select>
-            <option>Relevant</option>
-            <option>Most Helpful</option>
-            <option>Newest</option>
-          </select>
-          </span>
+        <SearchReviews />
           <ReviewTile />
           <span>
             {showMore*2<=reviews.data.results.length ?<button onClick = {() => {setShowMore(showMore+1)}}>MORE REVIEWS</button>:null
