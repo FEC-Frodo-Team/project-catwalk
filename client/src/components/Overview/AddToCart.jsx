@@ -28,7 +28,7 @@ export const AddToCart = (props) => {
   const mapQuantity = () => {
     let amount = 0;
     const amountArray = [];
-    (availableQuantity > 15)? amount = 15: amount = availableQuantity;
+    amount = (availableQuantity > 15)? 15: availableQuantity;
     for (let i = 0; i < amount; i++) {
       amountArray.push(i+1);
     }

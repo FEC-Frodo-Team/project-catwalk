@@ -37,13 +37,15 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
     'left': '50%',
     'transform': 'translate(-50%, -50%)',
     'backgroundColor': '#FFF',
-    // 'width': '400px',
+    'width': '900px',
     'height': '90%',
     'padding': '5px',
     // 'text-align': 'center',
     'justify-content': 'center',
     'margin': 'auto',
     'zIndex': '1000',
+    'flex-wrap': 'wrap',
+    'gap': '20px 15%',
   };
 
   const overlayStyle = {
@@ -64,10 +66,10 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
 
   const thumbIcon = {
     'display': 'flex',
-    'position': 'absolute',
-    'bottom': '0%',
-    'left': '50%',
-    'margin-left': '-150px',
+    // 'position': 'absolute',
+    // 'bottom': '0%',
+    // 'left': '50%',
+    // 'margin-left': '-150px',
     'width': '300px',
     'height': '40px',
     'border': '2px solid',
@@ -80,12 +82,13 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
     !productStyle.data ? <div>Loading Image..</div>:
     <>
       <div style={overlayStyle} onClick={openExandView}></div>
-      <div style={expandStyle}>
+      <div id='expand-container'>
         <button id='expand-btn-left' onClick={mainPicLeft} style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
         {/* <img id='expanded-photo' src={mainPic} style={imgStyle}/> */}
         <InnerImageZoom src={mainPic} zoomType='click' zoomScale={1.5} hideHint={true} />
-        <div style={thumbIcon}></div>
         <button id='expand-btn-right' onClick={mainPicRight} style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
+        <div className='break' style={{'flex-basis': '100%', 'height': '0'}}></div>
+        <div style={thumbIcon}></div>
       </div>
     </>,
     document.getElementById('expand-view'),
