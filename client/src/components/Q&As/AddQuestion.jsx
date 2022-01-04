@@ -8,7 +8,7 @@ import {styles} from './styles.js';
 export const AddQuestion = (props) => {
   const {amount, setAmount} = useContext(QuestionsContext);
   const [showForm, setShowForm] = useState(false);
-  const {selectedProductID} = useContext(AppContext);
+  const {selectedProductID, currentProduct} = useContext(AppContext);
   const formObj = {
     body: null,
     name: null,
@@ -54,8 +54,13 @@ export const AddQuestion = (props) => {
           </span>
 
           <div style={styles.formInputs}>
-            <h4>Ask Your Question</h4>
-            <h5>About the </h5>
+            <h4>Ask Your Question
+              <br/>
+              <div style={{fontSize: 'smaller'}}>
+                About the {currentProduct.data.name}
+              </div>
+            </h4>
+
             <label>Your Question*</label>
             <textarea
               name="body"
