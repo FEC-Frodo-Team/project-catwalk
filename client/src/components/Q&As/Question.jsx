@@ -15,11 +15,21 @@ export const Question = (props) => {
   const {newAnswerCount, setNewAnswerCount} = useContext(QuestionsContext);
   const [numAToDisplay, setNumAToDisplay] = useState(2);
 
+  const sortAnswers = (response) => {
+    response.sort((a1, a2) =>
+      (a1.answerer_name.toLowerCase() === 'seller' &&
+      a2.answerer_name.toLowerCase() !== 'seller') ? -1 :
+      (a1.answerer_name.toLowerCase() === 'seller' &&
+      a2.answerer_name.toLowerCase() === 'seller') ?
+      ((a1.helpfulness > a2.helpfulness) ? -1 : 1) : 1);
+  };
+
   useEffect(() => {
     axios.get(`api/qa/questions/${question.question_id}/answers?count=100`)
         .then((response) => {
-          console.log(response.data);
+          sortAnswers(response.data.results);
           setAnswers(response.data.results);
+          console.log(answers);
         });
   }, [question, newAnswerCount]);
 
@@ -35,15 +45,17 @@ export const Question = (props) => {
       <div style={styles.questionBox}>
         <p>Q: {question.question_body} </p>
 
-        <div style={styles.helpfulAndReport}>
-          <p style={{marginRight: '10px'}}>
+        <div style={styles.helpfulAndReport} className="helpfulAndReport">
+          <p>
             Helpful? Yes({question.question_helpfulness})
           </p>
+          <p className="vertical-line"> </p>
           <AddAnswer
             questionId={question.question_id}
             newAnswerCount={newAnswerCount}
             setNewAnswerCount={setNewAnswerCount}
           />
+          <p className="vertical-line"> </p>
           <p>
             report
           </p>
