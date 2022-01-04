@@ -5,25 +5,26 @@ import {ReviewContext} from './ReviewContext.jsx';
 import Rating from 'react-rating';
 
 export const ReviewForm = () => {
-  const {reviewMetaData, products, selectedProductID} = useContext(AppContext);
+  const {reviewMetaData, products, selectedProductID, setReviews, reviews} = useContext(AppContext);
   const {showForm, setShowForm, formObj, setFormObj,charObj, setCharObj} = useContext(ReviewContext);
 
 
   const formSubmit = () => {
     const dummyObj = {...formObj, characteristics: charObj, recommend: formObj.recommend === 'Yes'? true:false};
     setFormObj(dummyObj);
-
-    console.log('form oject:', dummyObj);
     axios.post(`api/reviews`, dummyObj).then((err, result)=>{
       if (err) {
         console.log(err);
       }
-      console.log('THANKS FOR YOUR SUBMISSION!!');
+      setShowForm(!showForm);
+      setReviews({...reviews, 'data':{...reviews.data, 'results':reviews.data.results.concat([dummyObj])} });
+      setCharObj({});
+      setFormObj({});
+      alert('THANKS FOR YOUR SUBMISSION!!');
     },
     );
   };
 
-  const arrOfRatings = [1,2,3,4,5];
   const characteristicsObject ={
     Size: [148903,
       'A size too small',
@@ -68,11 +69,12 @@ export const ReviewForm = () => {
   return (
     <div>
       {showForm? <form style = {{overflow: 'auto', border: '2px solid blue', position: 'absolute', left:'12%', backgroundColor: 'white', width:'76%', height: '100%', top: '-10%'}}>
+        <span id = 'closeIcon' onClick = {() => setShowForm(!showForm)} >X</span>
         <h2 style = {{textAlign: 'center'}}>Write Your Review </h2>
         <div style = {{textAlign: 'center'}}>About the {productName}</div>
         <h2> Overall rating (mandatory)</h2>
         <div>Star selector component
-        <Rating placeholderRating ={formObj.rating || 0} fractions = {4} onClick = {(value) => {setFormObj({...formObj, 'rating': value})}}/>
+        <Rating placeholderRating ={formObj.rating || 0}  onClick = {(value) => {setFormObj({...formObj, 'rating': value})}}/>
         </div>
         <h2>Do you recommend this product? (mandatory)</h2>
         <div>
@@ -123,7 +125,7 @@ export const ReviewForm = () => {
         <input required value = {formObj.nickname || null} onChange = {(e) => {setFormObj({...formObj, 'name': e.target.value})}} type = 'text' maxLength="50" placeholder ='Example: jackson11!'></input>
         <h2>Your email (mandatory)</h2>
         <input required  value = {formObj.email || null} onChange = {(e) => {setFormObj({...formObj, 'email': e.target.value})}}type = 'email' maxLength="60" placeholder ='Example: jackson11@email.com'></input>
-        <button onClick = {(e) => { e.preventDefault(); formSubmit();}}>Submit review</button>
+        <button onClick = {(e) => {e.preventDefault(); formSubmit();}}>Submit review</button>
         <div></div>
         </form>:null}
       <button onClick = {() => setShowForm(!showForm)}>ADD A REVIEW+</button>
