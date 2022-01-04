@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import ReactDom from 'react-dom';
 import {AppContext} from '../AppContext.jsx';
 import {ProductContext} from './ProductContext.jsx';
-import axios from 'axios';
+import InnerImageZoom from 'react-inner-image-zoom';
 
 export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails, mainPicRight, mainPicLeft}) => {
   const {products, setProducts} = useContext(AppContext);
@@ -38,8 +38,8 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
     'transform': 'translate(-50%, -50%)',
     'backgroundColor': '#FFF',
     // 'width': '400px',
-    'height': '80%',
-    'padding': '50px',
+    'height': '90%',
+    'padding': '5px',
     // 'text-align': 'center',
     'justify-content': 'center',
     'margin': 'auto',
@@ -82,8 +82,9 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
       <div style={overlayStyle} onClick={openExandView}></div>
       <div style={expandStyle}>
         <button id='expand-btn-left' onClick={mainPicLeft} style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
-        <img id='expanded-photo' src={mainPic} style={imgStyle}/>
-        <div style={thumbIcon}>Thumbnail Icons</div>
+        {/* <img id='expanded-photo' src={mainPic} style={imgStyle}/> */}
+        <InnerImageZoom src={mainPic} zoomType='click' zoomScale={1.5} hideHint={true} />
+        <div style={thumbIcon}></div>
         <button id='expand-btn-right' onClick={mainPicRight} style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
       </div>
     </>,
