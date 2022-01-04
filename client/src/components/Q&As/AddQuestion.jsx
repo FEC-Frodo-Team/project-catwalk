@@ -44,18 +44,18 @@ export const AddQuestion = (props) => {
     <div>
 
       {showForm &&
-      <div className="popup-box" style={styles.popupBox}>
-        <div className="box" style={styles.box}>
+      <div className="popup-box pic-modal" >
+        <div className="box modal-img" style={styles.box}>
 
           <span
-            className="close-icon"
-            style={styles.closeIcon}
+            className="close"
             onClick={toggleForm}>
-            x
+            &times;
           </span>
 
           <div style={styles.formInputs}>
-
+            <h4>Ask Your Question</h4>
+            <h5>About the </h5>
             <label>Your Question*</label>
             <textarea
               name="body"
