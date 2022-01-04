@@ -200,12 +200,18 @@ input:invalid:focus {
 
 
 /* Sixto 101-200 */
+/*Entire product overview containter*/
 .product-wrapper {
   display: flex;
   padding: 5px;
   justify-content: center;
   font-size: 0.75em;
 }
+/*Hides disabled buttons but maintains their flow in the document*/
+button:disabled {
+  opacity: 0;
+}
+/* Image gallery and thumbnail styling*/
 .gallery-container {
   width: 450px;
   background-color: WhiteSmoke;
@@ -258,6 +264,7 @@ input:invalid:focus {
   width: 100%;
   height: 3px;
 }
+/* Product information, Style Selector, and cart section*/
 .product-info-container {
   display: flex;
   width: 300px;
@@ -278,9 +285,10 @@ hr {
   text-align: center;
   height: 5px;
 }
+/*Style selector section*/
 .thumbnail-container {
   display: flex;
-  gap: 25px;
+  gap: 20px 15%;
   flex-wrap: wrap;
   justify-content: center;
   padding: 10px;
@@ -305,6 +313,7 @@ hr {
   filter: brightness(1.2) grayscale(.5) opacity(.9);
   cursor: pointer;
 }
+/*Add to cart section*/
 .cart-container {
   display: flex;
   position: relative;
@@ -315,12 +324,11 @@ hr {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-button:disabled {
-  opacity: 0;
-}
-/* For the expand view */
+
+/* For the expand view pluggin component*/
 .iiz {
   max-width: 100%;
+  max-height: 100%;
   margin: 0;
   position: relative;
   overflow: hidden;
