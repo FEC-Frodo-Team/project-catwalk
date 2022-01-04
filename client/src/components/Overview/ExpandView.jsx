@@ -4,16 +4,35 @@ import {AppContext} from '../AppContext.jsx';
 import {ProductContext} from './ProductContext.jsx';
 import axios from 'axios';
 
-export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails}) => {
+export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails, mainPicRight, mainPicLeft}) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const {productStyle, setProductStyle} = useContext(ProductContext);
   const {thumbNails, setThumbNails} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
 
+  useEffect(() => {
+    // console.log('ExpandView executed');
+    const inputs = Array.from(document.querySelectorAll('.photo-thumbnails-array input'));
+    if (inputs.length !== 0) {
+      const checkedThumb = inputs.filter((item) => item.checked === true);
+      const checkedThumbIndex = inputs.indexOf(checkedThumb[0]);
+
+      checkedThumb[0].nextElementSibling.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
+
+      if (expandEnabled) {
+        (checkedThumbIndex === 0)? document.getElementById('expand-btn-left').disabled = true: null;
+        (checkedThumbIndex !== 0)? document.getElementById('expand-btn-left').disabled = false: null;
+        (checkedThumbIndex === inputs.length - 1)? document.getElementById('expand-btn-right').disabled = true: null;
+        (checkedThumbIndex !== inputs.length - 1)? document.getElementById('expand-btn-right').disabled = false: null;
+      };
+    }
+  });
+
   const expandStyle = {
-    'display': 'relative',
+    'display': 'flex',
     'position': 'fixed',
+    'gap': '10px',
     'top': '50%',
     'left': '50%',
     'transform': 'translate(-50%, -50%)',
@@ -21,7 +40,7 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
     // 'width': '400px',
     'height': '80%',
     'padding': '50px',
-    'text-align': 'center',
+    // 'text-align': 'center',
     'justify-content': 'center',
     'margin': 'auto',
     'zIndex': '1000',
@@ -46,7 +65,9 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
   const thumbIcon = {
     'display': 'flex',
     'position': 'absolute',
-    'bottom': '20%',
+    'bottom': '0%',
+    'left': '50%',
+    'margin-left': '-150px',
     'width': '300px',
     'height': '40px',
     'border': '2px solid',
@@ -60,9 +81,10 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
     <>
       <div style={overlayStyle} onClick={openExandView}></div>
       <div style={expandStyle}>
-        <img src={mainPic} style={imgStyle}/>
+        <button id='expand-btn-left' onClick={mainPicLeft} style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
+        <img id='expanded-photo' src={mainPic} style={imgStyle}/>
         <div style={thumbIcon}>Thumbnail Icons</div>
-
+        <button id='expand-btn-right' onClick={mainPicRight} style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
       </div>
     </>,
     document.getElementById('expand-view'),

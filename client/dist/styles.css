@@ -221,6 +221,9 @@ input:invalid:focus {
 .main-photo:hover {
   cursor: zoom-in;
 }
+#expanded-photo:hover {
+  cursor: crosshair;
+}
 .photo-thumbnails-array {
   display: flex;
   width: 400px;
