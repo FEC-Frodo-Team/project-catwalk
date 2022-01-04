@@ -14,7 +14,7 @@ export const Answer = (props) => {
     <div id="answerBox"
       key={answer.id}
       style={styles.answerBox}>
-      <p style={styles.answerBoxP}> A: {answer.body}</p>
+      <p style={styles.answerBoxP}> <b>A:</b> {answer.body}</p>
 
       <div style={styles.answerPhotos}>
         {enlargePic ?

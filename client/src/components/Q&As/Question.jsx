@@ -43,7 +43,7 @@ export const Question = (props) => {
     <div>
       <hr />
       <div style={styles.questionBox}>
-        <p>Q: {question.question_body} </p>
+        <p style={{fontWeight: 'bold'}}>Q: {question.question_body} </p>
 
         <div style={styles.helpfulAndReport} className="helpfulAndReport">
           <p>
@@ -51,7 +51,7 @@ export const Question = (props) => {
           </p>
           <p className="vertical-line"> </p>
           <AddAnswer
-            questionId={question.question_id}
+            question={question}
             newAnswerCount={newAnswerCount}
             setNewAnswerCount={setNewAnswerCount}
           />
