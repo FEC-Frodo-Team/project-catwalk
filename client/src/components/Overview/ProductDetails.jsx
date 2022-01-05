@@ -15,21 +15,24 @@ export const ProductDetails = (props) => {
   const [mainPic, setMainPic] = useState('');
   const [availableQuantity, setQuantity] = useState(1);
   const [expandEnabled, setExpand] = useState(false);
+  const [itemStyle, setItemStyle] = useState('');
 
   useEffect(() => {
     axios
         .get(`api/products/${selectedProductID}/styles`)
         .then((element) => {
-          console.log('got Styles: ', element);
+          console.log('got Styles: ', products);
           setProductStyle(element);
           setSelectedStyle(element.data.results[0].name);
         });
   }, [selectedProductID]);
 
   return (
+    !productStyle.data? <div>loading product info</div>:
     <ProductContext.Provider value={{productStyle, setProductStyle, selectedStyle,
       setSelectedStyle, thumbNails, setThumbNails, salePrice, setSalePrice,
-      mainPic, setMainPic, availableQuantity, setQuantity, expandEnabled, setExpand}}>
+      mainPic, setMainPic, availableQuantity, setQuantity, expandEnabled, setExpand,
+      itemStyle, setItemStyle}}>
       <div className='product-wrapper'>
         <ImageGallery />
         <ProductInformation />
