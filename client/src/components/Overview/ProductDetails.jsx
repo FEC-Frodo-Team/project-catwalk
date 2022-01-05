@@ -11,6 +11,10 @@ export const ProductDetails = (props) => {
   const [productStyle, setProductStyle] = useState('Default');
   const [selectedStyle, setSelectedStyle] = useState('');
   const [thumbNails, setThumbNails] = useState('');
+  const [salePrice, setSalePrice] = useState('');
+  const [mainPic, setMainPic] = useState('');
+  const [availableQuantity, setQuantity] = useState(1);
+  const [expandEnabled, setExpand] = useState(false);
 
   useEffect(() => {
     axios
@@ -23,7 +27,9 @@ export const ProductDetails = (props) => {
   }, [selectedProductID]);
 
   return (
-    <ProductContext.Provider value={{productStyle, setProductStyle, selectedStyle, setSelectedStyle, thumbNails, setThumbNails}}>
+    <ProductContext.Provider value={{productStyle, setProductStyle, selectedStyle,
+      setSelectedStyle, thumbNails, setThumbNails, salePrice, setSalePrice,
+      mainPic, setMainPic, availableQuantity, setQuantity, expandEnabled, setExpand}}>
       <div className='product-wrapper'>
         <ImageGallery />
         <ProductInformation />

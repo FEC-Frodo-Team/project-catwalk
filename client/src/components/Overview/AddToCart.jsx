@@ -8,7 +8,7 @@ export const AddToCart = (props) => {
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
   const {cart, setCart} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
-  const [availableQuantity, setQuantity] = useState(1);
+  const {availableQuantity, setQuantity} = useContext(ProductContext);
   // const item = products.data.filter((item) => item.id === selectedProductID);
 
   const mapSizes = () => {
