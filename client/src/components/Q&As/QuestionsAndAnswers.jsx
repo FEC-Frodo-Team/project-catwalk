@@ -12,10 +12,12 @@ import {AddQuestion} from './AddQuestion.jsx';
 
 export const QuestionsAndAnswers = () => {
   const [questions, setQuestions] = useState({});
+  const [defaultQs, setDefaultQs] = useState();
   const [numQToDisplay, setNumQToDisplay] = useState(4);
   const [count, setCount] = useState(100);
   const [amount, setAmount] = useState(count);
-  const [newAnswerCount, setNewAnswerCount] = useState(0);
+  const [searchedFor, setSearchedFor] = useState(false);
+  // const [newAnswerCount, setNewAnswerCount] = useState(0);
   const {selectedProductID} = useContext(AppContext);
 
 
@@ -37,6 +39,7 @@ export const QuestionsAndAnswers = () => {
         .then((response) => {
           sortQuestions(response.data.results);
           setQuestions(response.data);
+          setDefaultQs(response.data);
           console.log('got Questions: ', response.data);
         })
         .catch(console.log);
@@ -44,7 +47,7 @@ export const QuestionsAndAnswers = () => {
 
   useEffect(() => {
     fetchQuestions();
-  }, [selectedProductID, count, amount, newAnswerCount]);
+  }, [selectedProductID, count, amount, searchedFor]);
 
   // function to increase the number of questions to display at a time
   const showMoreQuestions = () => {
@@ -64,14 +67,16 @@ export const QuestionsAndAnswers = () => {
     <QuestionsContext.Provider value={{
       questions, setQuestions,
       amount, setAmount,
-      newAnswerCount, setNewAnswerCount,
+      defaultQs, setDefaultQs,
+      // newAnswerCount, setNewAnswerCount,
+      searchedFor, setSearchedFor,
     }}>
-      <div style={styles.qAContainer}>
+      <div className="qA-container" >
 
         <h2>Questions & Answers</h2>
 
         <SearchQuestions />
-        <div style={styles.questionAndAnswers}>
+        <div className="question-list" >
           {questions.results.slice(0, numQToDisplay).map((question) => {
             return (
               <Question
@@ -85,8 +90,9 @@ export const QuestionsAndAnswers = () => {
         <div className="qa-buttons">
           {numQToDisplay < amount ?
           <button
+            className="showMore-btn"
             onClick={()=> showMoreQuestions()}
-            style={styles.buttons}>
+          >
             More Answered Questions
           </button> : null
           }
