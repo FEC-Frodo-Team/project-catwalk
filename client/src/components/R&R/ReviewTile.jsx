@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import {AppContext} from '../AppContext.jsx';
 import {ReviewContext} from './ReviewContext.jsx';
 import Rating from 'react-rating';
@@ -6,9 +6,10 @@ import Rating from 'react-rating';
 
 export const ReviewTile = () => {
   const {reviews} = useContext(AppContext);
-  const {showMore, setShowMore, searchTerm} = useContext(ReviewContext);
+  const {showMore, setShowMore, searchTerm,nearBottom, setNearBottom, starSelected} = useContext(ReviewContext);
+  const reviewBox = useRef(null);
+
   const summaryCharBreak = 50;
-  let nearBottom = false;
 //the mogen conversion library v.01
 const prettifyDate = (date) => {
     if (date) {
@@ -30,18 +31,28 @@ const prettifyDate = (date) => {
     }
     return 'Just Posted!';
   };
-//throttle the scroll
-  const throttle = () => {
-    nearBottom = true;
-  };
+  // throttle the scroll
+  // const throttle = () => {
+  //   setNearBottom(true);
+  //   //console.log('nearbottom is:', nearBottom );
+  // };
 
-  setInterval(() => {
-    if (nearBottom) {
-      nearBottom = false;
-      console.log('gotherer', showMore);
-      setShowMore(showMore+1);
-    }
-  }, 1000);
+  // const increaseReviewsScroll = () => {
+  //   //console.log('nearbottom isaaaa:', nearBottom );
+  //   if (nearBottom) {
+  //     setNearBottom(false);
+  //     console.log('gotherer', showMore);
+  //     setShowMore(showMore+1);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     increaseReviewsScroll();
+  //   }, 500);
+  // }, []);
+
+
 //figure out word break for summary
   const findWordBreak = (summary) => {
     for (let i = 0; (summaryCharBreak-i)>0; i++) {
@@ -53,11 +64,10 @@ const prettifyDate = (date) => {
   };
 
   const findSearchHighlight = (bodyText) => {
+    let x;
     if (bodyText.includes(searchTerm) && searchTerm.length>3) {
       const indexes = [...bodyText.matchAll(new RegExp(searchTerm, 'gi'))].map(a => a.index);
-      console.log(indexes);
-      return indexes.map((index)=>{
-        console.log(index);
+      x = indexes.map((index)=>{
         return ( <span>
                     <span>{bodyText.substring(0,index)}</span>
                     <span style={{backgroundColor: "#FFFF00"}}>{bodyText.substring(index,index+searchTerm.length)}</span>
@@ -65,16 +75,26 @@ const prettifyDate = (date) => {
                 </span>
         );
       });
+      return <React.Fragment>{x.map((highlight) => highlight) }</React.Fragment>;
     }
     return bodyText;
   };
 
+//bad dom peeking bad man!!
+ // (document.getElementById('reviewBox') && showMore*2<=reviews.data.results.length) ? document.getElementById('reviewBox').addEventListener('scroll',(e) => {((e.target.scrollTop+500)>(.9*e.target.scrollHeight))? throttle():null } ): null;
 
-  (document.getElementById('reviewBox') && showMore*2<=reviews.data.results.length) ? document.getElementById('reviewBox').addEventListener('scroll',(e) => {((e.target.scrollTop+650)>(.9*e.target.scrollHeight))? throttle(e):null } ): null;
-  const reviewTilesToDisplay = showMore*2<=reviews.data.results.length ? reviews.data.results.slice(0,showMore*2) : reviews.data.results;
+ const reviewTilesToDisplay = showMore*2<=reviews.data.results.length ? reviews.data.results.slice(0,showMore*2) : reviews.data.results;
   return (
-    <div id = 'reviewBox' style = {{overflow: 'auto', maxHeight: '650px'}}>
+    <div ref = {reviewBox} onScroll={(e)=> {
+      if (e.target.scrollHeight-e.target.scrollTop < 700) {
+        setShowMore(showMore+1);
+      }
+      console.log('got to scoll ', reviewBox, e.target.scrollHeight, e.target.scrollTop, e.target.offsetHeight);
+    }} style = {{overflow: 'auto', maxHeight: '500px'}}>
     {reviewTilesToDisplay.map((oneResult) => {
+      if (!starSelected[oneResult.rating] && starSelected.anySelected) {
+        return null;
+      }
       let showMoreReviewBody=false;
       return (
         <div style = {{borderBottom: "3px solid grey", paddingTop: "20px"}}>
@@ -83,7 +103,7 @@ const prettifyDate = (date) => {
             <span>{oneResult.reviewer_name || oneResult.name}, {prettifyDate(oneResult.date)}</span>
           </div>
           <div>
-            <h2>{oneResult.summary.length <= summaryCharBreak ? oneResult.summary : oneResult.summary.substring(0,findWordBreak(oneResult.summary))+'...'}</h2>
+            <h2>{oneResult.summary.length <= summaryCharBreak ? findSearchHighlight(oneResult.summary) : findSearchHighlight(oneResult.summary.substring(0,findWordBreak(oneResult.summary)))+'...'}</h2>
           </div>
           <div style = {{paddingBottom:'10px'}}>{oneResult.summary.length > summaryCharBreak ? '...'+oneResult.summary.substring(findWordBreak(oneResult.summary),oneResult.summary.length) : null}</div>
           <div onClick = {() => {console.log('getting the click!!!');showMoreReviewBody = true;}}>

@@ -17,6 +17,8 @@ export const RatingsAndReviews = () => {
   const [charObj, setCharObj] = useState({});
   const [sortedBy, setSortedBy] = useState('Relevant');
   const [searchTerm, setSearchTerm] = useState('');
+  const [nearBottom, setNearBottom] = useState(false);
+  const [starSelected, setStarSelected] = useState({anySelected: false, 1: false, 2: false, 3: false, 4: false, 5: false});
   const totalNumberReviews = (Number(reviewMetaData.data.recommended.true)+Number(reviewMetaData.data.recommended.false))
   const percentageRecommend = reviews.data.results.length ?
     100*Number(reviewMetaData.data.recommended.true)/totalNumberReviews : 0;
@@ -32,8 +34,10 @@ export const RatingsAndReviews = () => {
       charObj, setCharObj,
       searchTerm, setSearchTerm,
       sortedBy, setSortedBy,
+      nearBottom, setNearBottom,
+      starSelected, setStarSelected,
     }}>
-      <div style = {{width: '70%', left: '15%', position: 'absolute', paddingBottom: '5%'}}>
+      <div style = {{width: '70%', maxWidth: '1100px', left: '15%', margin: 'auto', paddingBottom: '5%'}}>
         <h2>RatingsAndReviews</h2>
         <div style={{width: '30%', float: 'left'}}>
           <h2>{averageRating}
@@ -45,6 +49,9 @@ export const RatingsAndReviews = () => {
         </div>
         <div style={{width: '70%', float: 'left'}}>
         <SearchReviews />
+        {Object.keys(starSelected).map((key) => {
+          return starSelected[key] && key !== 'anySelected' ? <span>{key} Selected   </span>:null;
+        })}
           <ReviewTile />
           <span>
             {showMore*2<=reviews.data.results.length ?<button onClick = {() => {setShowMore(showMore+1)}}>MORE REVIEWS</button>:null
