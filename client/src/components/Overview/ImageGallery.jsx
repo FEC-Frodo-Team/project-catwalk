@@ -108,7 +108,7 @@ export const ImageGallery = (props) => {
         <button id='scroll-left-thumbnails' style={{'height': '25px'}} onClick={thumbLeft}>{'<'}</button>
         <div id='thumbnails-container'>{mapThumbNails()}</div>
         <button id='scroll-right-thumbnails' style={{'height': '25px'}} onClick={thumbRight}>{'>'}</button>
-        <ExpandView expandEnabled={expandEnabled} openExandView={openExandView} mainPic={mainPic} mapThumbNails={mapThumbNails} mainPicRight={mainPicRight} mainPicLeft={mainPicLeft}/>
+        <ExpandView expandEnabled={expandEnabled} openExandView={openExandView} mainPic={mainPic} setMainPic={setMainPic} mainPicRight={mainPicRight} mainPicLeft={mainPicLeft}/>
       </div>
     </div>
   );

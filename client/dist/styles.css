@@ -281,6 +281,10 @@ button:disabled {
   z-index: 1000;
   flex-wrap: wrap;
 }
+.expanded-thumb-icons:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
 /* Product information, Style Selector, and cart section*/
 .product-info-container {
   display: flex;
