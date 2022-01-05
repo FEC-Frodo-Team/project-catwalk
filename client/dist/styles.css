@@ -98,8 +98,40 @@ input:invalid:focus {
 
 
 /* MATT IS ABOVE 1-100 */
+.qA-container  {
+  margin: auto;
+  width: 70%;
+  padding: 10px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+.question-list {
+  padding: 1rem;
+  margin: 0.5rem;
+  height: 35vh;
+  overflow-y: scroll;
+}
+
+#more-less-answers {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+
+.helpfulAndReport {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.8rem;
+}
+
 .helpfulAndReport > p {
-  padding-right: 0.6rem
+  padding-right: 0.6rem;
+  display: flex;
+  flex-direction: row;
+  font-size: 0.8rem;
 }
 
 .vertical-line {
@@ -114,7 +146,14 @@ input:invalid:focus {
   justify-content: space-between;
 }
 
-.pic-modal {
+.showMore-btn, .addQ-btn {
+  width: auto;
+  height: 3rem;
+  background: transparent;
+  margin-right: .5rem;
+}
+
+.modal {
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   padding-top: 100px; /* Location of the box */
@@ -137,55 +176,20 @@ input:invalid:focus {
   transition: 0.3s;
 }
 
-.modal-img {
+.modal-box {
   margin: auto;
   display: block;
-  width: auto;
-  max-width: 70vh;
-  height: 80%;
+  width: 70%;
+  max-width: 700px;
+  height: auto;
   max-height: 80vh;
+  background: #fff;
+  border-radius: 4px;
+  padding: 13px;
+  overflow: auto;
+  position: relative;
+  margin-top: 13vh;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

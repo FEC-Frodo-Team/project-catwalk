@@ -17,16 +17,7 @@ export const Answer = (props) => {
       <p style={styles.answerBoxP}> <b>A:</b> {answer.body}</p>
 
       <div style={styles.answerPhotos}>
-        {enlargePic ?
-        <div >
-          <img
-            src={event.target.src}
-            style={styles.enlargePic}
-            onClick={() => setEnlargePic(!enlargePic)}
-          />
-        </div> :
-        null
-        }
+
         {answer.photos.length ?
             answer.photos.map((pic, index) => {
               return (
@@ -39,9 +30,9 @@ export const Answer = (props) => {
                   nested
                   >
                     {(close) => (
-                      <div className="pic-modal">
+                      <div className="modal">
                         <span className="close" onClick={close}>&times;</span>
-                        <img className="modal-img"
+                        <img className="modal-box"
                           src={pic.url}
                           onClick={close} />
                       </div>
@@ -54,8 +45,8 @@ export const Answer = (props) => {
       </div>
 
       <div style={styles.helpfulAndReport} className="helpfulAndReport">
-        <p>by {answer.answerer_name.toLowerCase() === 'seller' ?
-                <b>{answer.answerer_name.toUpperCase()}</b> :
+        <p>by : {answer.answerer_name.toLowerCase() === 'seller' ?
+             <b>{'SELLER'}</b> :
                 answer.answerer_name},
         {' ' + moment(answer.date.slice(0, 10)).format('MMMM DD, YYYY')} </p>
         <p className="vertical-line"></p>

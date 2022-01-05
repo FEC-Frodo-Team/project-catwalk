@@ -9,11 +9,13 @@ import {AddAnswer} from './AddAnswer.jsx';
 import {Answer} from './Answer.jsx';
 
 export const Question = (props) => {
-  const {selectedProductID} = useContext(AppContext);
+  const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const [question] = useState(props.question);
-  const [answers, setAnswers] = useState(question.answers);
+  const [helpfulnessCount, setHelpfulnessCount] = useState(question.question_helpfulness);
+  const [answers, setAnswers] = useState();
   const {newAnswerCount, setNewAnswerCount} = useContext(QuestionsContext);
   const [numAToDisplay, setNumAToDisplay] = useState(2);
+  const [helpfulClicked, setHelpfulClicked] = useState(false);
 
   const sortAnswers = (response) => {
     response.sort((a1, a2) =>
@@ -38,16 +40,35 @@ export const Question = (props) => {
     setNumAToDisplay(answers.length);
   };
 
+  const handleClick = (event) => {
+    console.log(event.target.className);
+    const {className} = event.target;
+
+    if (className === 'helpful' && helpfulClicked) {
+      alert('you can not click helpful more than once');
+      return;
+    }
+
+    axios.put(`api/qa/questions/${question.question_id}/${className}`)
+        .then(() => setHelpfulClicked(true))
+        .then(() => props.fetchQuestions())
+        .then(() => setHelpfulnessCount(helpfulnessCount + 1))
+        .catch(console.log);
+  };
   return (
     !Array.isArray(answers) ? <div>loading question...</div> :
     <div>
       <hr />
-      <div style={styles.questionBox}>
+      <div id="question-box" style={styles.questionBox}>
         <p style={{fontWeight: 'bold'}}>Q: {question.question_body} </p>
 
-        <div style={styles.helpfulAndReport} className="helpfulAndReport">
-          <p>
-            Helpful? Yes({question.question_helpfulness})
+        <div className="helpfulAndReport">
+          <p
+            className="helpful"
+            onClick={(event) => {
+              handleClick(event);
+            }}>
+            Helpful? Yes({helpfulnessCount})
           </p>
           <p className="vertical-line"> </p>
           <AddAnswer
@@ -56,7 +77,7 @@ export const Question = (props) => {
             setNewAnswerCount={setNewAnswerCount}
           />
           <p className="vertical-line"> </p>
-          <p>
+          <p className="report" onClick={(event) => handleClick(event)}>
             report
           </p>
 
@@ -70,7 +91,7 @@ export const Question = (props) => {
         );
       })}
 
-      <div style={styles.moreLessAnswers}>
+      <div id="more-less-answers" >
         {numAToDisplay < answers.length ?
          <div onClick={() => showMoreAnswers()}>
          LOAD MORE ANSWERS
