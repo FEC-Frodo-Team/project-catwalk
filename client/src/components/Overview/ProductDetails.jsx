@@ -8,7 +8,7 @@ import axios from 'axios';
 export const ProductDetails = (props) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
-  const [productStyle, setProductStyle] = useState('Default');
+  const [productStyle, setProductStyle] = useState('');
   const [selectedStyle, setSelectedStyle] = useState('');
   const [thumbNails, setThumbNails] = useState('');
   const [salePrice, setSalePrice] = useState('');
@@ -21,14 +21,15 @@ export const ProductDetails = (props) => {
     axios
         .get(`api/products/${selectedProductID}/styles`)
         .then((element) => {
-          console.log('got Styles: ', products);
+          console.log('got Styles: ', element);
           setProductStyle(element);
           setSelectedStyle(element.data.results[0].name);
+          setItemStyle(element.data.results[0]);
         });
   }, [selectedProductID]);
 
   return (
-    !productStyle.data? <div>loading product info</div>:
+    !productStyle.data || !itemStyle ? <div>loading product info</div>:
     <ProductContext.Provider value={{productStyle, setProductStyle, selectedStyle,
       setSelectedStyle, thumbNails, setThumbNails, salePrice, setSalePrice,
       mainPic, setMainPic, availableQuantity, setQuantity, expandEnabled, setExpand,

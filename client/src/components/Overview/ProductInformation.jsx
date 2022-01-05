@@ -21,8 +21,8 @@ export const ProductInformation = (props) => {
   // };
 
 
-  console.log('ItemStyle Ezra: ', currentProduct.data);
-  console.log('productsyle data: ', productStyle);
+  console.log('ItemStyle Ezra: ', itemStyle);
+  console.log('productsyle data: ', itemStyle.sale_price);
 
 
   return (

@@ -17,7 +17,7 @@ export const StyleSelector = (props) => {
       return JSON.stringify(item.style_id) === event.target.getAttribute('id');
     });
     // console.log('Jeff: ', selectedItem);
-    setItemStyle(selectedItem);
+    setItemStyle(selectedItem[0]);
     setThumbNails(selectedItem[0].photos);
   };
 
