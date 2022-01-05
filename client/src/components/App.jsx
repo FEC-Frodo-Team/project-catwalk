@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AppContext} from './AppContext.jsx';
+import {Header} from './Header.jsx';
 import {ProductDetails} from './Overview/ProductDetails.jsx';
 import {QuestionsAndAnswers} from './Q&As/QuestionsAndAnswers.jsx';
 import {RatingsAndReviews} from './R&R/RatingsAndReviews.jsx';
@@ -23,6 +24,7 @@ export const App = () => {
   // const [interactions, setInteractions] = useState({});
 
   useEffect(() => {
+    console.log('Triggered Gets');
     // List of products Ezra's main info. Defaults to 1 page with 5 results.
     axios
         .get(`api/products`)
@@ -47,13 +49,13 @@ export const App = () => {
 
     // Ratings and reviews Matt's main info.
     axios
-        .get(`api/reviews?product_id=${defaultProductID}&count=100`)
+        .get(`api/reviews?product_id=${selectedProductID}&count=100`)
         .then((results) => {
           console.log('got reviews: ', results);
           setReviews(results);
         });
     axios
-        .get(`api/reviews/meta?product_id=${defaultProductID}`)
+        .get(`api/reviews/meta?product_id=${selectedProductID}`)
         .then((results) => {
           console.log('got reviews Meta: ', results);
           setReviewsMetaData(results);
@@ -76,6 +78,7 @@ export const App = () => {
         {// ezra's component
           // sixto's component
         }
+        <Header />
         <ProductDetails />
         <QuestionsAndAnswers />
         <RatingsAndReviews />

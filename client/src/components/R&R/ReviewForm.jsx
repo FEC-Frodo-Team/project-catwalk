@@ -65,11 +65,11 @@ export const ReviewForm = () => {
   };
 
 
-  let productName = products.data.filter((item) => item.id === selectedProductID)[0].name;
+  let productName = 'testing' // products.data.filter((item) => item.id === selectedProductID)[0].name;
   return (
     <div>
       {showForm? <form style = {{overflow: 'auto', border: '2px solid blue', position: 'absolute', left:'12%', backgroundColor: 'white', width:'76%', height: '100%', top: '-10%'}}>
-        <span id = 'closeIcon' onClick = {() => setShowForm(!showForm)} >X</span>
+        <span id ='closeIcon' onClick = {() => setShowForm(!showForm)} >&times;</span>
         <h2 style = {{textAlign: 'center'}}>Write Your Review </h2>
         <div style = {{textAlign: 'center'}}>About the {productName}</div>
         <h2> Overall rating (mandatory)</h2>
