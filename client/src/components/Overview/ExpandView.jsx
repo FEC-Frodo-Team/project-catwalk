@@ -4,12 +4,13 @@ import {AppContext} from '../AppContext.jsx';
 import {ProductContext} from './ProductContext.jsx';
 import InnerImageZoom from 'react-inner-image-zoom';
 
-export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails, mainPicRight, mainPicLeft}) => {
+export const ExpandView = ({expandEnabled, openExandView, mainPic, mainPicRight, mainPicLeft, setMainPic}) => {
   const {products, setProducts} = useContext(AppContext);
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const {productStyle, setProductStyle} = useContext(ProductContext);
   const {thumbNails, setThumbNails} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
+  const thumbArray = document.getElementsByClassName('thumbradio');
 
   useEffect(() => {
     // console.log('ExpandView executed');
@@ -29,6 +30,37 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
     }
   });
 
+
+  const mapThumbIcons = () => {
+    const iconArray = [];
+    let counter = -1;
+
+    for (let i = 0; i < thumbArray.length; i++) {
+      iconArray.push(thumbArray[i]);
+    }
+    console.log('thumb icons: ', thumbArray);
+
+    return iconArray.map((icons) => {
+      counter++;
+      if (icons.checked === true) {
+        return (
+          <div className='expanded-thumb-icons' data-index={counter} onClick={iconClick}>&#9775;</div>
+        );
+      } else {
+        return (
+          <div className='expanded-thumb-icons' data-index={counter} onClick={iconClick}>&#9900;</div>
+        );
+      };
+    });
+  };
+
+  const iconClick = (event) => {
+    const checkedIndex = event.target.getAttribute('data-index');
+    console.log('icon click: ', thumbArray[parseInt(checkedIndex)].checked);
+    thumbArray[parseInt(checkedIndex)].checked = true;
+    setMainPic(thumbArray[parseInt(checkedIndex)].value);
+  };
+
   const expandStyle = {
     'display': 'flex',
     'position': 'fixed',
@@ -37,13 +69,15 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
     'left': '50%',
     'transform': 'translate(-50%, -50%)',
     'backgroundColor': '#FFF',
-    // 'width': '400px',
+    'width': '900px',
     'height': '90%',
     'padding': '5px',
     // 'text-align': 'center',
     'justify-content': 'center',
     'margin': 'auto',
     'zIndex': '1000',
+    'flex-wrap': 'wrap',
+    'gap': '20px 15%',
   };
 
   const overlayStyle = {
@@ -64,28 +98,27 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mapThumbNails
 
   const thumbIcon = {
     'display': 'flex',
-    'position': 'absolute',
-    'bottom': '0%',
-    'left': '50%',
-    'margin-left': '-150px',
+    // 'position': 'absolute',
+    // 'bottom': '0%',
+    // 'left': '50%',
+    // 'margin-left': '-150px',
     'width': '300px',
     'height': '40px',
-    'border': '2px solid',
     'gap': '15px',
-    'overflow-x': 'hidden',
-    'scroll-behavior': 'smooth',
+    'justify-content': 'space-around',
   };
 
   return !expandEnabled? null: ReactDom.createPortal(
     !productStyle.data ? <div>Loading Image..</div>:
     <>
       <div style={overlayStyle} onClick={openExandView}></div>
-      <div style={expandStyle}>
+      <div id='expand-container'>
         <button id='expand-btn-left' onClick={mainPicLeft} style={{'height': '30px', 'align-self': 'center'}}>{'<'}</button>
         {/* <img id='expanded-photo' src={mainPic} style={imgStyle}/> */}
         <InnerImageZoom src={mainPic} zoomType='click' zoomScale={1.5} hideHint={true} />
-        <div style={thumbIcon}></div>
         <button id='expand-btn-right' onClick={mainPicRight} style={{'height': '30px', 'align-self': 'center'}}>{'>'}</button>
+        <div className='break' style={{'flex-basis': '100%', 'height': '0'}}></div>
+        <div style={thumbIcon}>{mapThumbIcons()}</div>
       </div>
     </>,
     document.getElementById('expand-view'),

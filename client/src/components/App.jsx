@@ -8,7 +8,7 @@ import axios from 'axios';
 
 export const App = () => {
   // Currently product selection is the only thing that rerenders everything
-  const defaultProductID = 44392;
+  const defaultProductID = 44388;
   const [selectedProductID, setSelectedProductID] = useState(defaultProductID);
 
   // Making all of the calls global to start then we can bring down into our

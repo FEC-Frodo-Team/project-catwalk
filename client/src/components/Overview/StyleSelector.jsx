@@ -9,17 +9,18 @@ export const StyleSelector = (props) => {
   const {productStyle, setProductStyle} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
   const {thumbNails, setThumbNails} = useContext(ProductContext);
+  const {itemStyle, setItemStyle} = useContext(ProductContext);
   let firstPic = true;
 
   const styleSelectBtn = (event) => {
-    // console.log(productStyle.data.results);
-
-    const itemStyle = productStyle.data.results.filter((item) => {
+    const selectedItem = productStyle.data.results.filter((item) => {
       return JSON.stringify(item.style_id) === event.target.getAttribute('id');
     });
-    // console.log('Style Click event:', itemStyle[0].photos);
-    setThumbNails(itemStyle[0].photos);
+    // console.log('Jeff: ', selectedItem);
+    setItemStyle(selectedItem[0]);
+    setThumbNails(selectedItem[0].photos);
   };
+
 
   const thumbNailHover = (event) => {
     setSelectedStyle(event.target.getAttribute('value'));
