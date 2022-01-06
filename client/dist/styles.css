@@ -11,15 +11,24 @@ input:invalid:focus {
 
 .HeaderMain {
   height: 10%;
-  background-color: lightgreen;
+  background-color: cadetblue;
   display:flex;
   justify-content: space-around;
+  border: 5px solid rgb(21, 65, 90);
+
 }
 
+#brand-name {
+  font-family: 'Vujahday Script', cursive;
+  font-size: 2.4em;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 8px;
+}
 
-
-
-
+#product-selector {
+  margin-top: 2.2%
+}
 
 
 
@@ -179,13 +188,7 @@ input:invalid:focus {
   padding: 13px;
   overflow: auto;
   position: relative;
-  margin-top: 13vh;
 }
-
-
-
-
-
 
 
 

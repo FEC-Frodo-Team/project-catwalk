@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {QuestionsContext} from './QuestionsContext.jsx';
 import {styles} from './styles.js';
+import {BsSearch} from 'react-icons/bs';
 
 
 export const SearchQuestions = () => {
@@ -8,8 +9,9 @@ export const SearchQuestions = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
 
-  const handleSearch = (term) => {
+  const handleSearch = (event, term) => {
     // setSearchedFor(true);
+    event.preventDefault();
     if (term.length < 3) {
       setQuestions(defaultQs);
       return;
@@ -36,10 +38,10 @@ export const SearchQuestions = () => {
 
         onChange={(event) => {
           setSearchTerm(event.target.value);
-          handleSearch(searchTerm);
+          handleSearch(event, searchTerm);
         }}
       />
-      <button style={styles.searchBtn}>search</button>
+      <button style={styles.searchBtn}> <BsSearch /></button>
     </form>
   );
 };

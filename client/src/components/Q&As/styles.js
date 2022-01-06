@@ -20,6 +20,7 @@ export const styles = {
     border: '1px solid black',
     borderLeft: 'none',
     cursor: 'pointer',
+    fontColor: 'black',
   },
 
 
