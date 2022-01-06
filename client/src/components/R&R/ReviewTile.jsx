@@ -2,10 +2,11 @@ import React, {useContext, useEffect, useRef} from 'react';
 import {AppContext} from '../AppContext.jsx';
 import {ReviewContext} from './ReviewContext.jsx';
 import Rating from 'react-rating';
+import axios from 'axios';
 
 
 export const ReviewTile = () => {
-  const {reviews} = useContext(AppContext);
+  const {reviews, setReviews, selectedProductID} = useContext(AppContext);
   const {showMore, setShowMore, searchTerm,nearBottom, setNearBottom, starSelected} = useContext(ReviewContext);
   const reviewBox = useRef(null);
 
@@ -31,26 +32,6 @@ const prettifyDate = (date) => {
     }
     return 'Just Posted!';
   };
-  // throttle the scroll
-  // const throttle = () => {
-  //   setNearBottom(true);
-  //   //console.log('nearbottom is:', nearBottom );
-  // };
-
-  // const increaseReviewsScroll = () => {
-  //   //console.log('nearbottom isaaaa:', nearBottom );
-  //   if (nearBottom) {
-  //     setNearBottom(false);
-  //     console.log('gotherer', showMore);
-  //     setShowMore(showMore+1);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     increaseReviewsScroll();
-  //   }, 500);
-  // }, []);
 
 
 //figure out word break for summary
@@ -63,20 +44,37 @@ const prettifyDate = (date) => {
     }
   };
 
+  const helpful = (e) => {
+    console.log('got click on help', e.target.id);
+    axios.put(`api/reviews/${e.target.id}/helpful`);
+  };
+
+  const report = (e) => {
+    axios.put(`api/reviews/${e.target.className}/report`)
+        .then(() => {
+          console.log('adasdf');
+          axios
+          .get(`api/reviews?product_id=${selectedProductID}&count=100`)
+          .then((results) => {
+            console.log('got reviews: ', results);
+            setReviews(results);})
+          })
+  };
+
   const findSearchHighlight = (bodyText) => {
-    let x;
     if (bodyText.includes(searchTerm) && searchTerm.length>3) {
       const indexes = [...bodyText.matchAll(new RegExp(searchTerm, 'gi'))].map(a => a.index);
-      x = indexes.map((index)=>{
+      let leftOff =indexes[0];
+      console.log(indexes);
         return ( <span>
-                    <span>{bodyText.substring(0,index)}</span>
-                    <span style={{backgroundColor: "#FFFF00"}}>{bodyText.substring(index,index+searchTerm.length)}</span>
-                    <span>{bodyText.substring(index+searchTerm.length,bodyText.length)}</span>
+          <span>{bodyText.substring(0, indexes[0])}</span>
+          {indexes.map((index)=>{
+                    return (<span>{bodyText.substring(leftOff,index)}<span style={{backgroundColor: "#FFFF00"}}>{bodyText.substring(index,index+searchTerm.length)}</span><span style = {{display: 'none'}}>{leftOff = index+searchTerm.length} </span></span> )})}
+                    <span>{bodyText.substring(indexes[indexes.length-1]+searchTerm.length,bodyText.length)}</span>
                 </span>
         );
-      });
-      return <React.Fragment>{x.map((highlight) => highlight) }</React.Fragment>;
-    }
+
+          }
     return bodyText;
   };
 
@@ -97,7 +95,7 @@ const prettifyDate = (date) => {
       }
       let showMoreReviewBody=false;
       return (
-        <div style = {{borderBottom: "3px solid grey", paddingTop: "20px"}}>
+        <div style = {{borderBottom: "3px solid grey", paddingTop: "20px",marginBottom: '5%'}}>
           <div style = {{display: "flex", justifyContent: "space-between"}}>
             <Rating readonly = {true} initialRating = {oneResult.rating}/>
             <span>{oneResult.reviewer_name || oneResult.name}, {prettifyDate(oneResult.date)}</span>
@@ -106,16 +104,15 @@ const prettifyDate = (date) => {
             <h2>{oneResult.summary.length <= summaryCharBreak ? findSearchHighlight(oneResult.summary) : findSearchHighlight(oneResult.summary.substring(0,findWordBreak(oneResult.summary)))+'...'}</h2>
           </div>
           <div style = {{paddingBottom:'10px'}}>{oneResult.summary.length > summaryCharBreak ? '...'+oneResult.summary.substring(findWordBreak(oneResult.summary),oneResult.summary.length) : null}</div>
-          <div onClick = {() => {console.log('getting the click!!!');showMoreReviewBody = true;}}>
+          <div id = {oneResult.body} onClick = {(e) => {e.target.innerText = e.target.id}}>
             {oneResult.body.length <= 250 ? findSearchHighlight(oneResult.body) : findSearchHighlight(oneResult.body.substring(0,250))+'...Show More'}
           </div>
-          <div>{showMoreReviewBody ?  oneResult.body.substring(250,oneResult.body.length): null}</div>
           {oneResult.recommend?<div>√ I recommend this product</div>:null}
           {oneResult.response?<div style = {{backgroundColor: "grey"}}>
             <h2>Response:</h2>
             <p>{oneResult.response}</p>
             </div>:null}
-          <div>Helpful? Yes({oneResult.helpfulness})  |  Report Component</div>
+          <div><span id = {oneResult.review_id } className = {oneResult.helpfulness} onClick= {(e) => {helpful(e);console.log(e.target.className);e.target.innerText = `Helpful? Yes(${Number(e.target.className)+1})`}}>Helpful? Yes({oneResult.helpfulness})</span>  <span className = {oneResult.review_id }onClick = {(e)=>{report(e)}}>|  Report Component</span></div>
       </div>);
     })}
   </div>

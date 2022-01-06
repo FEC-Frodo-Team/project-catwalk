@@ -8,14 +8,15 @@ export const Characteristics = (props) => {
   return (
     !reviewMetaData.data ? <p>no character</p> :
       Object.keys(reviewMetaData.data.characteristics).map((key) => {
-        return <div style = {{ width: "90%"}}>
-              <div style = {{ textAlign: "center"}}>{key}</div>
-              <span style = {{position:'absolute',  left:`${reviewMetaData.data.characteristics[key].value*4.8+15}%`}}>⤊</span>
-              <span style = {{ color: "Lightgray", display: "inline-block", backgroundColor:"LightGray", width: `${31}%`, maxHeight: "10px"}}>.</span>
+        return <div style = {{position:'relative'}}>
+              <div style = {{ textAlign: "center", width: `${76.5}%`}}>{key}</div>
+              <span style = {{ color: "Lightgray", display: "inline-block", backgroundColor:"LightGray", width: `${24.5}%`, maxHeight: "10px"}}>.</span>
               <span style = {{ color: "white", display: "inline-block", backgroundColor:"white", width: `${1}%`, maxHeight: "10px"}}>.</span>
-              <span style = {{ color: "Lightgray", display: "inline-block", backgroundColor:"LightGray", width: `${31}%`, maxHeight: "10px"}}>.</span>
+              <span style = {{ color: "Lightgray", display: "inline-block", backgroundColor:"LightGray", width: `${24.5}%`, maxHeight: "10px"}}>.</span>
+              <span style = {{position:'absolute',  left:`${reviewMetaData.data.characteristics[key].value*13.4}%`}}>⤊</span>
               <span style = {{ color: "white", display: "inline-block", backgroundColor:"white", width: `${1}%`, maxHeight: "10px"}}>.</span>
-              <span style = {{ color: "Lightgray", display: "inline-block", backgroundColor:"LightGray", width: `${31}%`, maxHeight: "10px"}}>.</span>
+              <span style = {{ color: "Lightgray", display: "inline-block", backgroundColor:"LightGray", width: `${24.5}%`, maxHeight: "10px"}}>.</span>
+
         </div>;
       })
   );
