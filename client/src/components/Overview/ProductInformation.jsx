@@ -12,26 +12,21 @@ export const ProductInformation = (props) => {
   const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const {salePrice, setSalePrice} = useContext(ProductContext);
   const {itemStyle, setItemStyle} = useContext(ProductContext);
-  // const item = products.data.filter((item) => item.id === selectedProductID);
-  // const itemStyle = productStyle.data.results.filter((item) => {
-  //   return JSON.stringify(item.style_id) === event.target.getAttribute('id');
-  // });
 
-  // if (!!productStyle.data.results) {
-  //   console.log('Item: ', productStyle.data.results);
-  // };
-
-
-  const shareIconsStyle = {
-
-  };
   const checkSale = () => {
     if (itemStyle.sale_price) {
-      return (<div>{'Price: $'}<s>{currentProduct.data.default_price}</s>{' $' + itemStyle.sale_price}</div>);
+      return (
+        <div>{'Price: $'}
+          <s>{currentProduct.data.default_price}</s>
+          {' $' + itemStyle.sale_price}
+        </div>);
     } else {
-      return (<div>{'Price: $' + currentProduct.data.default_price}</div>);
+      return (
+        <div>{'Price: $' + currentProduct.data.default_price}</div>
+      );
     }
   };
+
   return (
     !productStyle.data ? <div>Loading Image..</div>:
     <div className='product-info-container'>
