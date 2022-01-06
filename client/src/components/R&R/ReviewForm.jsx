@@ -155,7 +155,6 @@ export const ReviewForm = () => {
         }}>Submit review</button>
         <div></div>
       </form> </div>:null}
-      <button onClick = {() => setShowForm(!showForm)}>ADD A REVIEW+</button>
     </div>
   );
 };
