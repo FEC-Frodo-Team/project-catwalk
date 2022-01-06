@@ -37,26 +37,26 @@ export const RatingsAndReviews = () => {
       nearBottom, setNearBottom,
       starSelected, setStarSelected,
     }}>
-      <div style = {{width: '70%', maxWidth: '1100px', left: '15%', margin: 'auto', paddingBottom: '5%'}}>
+      <div style = {{width: '70%', maxWidth: '1100px', left: '15%', margin: 'auto', marginBottom: '15%'}}>
         <h2>RatingsAndReviews</h2>
         <div style={{width: '30%', float: 'left'}}>
           <h2>{averageRating}
              <Rating initialRating={averageRating} readonly = {true} fractions = {4}/>
           </h2>
-          <p>{percentageRecommend.toFixed()}% of reviews recommend this product</p>
+          <p>{percentageRecommend.toFixed(1)}% of reviews recommend this product</p>
           <Breakdown />
           <Characteristics />
         </div>
-        <div style={{width: '70%', float: 'left'}}>
+        <div style={{width: '70%', float: 'left', marginBottom: '5%'}}>
         <SearchReviews />
         {Object.keys(starSelected).map((key) => {
           return starSelected[key] && key !== 'anySelected' ? <span>{key} Selected   </span>:null;
         })}
           <ReviewTile />
-          <span>
-            {showMore*2<=reviews.data.results.length ?<button onClick = {() => {setShowMore(showMore+1)}}>MORE REVIEWS</button>:null
-            }
+          <span style={{display: 'flex', justifyContent:'space-between'}}>
+            {showMore*2<=reviews.data.results.length ?<button onClick = {() => {setShowMore(showMore+1)}}>MORE REVIEWS</button>:null}
             <ReviewForm />
+          <span onClick = {() => setShowForm(!showForm)}>ADD A REVIEW+</span>
           </span>
         </div>
       </div>
