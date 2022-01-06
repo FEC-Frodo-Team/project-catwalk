@@ -8,7 +8,7 @@ import moment from 'moment';
 
 export const Answer = (props) => {
   const [answer] = useState(props.answer);
-  const [enlargePic, setEnlargePic] = useState(false);
+
 
   return (
     <div id="answerBox"
