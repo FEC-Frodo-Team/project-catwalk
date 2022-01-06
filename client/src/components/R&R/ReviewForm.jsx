@@ -128,7 +128,6 @@ export const ReviewForm = () => {
         <button onClick = {(e) => {e.preventDefault(); formSubmit();}}>Submit review</button>
         <div></div>
         </form>:null}
-      <button onClick = {() => setShowForm(!showForm)}>ADD A REVIEW+</button>
     </div>
   );
 };
