@@ -241,6 +241,7 @@ button:disabled {
   gap: 15px;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  justify-content: space-between;
 }
 .main-thumbnail {
   height: 25px;

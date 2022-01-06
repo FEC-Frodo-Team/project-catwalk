@@ -23,14 +23,19 @@ export const ProductInformation = (props) => {
 
   console.log('ItemStyle Ezra: ', itemStyle);
   console.log('productsyle data: ', itemStyle.sale_price);
-
-
+  const checkSale = () => {
+    if (itemStyle.sale_price) {
+      return (<div>{'Price: $'}<s>{currentProduct.data.default_price}</s>{' $' + itemStyle.sale_price}</div>);
+    } else {
+      return (<div>{'Price: $' + currentProduct.data.default_price}</div>);
+    }
+  };
   return (
     !productStyle.data ? <div>Loading Image..</div>:
     <div className='product-info-container'>
       <h2 id='product-info-header'>Product Details</h2>
       <div>{currentProduct.data.category + ': ' + currentProduct.data.name}</div>
-      <div>{'Price: $' + currentProduct.data.default_price}</div>
+      {checkSale()}
       <i><h4>{currentProduct.data.slogan}</h4></i>
       <div>{'Description: ' + currentProduct.data.description}</div>
       <StyleSelector />
