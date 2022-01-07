@@ -37,7 +37,7 @@ export const RatingsAndReviews = () => {
       nearBottom, setNearBottom,
       starSelected, setStarSelected,
     }}>
-      <div style = {{width: '70%', maxWidth: '1100px', left: '15%', margin: 'auto', marginBottom: '15%'}}>
+      <div style = {{width: '85%', maxWidth: '1220px', left: '15%', margin: 'auto', marginBottom: '15%'}}>
         <h2>RatingsAndReviews</h2>
         <div style={{width: '30%', float: 'left'}}>
           <h2>{averageRating}
