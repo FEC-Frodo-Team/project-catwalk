@@ -3,6 +3,7 @@ import {AppContext} from '../AppContext.jsx';
 import {ReviewContext} from './ReviewContext.jsx';
 import Rating from 'react-rating';
 import axios from 'axios';
+import Popup from 'reactjs-popup';
 
 
 export const ReviewTile = () => {
@@ -63,6 +64,7 @@ const prettifyDate = (date) => {
 
   const findSearchHighlight = (bodyText) => {
     if (bodyText.includes(searchTerm) && searchTerm.length>3) {
+      reviewBox.current.scrollTop=0;
       const indexes = [...bodyText.matchAll(new RegExp(searchTerm, 'gi'))].map(a => a.index);
       let leftOff =indexes[0];
       console.log(indexes);
@@ -95,7 +97,7 @@ const prettifyDate = (date) => {
       }
       let showMoreReviewBody=false;
       return (
-        <div style = {{borderBottom: "3px solid grey", paddingTop: "20px",marginBottom: '5%'}}>
+        <div style = {{borderBottom: "3px solid grey", paddingTop: "20px"}}>
           <div style = {{display: "flex", justifyContent: "space-between"}}>
             <Rating readonly = {true} initialRating = {oneResult.rating}/>
             <span>{oneResult.reviewer_name || oneResult.name}, {prettifyDate(oneResult.date)}</span>
@@ -106,6 +108,30 @@ const prettifyDate = (date) => {
           <div style = {{paddingBottom:'10px'}}>{oneResult.summary.length > summaryCharBreak ? '...'+oneResult.summary.substring(findWordBreak(oneResult.summary),oneResult.summary.length) : null}</div>
           <div id = {oneResult.body} onClick = {(e) => {e.target.innerText = e.target.id}}>
             {oneResult.body.length <= 250 ? findSearchHighlight(oneResult.body) : findSearchHighlight(oneResult.body.substring(0,250))+'...Show More'}
+          </div>
+          <div>
+            {oneResult.photos.map((onePhoto=> {
+                   return (
+                    <span>
+                      <Popup trigger={<img
+                        style={{width: '20%', height: '20%'}}
+                        src={onePhoto.url}/>}
+                      modal
+                      nested
+                      >
+                        {(close) => (
+                          <div className="modal">
+                            <span className="close" onClick={close}>&times;</span>
+                            <img className="modal-box"
+                              src={onePhoto.url}
+                              onClick={close} />
+                          </div>
+                        )}
+                      </Popup>
+
+                    </span>);
+              // return (<img src = {onePhoto.url} style = {{width: '10%', height: '10%'}}/>);
+            }))}
           </div>
           {oneResult.recommend?<div>√ I recommend this product</div>:null}
           {oneResult.response?<div style = {{backgroundColor: "grey"}}>

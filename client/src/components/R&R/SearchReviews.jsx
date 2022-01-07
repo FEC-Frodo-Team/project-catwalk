@@ -37,7 +37,7 @@ export const SearchReviews = () => {
 
 
   return (
-    <span style={{display: 'flex', justifyContent: 'space-between'}}><span>
+    <span style={{display: 'flex', justifyContent: 'space-between',paddingBottom:'1em'}}><span>
       <span>search</span>
       <input value = {searchTerm} onChange = {(e)=> {setSearchTerm(e.target.value);searchTerm.length>=3?sortReviews('Search'):null}}></input>
     </span><span>{reviews.data.results.length} reviews, sorted by <select onChange= {(e) => {sortReviews(e.target.value)}}>
