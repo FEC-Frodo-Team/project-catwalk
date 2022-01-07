@@ -12,7 +12,7 @@ export const AverageRating = () => {
   return (
     <div>
       <Rating initialRating={averageRating} readonly = {true} fractions = {4} emptySymbol={<div>&#9734;</div>} fullSymbol={<div>&#9733;</div>}/>
-      <a href='#ratings-reviews'>Read all reviews</a>
+      <a href='#ratings-reviews'>{'Read all reviews (' + totalNumberReviews + ')'}</a>
     </div>
   );
 };

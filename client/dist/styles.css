@@ -253,6 +253,9 @@ h2 {
 
 /* Sixto 101-200 */
 /*Entire product overview containter*/
+* {
+  scroll-behavior: smooth;
+}
 .product-wrapper {
   display: flex;
   padding: 5px;
