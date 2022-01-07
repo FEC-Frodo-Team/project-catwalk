@@ -13,7 +13,7 @@ export const RatingsAndReviews = () => {
   const {reviews, reviewMetaData, products, selectedProductID} = useContext(AppContext);
   const [showMore, setShowMore] = useState(1);
   const [showForm, setShowForm] = useState(false);
-  const [formObj, setFormObj] = useState({'product_id': selectedProductID,'photos': []});
+  const [formObj, setFormObj] = useState({'photos': []});
   const [charObj, setCharObj] = useState({});
   const [sortedBy, setSortedBy] = useState('Relevant');
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,17 +37,17 @@ export const RatingsAndReviews = () => {
       nearBottom, setNearBottom,
       starSelected, setStarSelected,
     }}>
-      <div style = {{width: '85%', maxWidth: '1220px', left: '15%', margin: 'auto', marginBottom: '15%'}}>
-        <h2>RatingsAndReviews</h2>
+      <div style = {{width: '75%', maxWidth: '1220px', left: '15%', margin: 'auto'}}>
+        <h2>Ratings & Reviews</h2>
         <div style={{width: '30%', float: 'left'}}>
           <h2>{averageRating}
-             <Rating initialRating={averageRating} readonly = {true} fractions = {4}/>
+             <Rating initialRating={averageRating} readonly = {true} fractions = {4}emptySymbol={<div>&#9734;</div>} fullSymbol={<div>&#9733;</div>} style={{color:'cadetblue'}}/>
           </h2>
           <p>{percentageRecommend.toFixed(1)}% of reviews recommend this product</p>
           <Breakdown />
           <Characteristics />
         </div>
-        <div style={{width: '70%', float: 'left', marginBottom: '5%'}}>
+        <div style={{width: '70%', float: 'left', marginBottom: '8%'}}>
         <SearchReviews />
         {Object.keys(starSelected).map((key) => {
           return starSelected[key] && key !== 'anySelected' ? <span>{key} Selected   </span>:null;
@@ -56,7 +56,14 @@ export const RatingsAndReviews = () => {
           <span style={{display: 'flex', justifyContent:'space-between'}}>
             {showMore*2<=reviews.data.results.length ?<button onClick = {() => {setShowMore(showMore+1)}}>MORE REVIEWS</button>:null}
             <ReviewForm />
-          <span onClick = {() => setShowForm(!showForm)}>ADD A REVIEW+</span>
+
+            <button style = {{color:'cadetblue'}}
+            onClick = {() => setShowForm(!showForm)}
+          className="addQ-btn"
+          onMouseEnter= {(e)=>{e.target.style.outline = '1px solid', e.target.style.cursor = 'pointer'}}
+          onMouseLeave= {(e)=>{e.target.style.outline = 'none'}}>
+        ADD A REVIEW +
+        </button>
           </span>
         </div>
       </div>

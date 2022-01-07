@@ -25,14 +25,16 @@ export const Breakdown = () => {
   return (
     <span>
       {Object.keys(ratingObj).slice(0).reverse().map((key) => {
-        return <div style={{width: '80%', overflow: 'hidden', whiteSpace: 'nowrap', border: (starSelected[key] && starSelected.anySelected)?'1px solid red':null}} onClick = {
+        return <div style={{width: '80%', overflow: 'hidden', whiteSpace: 'nowrap', outline: (starSelected[key] && starSelected.anySelected)?'1px solid red':null}} onClick = {
           () => {
             setStarSelected({...starSelected, [key]: !starSelected[key], 'anySelected': checkIfAnySelected({...starSelected, [key]: !starSelected[key], 'anySelected': false})}); setSearchTerm('');
           }}>
-          <span style = {{width: '10%'}}>{key} stars </span>
+          <span style = {{width: '10%', textDecoration: 'underline'}}
+                           onMouseEnter= {(e)=>{e.target.style.color = 'blue', e.target.style.cursor = 'pointer' }}
+                           onMouseLeave= {(e)=>{e.target.style.color = 'cadetblue'}}>{key} stars </span>
           {/* The bar itself will be two toned, green and grey. 1.2.4.2. p12*/}
-          <span style = {{color: 'cadetblue', display: 'inline-block', backgroundColor: 'cadetblue', width: `${78*ratingObj[key]/totalNumberReviews}%`, marginBottom: '10px'}}> .</span>
-          <span style = {{color: 'lightgray', display: 'inline-block', backgroundColor: 'LightGray', width: `${78-(78*ratingObj[key]/totalNumberReviews)}%`, marginBottom: '10px'}}>.</span>
+          <span style = {{color: 'cadetblue', display: 'inline-block', backgroundColor: 'cadetblue', width: `${78*ratingObj[key]/totalNumberReviews}%`, marginTop: '5px', marginBottom: '5px'}}> .</span>
+          <span style = {{color: 'lightgray', display: 'inline-block', backgroundColor: 'LightGray', width: `${78-(78*ratingObj[key]/totalNumberReviews)}%`, marginTop: '5px',marginBottom: '5px'}}>.</span>
         </div>;
       })}
     </span>

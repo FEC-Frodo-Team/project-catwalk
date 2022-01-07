@@ -89,17 +89,15 @@ const prettifyDate = (date) => {
       if (e.target.scrollHeight-e.target.scrollTop < 700) {
         setShowMore(showMore+1);
       }
-      console.log('got to scoll ', reviewBox, e.target.scrollHeight, e.target.scrollTop, e.target.offsetHeight);
-    }} style = {{overflow: 'auto', maxHeight: '500px'}}>
+    }} style = {{overflow: 'auto', minHeight: '30em',maxHeight: '500px',paddingBottom:'1em'}}>
     {reviewTilesToDisplay.map((oneResult) => {
       if (!starSelected[oneResult.rating] && starSelected.anySelected) {
         return null;
       }
-      let showMoreReviewBody=false;
       return (
         <div style = {{borderBottom: "3px solid grey", paddingTop: "20px"}}>
           <div style = {{display: "flex", justifyContent: "space-between"}}>
-            <Rating readonly = {true} initialRating = {oneResult.rating}/>
+            <Rating readonly = {true} initialRating = {oneResult.rating} emptySymbol={<div>&#9734;</div>} fullSymbol={<div>&#9733;</div>} style={{color:'cadetblue'}}/>
             <span>{oneResult.reviewer_name || oneResult.name}, {prettifyDate(oneResult.date)}</span>
           </div>
           <div>
@@ -107,14 +105,16 @@ const prettifyDate = (date) => {
           </div>
           <div style = {{paddingBottom:'10px'}}>{oneResult.summary.length > summaryCharBreak ? '...'+oneResult.summary.substring(findWordBreak(oneResult.summary),oneResult.summary.length) : null}</div>
           <div id = {oneResult.body} onClick = {(e) => {e.target.innerText = e.target.id}}>
-            {oneResult.body.length <= 250 ? findSearchHighlight(oneResult.body) : findSearchHighlight(oneResult.body.substring(0,250))+'...Show More'}
+            {oneResult.body.length <= 250 ? findSearchHighlight(oneResult.body) : <span><span>{findSearchHighlight(oneResult.body.substring(0,250))}</span><span id = {oneResult.body.substring(250,oneResult.body.length)} onClick = {(e) => {e.target.style.color = '#3f696a'; e.target.innerText = e.target.id; }}style ={{color:'blue'}}>...Show More</span></span>}
           </div>
           <div>
             {oneResult.photos.map((onePhoto=> {
                    return (
                     <span>
                       <Popup trigger={<img
-                        style={{width: '20%', height: '20%'}}
+                        style={{width: '6em', height: '6em', margin: '1em'}}
+                        onMouseEnter= {(e)=>{e.target.style.outline = '3px solid', e.target.style.cursor = 'pointer'}}
+                        onMouseLeave= {(e)=>{e.target.style.outline = 'none'}}
                         src={onePhoto.url}/>}
                       modal
                       nested
@@ -133,12 +133,22 @@ const prettifyDate = (date) => {
               // return (<img src = {onePhoto.url} style = {{width: '10%', height: '10%'}}/>);
             }))}
           </div>
-          {oneResult.recommend?<div>√ I recommend this product</div>:null}
+          {oneResult.recommend?<div style = {{padding:'2px'}}>√ I recommend this product</div>:null}
           {oneResult.response?<div style = {{backgroundColor: "grey"}}>
             <h2>Response:</h2>
             <p>{oneResult.response}</p>
             </div>:null}
-          <div><span id = {oneResult.review_id } className = {oneResult.helpfulness} onClick= {(e) => {helpful(e);console.log(e.target.className);e.target.innerText = `Helpful? Yes(${Number(e.target.className)+1})`}}>Helpful? Yes({oneResult.helpfulness})</span>  <span className = {oneResult.review_id }onClick = {(e)=>{report(e)}}>|  Report Component</span></div>
+          <div className="report"><span id = {oneResult.review_id } className = {oneResult.helpfulness}
+          onClick= {(e) => {helpful(e);console.log(e.target.className);e.target.innerText = `Helpful? Yes(${Number(e.target.className)+1})`}}
+          onMouseEnter= {(e)=>{e.target.style.textDecoration = 'underline', e.target.style.cursor = 'pointer'}}
+          onMouseLeave= {(e)=>{e.target.style.textDecoration = 'none'}}>
+            Helpful? Yes({oneResult.helpfulness})</span>
+            <span className = {oneResult.review_id }
+            onClick = {(e)=>{report(e)}}
+            onMouseEnter= {(e)=>{e.target.style.textDecoration = 'underline', e.target.style.cursor = 'pointer'}}
+           onMouseLeave= {(e)=>{e.target.style.textDecoration = 'none'}}
+
+            >|  Report</span></div>
       </div>);
     })}
   </div>

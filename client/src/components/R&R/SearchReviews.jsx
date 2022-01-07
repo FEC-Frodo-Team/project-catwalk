@@ -1,23 +1,39 @@
 import React, {useContext} from 'react';
 import {AppContext} from '../AppContext.jsx';
 import {ReviewContext} from './ReviewContext.jsx';
+import axios from 'axios';
 
 export const SearchReviews = () => {
-  const {reviews} = useContext(AppContext);
+  const {reviews, setReviews, selectedProductID} = useContext(AppContext);
   const {searchTerm, setSearchTerm, setSortedBy} = useContext(ReviewContext);
 
   const sortReviews = (type) => {
     console.log('CHANGING SORT:', type, reviews.data.results);
     if (type === 'Most Helpful') {
-      reviews.data.results.sort((review, nextReview) =>
-      (review.helpfulness > nextReview.helpfulness) ? -1 : 1);
+      axios
+          .get(`api/reviews?product_id=${selectedProductID}&count=300&sort=helpful`)
+          .then((results) => {
+            console.log('got reviews: ', results);
+            setReviews(results);});
+      // reviews.data.results.sort((review, nextReview) =>
+      // (review.helpfulness > nextReview.helpfulness) ? -1 : 1);
     } else if (type === 'Relevant') {
-      reviews.data.results.sort((review, nextReview) =>
-      (review.helpfulness || nextReview.helpfulness) ? (review.helpfulness/(new Date().getTime() -new Date(review.date).getTime()) > nextReview.helpfulness/(new Date().getTime() - new Date(nextReview.date).getTime())) ? -1 : 1
-      :(new Date(review.date) > new Date(nextReview.date)) ? -1 : 1);
+      axios
+      .get(`api/reviews?product_id=${selectedProductID}&count=300&sort=relevant`)
+      .then((results) => {
+        console.log('got reviews: ', results);
+        setReviews(results);});
+      // reviews.data.results.sort((review, nextReview) =>
+      // (review.helpfulness || nextReview.helpfulness) ? (review.helpfulness/(new Date().getTime() -new Date(review.date).getTime()) > nextReview.helpfulness/(new Date().getTime() - new Date(nextReview.date).getTime())) ? -1 : 1
+      // :(new Date(review.date) > new Date(nextReview.date)) ? -1 : 1);
     } else if (type === 'Newest') {
-      reviews.data.results.sort((review, nextReview) =>
-      (new Date(review.date) > new Date(nextReview.date)) ? -1 : 1);
+      axios
+      .get(`api/reviews?product_id=${selectedProductID}&count=300&sort=newest`)
+      .then((results) => {
+        console.log('got reviews: ', results);
+        setReviews(results);});
+      // reviews.data.results.sort((review, nextReview) =>
+      // (new Date(review.date) > new Date(nextReview.date)) ? -1 : 1);
     } else if (type === 'Search') {
       reviews.data.results.sort((review, nextReview) =>
       (review.body.includes(searchTerm) &&nextReview.body.includes(searchTerm))?
@@ -38,9 +54,11 @@ export const SearchReviews = () => {
 
   return (
     <span style={{display: 'flex', justifyContent: 'space-between',paddingBottom:'1em'}}><span>
-      <span>search</span>
-      <input value = {searchTerm} onChange = {(e)=> {setSearchTerm(e.target.value);searchTerm.length>=3?sortReviews('Search'):null}}></input>
-    </span><span>{reviews.data.results.length} reviews, sorted by <select onChange= {(e) => {sortReviews(e.target.value)}}>
+      <span></span>
+      <input id="QA_SearchBar" style = {{width: '25em', borderRight: '1px solid cadetblue'}}
+        placeholder="Search for questions here"value = {searchTerm} onChange = {(e)=> {setSearchTerm(e.target.value);searchTerm.length>=3?sortReviews('Search'):null}}></input>
+    </span>
+    <span>{reviews.data.results.length} reviews, sorted by <select onChange= {(e) => {sortReviews(e.target.value)}}>
       <option >Relevant</option>
       <option >Most Helpful</option>
       <option >Newest</option>
