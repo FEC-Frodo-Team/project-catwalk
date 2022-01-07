@@ -19,7 +19,7 @@ export const ExpandView = ({expandEnabled, openExandView, mainPic, mainPicRight,
       const checkedThumb = inputs.filter((item) => item.checked === true);
       const checkedThumbIndex = inputs.indexOf(checkedThumb[0]);
 
-      checkedThumb[0].nextElementSibling.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
+      // checkedThumb[0].nextElementSibling.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
 
       if (expandEnabled) {
         (checkedThumbIndex === 0)? document.getElementById('expand-btn-left').disabled = true: null;
