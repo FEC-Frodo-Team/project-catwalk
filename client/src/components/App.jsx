@@ -49,7 +49,7 @@ export const App = () => {
 
     // Ratings and reviews Matt's main info.
     axios
-        .get(`api/reviews?product_id=${selectedProductID}&count=100`)
+        .get(`api/reviews?product_id=${selectedProductID}&count=300&sort=relevant`)
         .then((results) => {
           console.log('got reviews: ', results);
           setReviews(results);

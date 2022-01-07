@@ -3,19 +3,22 @@ import {AppContext} from '../AppContext.jsx';
 import axios from 'axios';
 import {ReviewContext} from './ReviewContext.jsx';
 import Rating from 'react-rating';
+import {AiOutlineStar, AiTwotoneStar} from 'react-icons/ai';
 
 export const ReviewForm = () => {
-  const {reviewMetaData, products, selectedProductID, setReviews, reviews} = useContext(AppContext);
+  const {reviewMetaData, products, selectedProductID, setReviews, reviews, currentProduct} = useContext(AppContext);
   const {showForm, setShowForm, formObj, setFormObj, charObj, setCharObj} = useContext(ReviewContext);
 
 
   const formSubmit = () => {
-    const dummyObj = {...formObj, characteristics: charObj, recommend: formObj.recommend === 'Yes'? true:false};
+    const dummyObj = {...formObj, characteristics: charObj, product_id: Number(selectedProductID), recommend: formObj.recommend === 'Yes'? true:false};
     setFormObj(dummyObj);
+    console.log('clicked the submit!!', dummyObj);
     axios.post(`api/reviews`, dummyObj).then((err, result)=>{
       if (err) {
-        console.log(err);
+        console.log(dummyObj, 'ERROR', err);
       }
+      console.log(dummyObj);
       setShowForm(!showForm);
       setReviews({...reviews, 'data': {...reviews.data, 'results': reviews.data.results.concat([dummyObj])}});
       setCharObj({});
@@ -65,20 +68,20 @@ export const ReviewForm = () => {
   };
 
 
-  const productName = 'testing'; // products.data.filter((item) => item.id === selectedProductID)[0].name;
   return (
-    <div>
+    <div >
       {showForm? <div className="modal"><form className="modal-box">
         <span className='close' onClick = {() => setShowForm(!showForm)} >&times;</span>
         <h2 style = {{textAlign: 'center'}}>Write Your Review </h2>
-        <div style = {{textAlign: 'center'}}>About the {productName}</div>
-        <h2> Overall rating (mandatory)</h2>
-        <div>Star selector component
-          <Rating placeholderRating ={formObj.rating || 0} onClick = {(value) => {
+        <div style = {{textAlign: 'center'}}>About the {currentProduct.data.name}</div>
+        <h3> Overall rating (mandatory)</h3>
+        <div>
+          <Rating emptySymbol={<AiOutlineStar/>}
+  fullSymbol={<AiTwotoneStar/>} style={{color:'cadetblue'}} placeholderRating ={formObj.rating || 0} onClick = {(value) => {
             setFormObj({...formObj, 'rating': value});
           }}/>
         </div>
-        <h2>Do you recommend this product? (mandatory)</h2>
+        <h3>Do you recommend this product? (mandatory)</h3>
         <div>
           <input checked = {!formObj.recommend || formObj.recommend == 'Yes'} onClick = {(e) => {
             setFormObj({...formObj, 'recommend': e.target.value});
@@ -89,10 +92,10 @@ export const ReviewForm = () => {
           }}/>
           <label>No</label>
         </div>
-        <h2>Characteristics (mandatory)</h2>
-        <div>{Object.keys(reviewMetaData.data.characteristics).map((key) =>{
+        <h3>Characteristics (mandatory)</h3>
+        <div >{Object.keys(reviewMetaData.data.characteristics).map((key) =>{
           return (<div>
-            <h2>{key}</h2>
+            <h3>              {key}</h3>
             <span style = {{display: 'flex', justifyContent: 'space-between'}}>
               {/* {arrOfRatings.map((oneRating) => {
             return (
@@ -131,22 +134,22 @@ export const ReviewForm = () => {
             </span>
           </div>);
         })}
-        <h2>Review summary</h2>
+        <h3>Review summary</h3>
         <input value = {formObj.summary || null} onChange = {(e) => {
           setFormObj({...formObj, 'summary': e.target.value});
         }} type = 'text' maxLength="60" placeholder = 'Example: Best purchase ever!' ></input>
-        <h2> Review body (mandatory)</h2>
-        <input required value = {formObj.body || null} onChange = {(e) => {
+        <h3> Review body (mandatory)</h3>
+        <textarea autocorrect = 'on' required style = {{height:'5em', width:'90%'}} value = {formObj.body || null} onChange = {(e) => {
           setFormObj({...formObj, 'body': e.target.value});
-        }} type = 'text' minLength="50" maxLength="1000" placeholder = 'Why did you like the product or not?'></input>
+        }} type = 'text' minLength="50" maxLength="1000" placeholder = 'Why did you like the product or not?'></textarea>
         </div>
-        <h2>Upload your photos</h2>
+        <h3>Upload your photos</h3>
         <input ></input>
-        <h2>What is your nickname (mandatory)</h2>
+        <h3>What is your nickname (mandatory)</h3>
         <input required value = {formObj.nickname || null} onChange = {(e) => {
           setFormObj({...formObj, 'name': e.target.value});
         }} type = 'text' maxLength="50" placeholder ='Example: jackson11!'></input>
-        <h2>Your email (mandatory)</h2>
+        <h3>Your email (mandatory)</h3>
         <input required value = {formObj.email || null} onChange = {(e) => {
           setFormObj({...formObj, 'email': e.target.value});
         }}type = 'email' maxLength="60" placeholder ='Example: jackson11@email.com'></input>
