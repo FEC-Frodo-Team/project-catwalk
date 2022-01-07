@@ -4,6 +4,7 @@ import {AppContext} from '../AppContext.jsx';
 import {ProductContext} from './ProductContext.jsx';
 import {StyleSelector} from './StyleSelector.jsx';
 import {AddToCart} from './AddToCart.jsx';
+import {AverageRating} from './AverageRating.jsx';
 
 export const ProductInformation = (props) => {
   const {products, setProducts} = useContext(AppContext);
@@ -31,6 +32,7 @@ export const ProductInformation = (props) => {
     !productStyle.data ? <div>Loading Image..</div>:
     <div className='product-info-container'>
       <h2 id='product-info-header'>Product Details</h2>
+      <AverageRating />
       <div>{currentProduct.data.category + ': ' + currentProduct.data.name}</div>
       {checkSale()}
       <i><h4>{currentProduct.data.slogan}</h4></i>
