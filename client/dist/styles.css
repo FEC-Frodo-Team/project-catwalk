@@ -403,7 +403,7 @@ hr {
   padding: 20px;
   height: 100%;
   column-gap: 33%;
-  row-gap: 50%;
+  row-gap: 20px;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
