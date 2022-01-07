@@ -76,8 +76,8 @@ export const ReviewForm = () => {
         <div style = {{textAlign: 'center'}}>About the {currentProduct.data.name}</div>
         <h3> Overall rating (mandatory)</h3>
         <div>
-          <Rating emptySymbol={<AiOutlineStar/>}
-  fullSymbol={<AiTwotoneStar/>} style={{color:'cadetblue'}} placeholderRating ={formObj.rating || 0} onClick = {(value) => {
+          <Rating emptySymbol={<span><AiOutlineStar/></span>}
+  fullSymbol={<span><AiTwotoneStar/></span>} style={{color:'cadetblue'}} initialRating={formObj.rating || 0} onClick = {(value) => {
             setFormObj({...formObj, 'rating': value});
           }}/>
         </div>
