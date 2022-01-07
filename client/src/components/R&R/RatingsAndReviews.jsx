@@ -19,10 +19,12 @@ export const RatingsAndReviews = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [nearBottom, setNearBottom] = useState(false);
   const [starSelected, setStarSelected] = useState({anySelected: false, 1: false, 2: false, 3: false, 4: false, 5: false});
-  const totalNumberReviews = (Number(reviewMetaData.data.recommended.true)+Number(reviewMetaData.data.recommended.false))
+  const totalNumberReviews = (Number(reviewMetaData.data.recommended.true)+Number(reviewMetaData.data.recommended.false));
   const percentageRecommend = reviews.data.results.length ?
     100*Number(reviewMetaData.data.recommended.true)/totalNumberReviews : 0;
-  const averageRating = (Object.keys(reviewMetaData.data.ratings).reduce((previous,key)=> {return (previous+Number(reviewMetaData.data.ratings[key])*Number(key)); },0)/totalNumberReviews).toFixed(1);
+  const averageRating = (Object.keys(reviewMetaData.data.ratings).reduce((previous, key)=> {
+    return (previous+Number(reviewMetaData.data.ratings[key])*Number(key));
+  }, 0)/totalNumberReviews).toFixed(1);
 
 
   return (
@@ -37,7 +39,7 @@ export const RatingsAndReviews = () => {
       nearBottom, setNearBottom,
       starSelected, setStarSelected,
     }}>
-      <div style = {{width: '75%', maxWidth: '1220px', left: '15%', margin: 'auto'}}>
+      <div id ='ratings-reviews' style = {{width: '75%', maxWidth: '1220px', left: '15%', margin: 'auto'}}>
         <h2>Ratings & Reviews</h2>
         <div style={{width: '30%', float: 'left'}}>
           <h2>{averageRating}
@@ -53,9 +55,12 @@ export const RatingsAndReviews = () => {
           return starSelected[key] && key !== 'anySelected' ? <span>{key} Selected   </span>:null;
         })}
           <ReviewTile />
-          <span style={{display: 'flex', justifyContent:'space-between'}}>
-            {showMore*2<=reviews.data.results.length ?<button onClick = {() => {setShowMore(showMore+1)}}>MORE REVIEWS</button>:null}
+          <span style={{display: 'flex', justifyContent: 'space-between'}}>
+            {showMore*2<=reviews.data.results.length ?<button onClick = {() => {
+              setShowMore(showMore+1);
+            }}>MORE REVIEWS</button>:null}
             <ReviewForm />
+
 
             <button style = {{color:'cadetblue'}}
             onClick = {() => setShowForm(!showForm)}
@@ -64,6 +69,7 @@ export const RatingsAndReviews = () => {
           onMouseLeave= {(e)=>{e.target.style.outline = 'none'}}>
         ADD A REVIEW +
         </button>
+
           </span>
         </div>
       </div>

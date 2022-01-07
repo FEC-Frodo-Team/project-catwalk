@@ -6,9 +6,9 @@ import axios from 'axios';
 export const AddToCart = (props) => {
   const {productStyle} = useContext(ProductContext);
   const {selectedStyle, setSelectedStyle} = useContext(ProductContext);
-  const {cart, setCart} = useContext(AppContext);
-  const {selectedProductID, setSelectedProductID} = useContext(AppContext);
   const {availableQuantity, setQuantity} = useContext(ProductContext);
+  const [sizeNotSelected, setSize] = useState(true);
+  const [sizeWarning, setSizeWarning] = useState(false);
   // const item = products.data.filter((item) => item.id === selectedProductID);
 
   const mapSizes = () => {
@@ -21,8 +21,10 @@ export const AddToCart = (props) => {
   const selectedSize = (event) => {
     const item = productStyle.data.results.filter((item) => item.name === selectedStyle);
     const selectedSku = Object.values(item[0].skus).filter((sku) => sku.size === event.target.value);
-    (event.target.value === 'Select Size')? setQuantity('1'):
+    (event.target.value === 'Select Size')? setQuantity('-'):
     setQuantity(selectedSku[0].quantity);
+    setSize(false);
+    setSizeWarning(false);
   };
 
   const mapQuantity = () => {
@@ -33,20 +35,34 @@ export const AddToCart = (props) => {
       amountArray.push(i+1);
     }
 
-    return amountArray.map((num) => <option>{num}</option>);
+    if (sizeNotSelected === true) {
+      return (<option>{'-'}</option>);
+    } else {
+      return amountArray.map((num) => <option>{num}</option>);
+    }
+  };
+
+  const clickAddCart = (event) => {
+    sizeNotSelected? setSizeWarning(true): setSizeWarning(false);
   };
 
   return (
     !productStyle.data ? <div>Loading Image..</div>:
-    <div className='cart-container'>
-      <select id='select-size' onClick={selectedSize}>
-        <option>Select Size</option>
-        {mapSizes()}
-      </select>
-      <select id='quantity'>
-        {mapQuantity()}
-      </select>
-      <button id='add-to-cart'>Add To Cart</button>
-    </div>
+    <>
+      <div>{sizeWarning?'Please Select a Size':null}</div>
+      <div className='cart-container'>
+        <div>
+
+          <select id='select-size' style={{display: 'block'}} onClick={selectedSize}>
+            <option>Select Size</option>
+            {mapSizes()}
+          </select>
+        </div>
+        <select id='quantity' disabled={sizeNotSelected} style={{height: '19px'}}>
+          {mapQuantity()}
+        </select>
+        <button id='add-to-cart' onClick={clickAddCart}>Add To Cart</button>
+      </div>
+    </>
   );
 };

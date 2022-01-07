@@ -14,7 +14,6 @@ export const ImageGallery = (props) => {
   const {expandEnabled, setExpand} = useContext(ProductContext);
 
   useEffect(() => {
-    // console.log('Use Effect executed');
     const inputs = Array.from(document.querySelectorAll('.photo-thumbnails-array input'));
     if (inputs.length !== 0) {
       const checkedThumb = inputs.filter((item) => item.checked === true);
@@ -23,7 +22,7 @@ export const ImageGallery = (props) => {
       setMainPic(checkedThumb[0].value);
 
       checkedThumb[0].nextElementSibling.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
-      // console.log(document.getElementsByClassName('main-btn-left'));
+
       (checkedThumbIndex === 0)? document.getElementsByClassName('main-btn-left')[0].disabled = true: null;
       (checkedThumbIndex !== 0)? document.getElementsByClassName('main-btn-left')[0].disabled = false: null;
       (checkedThumbIndex === inputs.length - 1)? document.getElementsByClassName('main-btn-right')[0].disabled = true: null;
