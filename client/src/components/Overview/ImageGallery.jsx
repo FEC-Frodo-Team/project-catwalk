@@ -21,7 +21,7 @@ export const ImageGallery = (props) => {
 
       setMainPic(checkedThumb[0].value);
 
-      checkedThumb[0].nextElementSibling.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
+      // checkedThumb[0].nextElementSibling.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'nearest'});
 
       (checkedThumbIndex === 0)? document.getElementsByClassName('main-btn-left')[0].disabled = true: null;
       (checkedThumbIndex !== 0)? document.getElementsByClassName('main-btn-left')[0].disabled = false: null;
