@@ -5,13 +5,10 @@ import {BsSearch} from 'react-icons/bs';
 
 
 export const SearchQuestions = () => {
-  const {questions, setQuestions, defaultQs, setDefaultQs} = useContext(QuestionsContext);
+  const {questions, setQuestions, defaultQs} = useContext(QuestionsContext);
   const [searchTerm, setSearchTerm] = useState('');
 
-
-  const handleSearch = (event, term) => {
-    // setSearchedFor(true);
-    event.preventDefault();
+  const handleSearch = (term) => {
     if (term.length < 3) {
       setQuestions(defaultQs);
       return;
@@ -19,29 +16,31 @@ export const SearchQuestions = () => {
       const copyData = JSON.parse(JSON.stringify(defaultQs));
       const filtered = defaultQs.results.filter((question) => {
         return (
-          question.question_body.toLowerCase().includes(searchTerm.toLowerCase())
+          question.question_body
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
         );
       });
       copyData.results = filtered;
       setQuestions(copyData);
     }
-    // console.log(copyData);
-    // console.log(defaultQs);
   };
 
   return (
     <form style={styles.searchContainer} >
       <input
         type="text"
-        style={styles.searchBar}
         id="QA_SearchBar"
-
+        placeholder="Search for questions here"
         onChange={(event) => {
           setSearchTerm(event.target.value);
-          handleSearch(event, searchTerm);
+          handleSearch(searchTerm);
         }}
       />
-      <button style={styles.searchBtn}> <BsSearch /></button>
+      <button id="search-btn"
+        onClick={(e) => e.preventDefault()
+        }>
+        <BsSearch /></button>
     </form>
   );
 };

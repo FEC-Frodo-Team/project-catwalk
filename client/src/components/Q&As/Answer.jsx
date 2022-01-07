@@ -24,7 +24,7 @@ export const Answer = (props) => {
                 <div
                   key={index}>
                   <Popup trigger={<img
-                    style={styles.pic}
+                    className="answer-pic"
                     src={pic.url}/>}
                   modal
                   nested
