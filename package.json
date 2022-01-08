@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --config ./webpack.config.js --mode development -w",
+    "prod": "webpack --config ./webpack.config.js --mode production -w",
     "build": "webpack",
     "start": "nodemon server/server.js"
   },
